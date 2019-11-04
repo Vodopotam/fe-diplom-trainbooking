@@ -1,10 +1,5 @@
 'use strict';
 
-// let sliderElem = document.querySelector('.slider');
-// let dotElems = sliderElem.querySelectorAll('.slider__dot');
-// let indicatorElem = sliderElem.querySelector('.slider__indicator');
-// let dots = dotElems.length;
-
 let slideIndex = 1;
 showSlides(slideIndex);
 
@@ -33,26 +28,6 @@ function showSlides(n) {
 
 
 }
-
-// console.log(dotElems.length);
-// Array.prototype.forEach.call(dotElems, (dotElem) => {
-		
-// 	dotElem.addEventListener('click', (e) => {
-// 		e.preventDefault();
-
-// 		let currentPos = parseInt(sliderElem.getAttribute('data-pos'))
-// 		let newPos     = parseInt(dotElem.getAttribute('data-pos'))
-
-// 		let newDirection     = (newPos > currentPos ? 'right' : 'left')
-// 		let currentDirection = (newPos < currentPos ? 'right' : 'left')
-
-// 		// indicatorElem.classList.remove(`slider__indicator--${ currentDirection }`)
-// 		// indicatorElem.classList.add(`slider__indicator--${ newDirection }`)		
-// 		sliderElem.setAttribute('data-pos', newPos)
-		
-// 	})
-
-// })
 
 const hidden = document.querySelectorAll('.hidden-message'),
 	body = document.querySelector('.content'),
