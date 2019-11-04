@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Trainbooking</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<header class="header trainselection">
+			<a class="logo" id="logo-top" href="index.html">Лого</a>
+			<nav class="header-navigation">
+				<div class="wrapper">
+					<ul class="navigation-list">
+						<li class="navigation-list__item"><a href="index.html#about-us">О нас</a></li>
+						<li class="navigation-list__item"><a href="index.html#features">Как это работает</a></li>
+						<li class="navigation-list__item"><a href="index.html#reviews">Отзывы</a></li>
+						<li class="navigation-list__item"><a href="index.html#contacts">Контакты</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="header-form-container wrapper trainselection">	
+				<form class="header-form" action="TrainSelection.html">
+					<div class="direction">
+						<h3 class="header-form-title">Направление</h3>
+					<input class="header-form-input" type="text" name="from" placeholder="Откуда">
+					<div class="direction-update"></div>
+					<input class="header-form-input" type="text" name="to" placeholder="Куда">
+					</div>
+					<div class="date">
+						<h3 class="header-form-title">Дата</h3>
+						<input class="header-form-input" type="date" name="arrival">
+						<input class="header-form-input" type="date" name="departure">
+					</div>
+					<input class="header-form-submit" type="submit" name="submit" value="Найти билеты">
+				</form>
+			</div>
+
+			<ul class="order-navigation">
+				<li class="order-navigation__list active">
+					<span></span>
+					<p class="order-navigation__text">Билеты</p>
+				</li>
+				<li class="order-navigation__list active">
+					<span></span>
+					<p class="order-navigation__text">Пассажиры</p>
+				</li>
+				<li class="order-navigation__list active">
+					<span></span>
+					<p class="order-navigation__text">Оплата</p>
+				</li>
+				<li class="order-navigation__list">
+					<span></span>
+					<p class="order-navigation__text">Проверка</p>
+				</li>
+			</ul>
+		</header>
+
+		<div class="main-information payment">
+			<div class="wrapper">
+				<aside class="aside-block">
+					<div class="trip-options">
+						<h4 class="passengers-header">Детали поездки</h4>
+						<div class="direction-to direction-to_passengers">
+							<div class="direction-short-block">
+								<h4 class="direction-to__title direction-to__title_passengers">Туда</h4>
+								<p class="direction-to__date">30.08.2018</p>
+								<div class="direction-to__more more"></div>
+							</div>
+							<div class="direction-full-block">
+								<div class="train-number">
+									<p class="train-number__text">&#8470; Поезда</p>
+									<p class="train-number__number">116C</p>
+								</div>
+								<div class="train-route">
+									<p class="train-route__text">Название</p>
+									<p class="train-route__cities">Адлер<br>Санкт-Петербург</p>
+								</div>
+
+								<div class="train-info-time">
+									<div class="time-info__departure time-info__departure_passengers">
+										<p class="time-info__departure-time">00:10<br><span class="direction-to__date direction-to__date_full">30.08.2018</span></p>
+										<div class="time-info__duration">9 : 42</div>
+										<p class="time-info__arrival-time">09:52<br><span class="direction-to__date direction-to__date_full">31.08.2018</span></p>
+									</div>
+									<div class="train-info-route">
+										<p class="time-info__departure-city">Москва<br><span class="time-info__departure-station">Курский<br>вокзал</span></p>
+										<p class="time-info__arrival-city">Санкт-Петербург<br><span class="time-info__arrival-station">Ладожский<br>вокзал</span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="direction-from direction-from_passengers">
+							<div class="direction-short-block">
+								<h4 class="direction-from__title direction-from__title_passengers">Обратно</h4>
+								<p class="direction-from__date">09.09.2018</p>
+								<div class="direction-from__more more"></div>
+							</div>
+							<div class="direction-full-block">
+								<div class="train-number">
+									<p class="train-number__text">&#8470; Поезда</p>
+									<p class="train-number__number">116C</p>
+								</div>
+								<div class="train-route">
+									<p class="train-route__text">Название</p>
+									<p class="train-route__cities">Адлер<br>Санкт-Петербург</p>
+								</div>
+
+								<div class="train-info-time">
+									<div class="time-info__departure time-info__departure_passengers">
+										<p class="time-info__departure-time">00:10<br><span class="direction-to__date direction-to__date_full">09.09.2018</span></p>
+										<div class="time-info__duration time-info__duration_reverse">9 : 42</div>
+										<p class="time-info__arrival-time">09:52<br><span class="direction-to__date direction-to__date_full">08.09.2018</span></p>
+									</div>
+									<div class="train-info-route">
+										<p class="time-info__departure-city">Москва<br><span class="time-info__departure-station">Курский<br>вокзал</span></p>
+										<p class="time-info__arrival-city">Санкт-Петербург<br><span class="time-info__arrival-station">Ладожский<br>вокзал</span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="passengers-info">
+							<div class="direction-short-block">
+								<h4 class="direction-from__title direction-from__title_passengers">Пассажиры</h4>
+								<div class="direction-to__more more"></div>
+							</div>
+							<div class="direction-full-block">
+								<div class="passengers-adults">
+									<p class="passengers-text">2 Взрослых</p>
+									<div class="passengers-price">5 840 &#x20bd;</div>
+								</div>
+								<div class="passengers-children">
+									<p class="passengers-text">1 Ребенок</p>
+									<div class="passengers-price">1 920 &#x20bd;</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="total-price">
+							<p class="total-price__text">Итог</p>
+							<div class="total-price__price">7 760 &#x20bd;</div>
+						</div>
+					</div>
+				</aside>
+
+				<main class="main-block main-block_payment">
+					<div class="main-block__wrapper">
+						<form action="OrderSubmition.html" class="payment-form">
+
+							<div class="personal-info">
+								<div class="payment-header">
+									<h5 class="payment-title">Персональные данные</h5>
+								</div>
+								<div class="full-name full-name_payment">
+									<label class="passenger-label">Фамилия<br>
+										<input class="passenger-input" type="text" name="surname" placeholder="Мартынюк" required>
+									</label>
+									<label class="passenger-label">Имя<br>
+										<input class="passenger-input" type="text" name="name" placeholder="Ирина" required>
+									</label>
+									<label class="passenger-label">Отчество<br>
+										<input class="passenger-input" type="text" name="patronymic" placeholder="Эдуардовна" required>
+									</label>
+								</div>
+								<label class="passenger-label passenger-label_payment">Контактный телефон<br>
+									<input class="passenger-input passenger-input_payment" type="tel" name="phone" placeholder="+7 &#95;&#95; &#95;&#95; &#95;&#95; &#95;&#95;" required>
+								</label>
+								<label class="passenger-label passenger-label_payment">E-mail<br>
+									<input class="passenger-input passenger-input_payment" type="email" name="email" placeholder="inbox@gmail.ru" required>
+								</label>
+							</div>
+
+							<div class="payment-method">
+								<div class="payment-header">
+									<h5 class="payment-title">Способ оплаты</h5>
+								</div>
+								<div class="checkbox checkbox_payment">
+									<input id="online" class="checkbox__input" type="radio" name="mobility" value="subscribed">
+									<label for="online" class="checkbox__label checkbox__label_payment">Онлайн</label>
+									<ul class="payment-selection">
+										<li class="payment-selection__item">Банковской<br>картой</li>
+										<li class="payment-selection__item">PayPal</li>
+										<li class="payment-selection__item">Visa QIWI Wallet</li>
+									</ul>
+								</div>
+								<div class="checkbox checkbox_payment">
+									<input id="cash" class="checkbox__input" type="radio" name="mobility" value="subscribed" checked>
+									<label for="cash" class="checkbox__label checkbox__label_payment">Наличными</label>
+								</div>
+							</div>
+
+							<input type="submit" name="submit" value="Купить билеты" class="payment-submit">
+						</form>
+					</div>
+				</main>
+			</div>
+		</div>
+
+
+		<footer class="footer">
+			<div class="footer-top wrapper">
+				<div class="footer-top-contacts">
+					<h3 class="footer-top-title">Свяжитесь с нами</h3>
+					<ul class="footer-top-contacts-list">
+						<li class="footer-top-phone"><a href="tel:+78000000000">8 (800) 000 00 00</a></li>
+						<li class="footer-top-email"><a href="mailto:inbox@mail.ru">inbox@mail.ru</a></li>
+						<li class="footer-top-skype"><a href="skype:tu.train.tickets?call">tu.train.tickets</a></li>
+						<li class="footer-top-address">г.Москва<br>ул.Московская 27-35<br>555 555</li>
+					</ul>
+				</div>
+				<div class="footer-top-social">
+					<h3 class="footer-top-title">Подписка</h3>
+					<p class="footer-top-text">Будьте в курсе событий</p>
+					<form class="footer-top-social-form" action="#">
+						<input class="footer-top-social-email" type="email" name="email" placeholder="e-mail">
+						<input class="footer-top-social-submit" type="submit" name="submit">
+					</form>
+					<div class="footer-top-social-links">
+						<h3 class="footer-top-title">Подписывайтесь на нас</h3>
+						<ul class="footer-top-links">
+							<li><a class="youtube" href="#"></a></li>
+							<li><a class="linkedIn" href="#"></a></li>
+							<li><a class="google" href="#"></a></li>
+							<li><a class="facebook" href="#"></a></li>
+							<li><a class="twitter" href="#"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom wrapper" id="contacts">
+				<a class="logo" href="index.html">Лого</a>
+				<div class="totop" onclick='document.getElementById("logo-top").scrollIntoView({behavior: "smooth"});'></div>
+				<div class="date">2018 WEB</div>
+			</div>
+		</footer>
+		<script type="text/javascript" src="js/TrainSelection.js"></script>
+	</body>
+</html>
