@@ -17,7 +17,7 @@ import Footer from './js/Components/Footer.js';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div>
         <Switch>
           <Route path="/trainselection/" component={TrainSelection} />
