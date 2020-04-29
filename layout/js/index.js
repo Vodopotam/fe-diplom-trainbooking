@@ -3,12 +3,15 @@
 let slideIndex = 1;
 showSlides(slideIndex);
 
-function currentSlide(n) {
+ function currentSlide(n) {
+	  let slides = document.getElementsByClassName("slider__slide");
+    let dots = document.getElementsByClassName("slider__dot");
     showSlides(slideIndex = n);
 }
 
 
-function showSlides(n) {
+ function showSlides(n) {
+
     let slides = document.getElementsByClassName("slider__slide");
     let dots = document.getElementsByClassName("slider__dot");
     if (n > slides.length) {
@@ -25,8 +28,6 @@ function showSlides(n) {
     }
     slides[slideIndex - 1].style.display = "flex";
     dots[slideIndex - 1].className += " active";
-
-
 }
 
 const hidden = document.querySelectorAll('.hidden-message'),
@@ -42,6 +43,4 @@ for (let i=0; i <= hidden.length; i++) {
 		body.classList.remove('blur');
 	})
 }
-
-
 

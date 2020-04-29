@@ -10,6 +10,9 @@ let fullBlock = document.querySelectorAll('.passenger-full-block'),
 newPassenger.addEventListener('click', function() {
 	let newp = passenger.cloneNode(true);
 	newp.id = '';
+	newp.onClick = function() {
+		console.log('123');
+	}
 	console.log(newp);
 	mainBlock.appendChild(newp);
 	mainBlock.insertBefore(newp, newPassenger);
@@ -26,5 +29,4 @@ for (let i=0; i < fullBlock.length; i++) {
 		}
 	});
 }
-
 

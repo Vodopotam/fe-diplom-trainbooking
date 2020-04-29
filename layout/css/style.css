@@ -890,7 +890,7 @@ SLIDER */
 	width: 48%;
 }
 
-.trainselection > .header-form input[type="submit"] {
+.header-form-submit.header-form-submit_trainselection {
 	width: 22%;
 	margin-top: 0.5rem;
 }
