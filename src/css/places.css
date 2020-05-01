@@ -1,0 +1,678 @@
+.place {
+	position: absolute;
+	width: 2.9%;
+	height: 20.5%;
+	z-index: 10;
+	background-color: #f2f2f2;
+	color: #000000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.place.disabled {
+	background-color: #cccccc;
+	color: #ffffff;
+}
+
+.place:not(.disabled):hover {
+	background-color: #FFA800;
+	cursor: pointer;
+}
+
+.place.selected {
+	border: 2px solid #FFA800;
+}
+
+.place.disabled:hover {
+	cursor: not-allowed;
+}
+
+.place1 {
+	top: 40.5%;
+	left: 14.5%;
+}
+
+.place2 {
+	top: 20%;
+	left: 14.5%;
+}
+
+.place3 {
+	top: 40.5%;
+	left: 21%;
+}
+
+.place4 {
+	top: 20%;
+	left: 21%;
+}
+
+.place5 {
+	top: 40.5%;
+	left: 24.3%;
+}
+
+.place6 {
+	top: 20%;
+	left: 24.3%;
+}
+
+.place7 {
+	top: 40.5%;
+	left: 30.8%;
+}
+
+.place8 {
+	top: 20%;
+	left: 30.8%;
+}
+
+.place9 {
+	top: 40.5%;
+	left: 34%;
+}
+
+.place10 {
+	top: 20%;
+	left: 34%;
+}
+
+.place11 {
+	top: 40.5%;
+	left: 40.5%;
+}
+
+.place12 {
+	top: 20%;
+	left: 40.5%;
+}
+
+.place13 {
+	top: 40.5%;
+	left: 43.7%;
+}
+
+.place14 {
+	top: 20%;
+	left: 43.7%;
+}
+
+.place15 {
+	top: 40.5%;
+	left: 50.1%;
+}
+
+.place16 {
+	top: 20%;
+	left: 50.1%;
+}
+
+.place17 {
+	top: 40.5%;
+	left: 53.4%;
+}
+
+.place18 {
+	top: 20%;
+	left: 53.4%;
+}
+
+.place19 {
+	top: 40.5%;
+	left: 59.8%;
+}
+
+.place20 {
+	top: 20%;
+	left: 59.8%;
+}
+
+.place21 {
+	top: 40.5%;
+	left: 63.1%;
+}
+
+.place22 {
+	top: 20%;
+	left: 63.1%;
+}
+
+.place23 {
+	top: 40.5%;
+	left: 69.6%;
+}
+
+.place24 {
+	top: 20%;
+	left: 69.6%;
+}
+
+.place25 {
+	top: 40.5%;
+	left: 72.7%;
+}
+
+.place26 {
+	top: 20%;
+	left: 72.7%;
+}
+
+.place27 {
+	top: 40.5%;
+	left: 79.2%;
+}
+
+.place28 {
+	top: 20%;
+	left: 79.2%;
+}
+
+.place29 {
+	top: 40.5%;
+	left: 82.5%;
+}
+
+.place30 {
+	top: 20%;
+	left: 82.5%;
+}
+
+.place31 {
+	top: 40.5%;
+	left: 89%;
+}
+
+.place32 {
+	top: 20%;
+	left: 89%;
+}
+
+.place33 {
+	width: 5%;
+	top: 74.5%;
+	left: 13.9%;
+}
+
+.place34 {
+	width: 5%;
+	top: 74.5%;
+	left: 18.9%;
+}
+
+.place35 {
+	width: 5%;
+	top: 74.5%;
+	left: 23.8%;
+}
+
+.place36 {
+	width: 5%;
+	top: 74.5%;
+	left: 28.8%;
+}
+
+.place37 {
+	width: 5%;
+	top: 74.5%;
+	left: 33.7%;
+}
+
+.place38 {
+	width: 5%;
+	top: 74.5%;
+	left: 38.7%;
+}
+
+.place39 {
+	width: 5%;
+	top: 74.5%;
+	left: 43.6%;
+}
+
+.place40 {
+	width: 5%;
+	top: 74.5%;
+	left: 48.6%;
+}
+
+.place41 {
+	width: 5%;
+	top: 74.5%;
+	left: 53.3%;
+}
+
+.place42 {
+	width: 5%;
+	top: 74.5%;
+	left: 58.3%;
+}
+
+.place43 {
+	width: 5%;
+	top: 74.5%;
+	left: 63.1%;
+}
+
+.place44 {
+	width: 5%;
+	top: 74.5%;
+	left: 68%;
+}
+
+.place45 {
+	width: 5%;
+	top: 74.5%;
+	left: 72.9%;
+}
+
+.place46 {
+	width: 5%;
+	top: 74.5%;
+	left: 77.8%;
+}
+
+.place47 {
+	width: 5%;
+	top: 74.5%;
+	left: 82.6%;
+}
+
+.place48 {
+	width: 5%;
+	top: 74.5%;
+	left: 87.6%;
+}
+
+.place_sitting {
+	width: 3.1%;
+	height: 14.5%;
+}
+
+.place1_sitting {
+	top: 35.3%;
+	left: 15.5%;
+}
+
+.place2_sitting {
+	top: 20%;
+	left: 15.5%;
+}
+
+.place3_sitting {
+	top: 35.3%;
+	left: 20.5%;
+}
+
+.place4_sitting {
+	top: 20%;
+	left: 20.5%;
+}
+
+.place5_sitting {
+	top: 35.3%;
+	left: 25.2%;
+}
+
+.place6_sitting {
+	top: 20%;
+	left: 25.2%;
+}
+
+.place7_sitting {
+	top: 35.3%;
+	left: 30%;
+}
+
+.place8_sitting {
+	top: 20%;
+	left: 30%;
+}
+
+.place9_sitting {
+	top: 35.3%;
+	left: 34.8%;
+}
+
+.place10_sitting {
+	top: 20%;
+	left: 34.8%;
+}
+
+.place11_sitting {
+	top: 35.3%;
+	left: 39.4%;
+}
+
+.place12_sitting {
+	top: 20%;
+	left: 39.4%;
+}
+
+.place13_sitting {
+	top: 35.3%;
+	left: 44.4%;
+}
+
+.place14_sitting {
+	top: 20%;
+	left: 44.4%;
+}
+
+.place15_sitting {
+	top: 35.3%;
+	left: 49.1%;
+}
+
+.place16_sitting {
+	top: 20%;
+	left: 49.1%;
+}
+
+.place17_sitting {
+	top: 35.3%;
+	left: 53.7%;
+}
+
+.place18_sitting {
+	top: 20%;
+	left: 53.7%;
+}
+
+.place19_sitting {
+	top: 35.3%;
+	left: 58.5%;
+}
+
+.place20_sitting {
+	top: 20%;
+	left: 58.5%;
+}
+
+.place21_sitting {
+	top: 35.3%;
+	left: 63.3%;
+}
+
+.place22_sitting {
+	top: 20%;
+	left: 63.3%;
+}
+
+.place23_sitting {
+	top: 35.3%;
+	left: 68.1%;
+}
+
+.place24_sitting {
+	top: 20%;
+	left: 68.1%;
+}
+
+.place25_sitting {
+	top: 35.3%;
+	left: 72.8%;
+}
+
+.place26_sitting {
+	top: 20%;
+	left: 72.8%;
+}
+
+.place27_sitting {
+	top: 35.3%;
+	left: 77.8%;
+}
+
+.place28_sitting {
+	top: 20%;
+	left: 77.8%;
+}
+
+.place29_sitting {
+	top: 35.3%;
+	left: 82.5%;
+}
+
+.place30_sitting {
+	top: 20%;
+	left: 82.5%;
+}
+
+.place31_sitting {
+	top: 35.3%;
+	left: 87.4%;
+}
+
+.place32_sitting {
+	top: 20%;
+	left: 87.4%;
+}
+
+.place33_sitting {
+	top: 75.3%;
+	left: 15.5%;
+}
+
+.place34_sitting {
+	top: 60.5%;
+	left: 20.5%;
+}
+
+.place35_sitting {
+	top: 75.3%;
+	left: 20.5%;
+}
+
+.place36_sitting {
+	top: 60.5%;
+	left: 25.2%;
+}
+
+.place37_sitting {
+	top: 75.5%;
+	left: 25.2%;
+}
+
+.place38_sitting {
+	top: 60.5%;
+	left: 30%;
+}
+
+.place39_sitting {
+	top: 75.5%;
+	left: 30%;
+}
+
+.place40_sitting {
+	top: 75.5%;
+	left: 34.8%;
+}
+
+.place41_sitting {
+	top: 60.5%;
+	left: 34.8%;
+}
+
+.place42_sitting {
+	top: 75.5%;
+	left: 39.4%;
+}
+
+.place43_sitting {
+	top: 60.5%;
+	left: 39.4%;
+}
+
+.place44_sitting {
+	top: 75.5%;
+	left: 44.4%;
+}
+
+.place45_sitting {
+	top: 60.5%;
+	left: 44.4%;
+}
+
+.place46_sitting {
+	top: 75.5%;
+	left: 49.1%;
+}
+
+.place47_sitting {
+	top: 60.5%;
+	left: 49.1%;
+}
+
+.place48_sitting {
+	top: 75.5%;
+	left: 53.7%;
+}
+
+.place49_sitting {
+	top: 60.5%;
+	left: 53.7%;
+}
+
+.place50_sitting {
+	top: 75.5%;
+	left: 58.5%;
+}
+
+.place51_sitting {
+	top: 60.5%;
+	left: 58.5%;
+}
+
+.place52_sitting {
+	top: 75.5%;
+	left: 63.3%;
+}
+
+.place53_sitting {
+	top: 60.5%;
+	left: 63.3%;
+}
+
+.place54_sitting {
+	top: 75.5%;
+	left: 68.1%;
+}
+
+.place55_sitting {
+	top: 60.5%;
+	left: 68.1%;
+}
+
+.place56_sitting {
+	top: 75.5%;
+	left: 72.8%;
+}
+
+.place57_sitting {
+	top: 60.5%;
+	left: 72.8%;
+}
+
+.place58_sitting {
+	top: 75.5%;
+	left: 77.8%;
+}
+
+.place59_sitting {
+	top: 60.5%;
+	left: 77.8%;
+}
+
+.place60_sitting {
+	top: 75.5%;
+	left: 82.5%;
+}
+
+.place61_sitting {
+	top: 60.5%;
+	left: 82.5%;
+}
+
+.place62_sitting {
+	top: 75.5%;
+	left: 87.4%;
+}
+
+.place_luxe {
+	width: 3%;
+	height: 40%;
+	top: 19%;
+}
+
+.place1_luxe {
+	left: 14.4%;
+}
+
+.place2_luxe {
+	left: 20.8%;
+}
+
+.place3_luxe {
+	left: 24.3%;
+}
+
+.place4_luxe {
+	left: 30.5%;
+}
+
+.place5_luxe {
+	left: 34%;
+}
+
+.place6_luxe {
+	left: 40.3%;
+}
+
+.place7_luxe {
+	left: 43.6%;
+}
+
+.place8_luxe {
+	left: 50%;
+}
+
+.place9_luxe {
+	left: 53.3%;
+}
+
+.place10_luxe {
+	left: 59.8%;
+}
+
+.place11_luxe {
+	left: 63%;
+}
+
+.place12_luxe {
+	left: 69.4%;
+}
+
+.place13_luxe {
+	left: 72.6%;
+}
+
+.place14_luxe {
+	left: 79.1%;
+}
+
+.place15_luxe {
+	left: 82.4%;
+}
+
+.place16_luxe {
+	left: 88.9%;
+}
+
+.train-image__places {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}

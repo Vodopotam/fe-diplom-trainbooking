@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trainbooking</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+	<body>
+		<header class="header trainselection">
+			<a class="logo" id="logo-top" href="index.html">Лого</a>
+			<nav class="header-navigation">
+				<div class="wrapper">
+					<ul class="navigation-list">
+						<li class="navigation-list__item"><a href="index.html#about-us">О нас</a></li>
+						<li class="navigation-list__item"><a href="index.html#features">Как это работает</a></li>
+						<li class="navigation-list__item"><a href="index.html#reviews">Отзывы</a></li>
+						<li class="navigation-list__item"><a href="index.html#contacts">Контакты</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="header-form-container wrapper trainselection">	
+				<form class="header-form" action="TrainSelection.html">
+					<div class="direction">
+						<h3 class="header-form-title">Направление</h3>
+					<input class="header-form-input" type="text" name="from" placeholder="Откуда">
+					<div class="direction-update"></div>
+					<input class="header-form-input" type="text" name="to" placeholder="Куда">
+					</div>
+					<div class="date">
+						<h3 class="header-form-title">Дата</h3>
+						<input class="header-form-input" type="date" name="arrival">
+						<input class="header-form-input" type="date" name="departure">
+					</div>
+					<input class="header-form-submit" type="submit" name="submit" value="Найти билеты">
+				</form>
+			</div>
+		</header>
+
+		<div class="main-information loader">
+			<div class="wrapper">
+				<p class="loader-text">Идет поиск</p>
+				<img src="img/loader.gif" class="loader-img" alt="loader">
+
+			</div>
+		</div>
+
+		<footer class="footer">
+			<div class="footer-top wrapper">
+				<div class="footer-top-contacts">
+					<h3 class="footer-top-title">Свяжитесь с нами</h3>
+					<ul class="footer-top-contacts-list">
+						<li class="footer-top-phone"><a href="tel:+78000000000">8 (800) 000 00 00</a></li>
+						<li class="footer-top-email"><a href="mailto:inbox@mail.ru">inbox@mail.ru</a></li>
+						<li class="footer-top-skype"><a href="skype:tu.train.tickets?call">tu.train.tickets</a></li>
+						<li class="footer-top-address">г.Москва<br>ул.Московская 27-35<br>555 555</li>
+					</ul>
+				</div>
+				<div class="footer-top-social">
+					<h3 class="footer-top-title">Подписка</h3>
+					<p class="footer-top-text">Будьте в курсе событий</p>
+					<form class="footer-top-social-form" action="#">
+						<input class="footer-top-social-email" type="email" name="email" placeholder="e-mail">
+						<input class="footer-top-social-submit" type="submit" name="submit">
+					</form>
+					<div class="footer-top-social-links">
+						<h3 class="footer-top-title">Подписывайтесь на нас</h3>
+						<ul class="footer-top-links">
+							<li><a class="youtube" href="#"></a></li>
+							<li><a class="linkedIn" href="#"></a></li>
+							<li><a class="google" href="#"></a></li>
+							<li><a class="facebook" href="#"></a></li>
+							<li><a class="twitter" href="#"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom wrapper" id="contacts">
+				<a class="logo" href="index.html">Лого</a>
+				<div class="totop" onclick='document.getElementById("logo-top").scrollIntoView({behavior: "smooth"});'></div>
+				<div class="date">2018 WEB</div>
+			</div>
+		</footer>
+	</body>
+</html>
+

@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/fe-diplom-trainbooking/static/css/main.9e1ddb14.chunk.css",
+    "main.js": "/fe-diplom-trainbooking/static/js/main.ad993588.chunk.js",
+    "main.js.map": "/fe-diplom-trainbooking/static/js/main.ad993588.chunk.js.map",
+    "runtime-main.js": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js",
+    "runtime-main.js.map": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js.map",
+    "static/css/2.650c2d42.chunk.css": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css",
+    "static/js/2.6a02c5a1.chunk.js": "/fe-diplom-trainbooking/static/js/2.6a02c5a1.chunk.js",
+    "static/js/2.6a02c5a1.chunk.js.map": "/fe-diplom-trainbooking/static/js/2.6a02c5a1.chunk.js.map",
+    "index.html": "/fe-diplom-trainbooking/index.html",
+    "precache-manifest.8b300f7e278728b34186855b20c339b2.js": "/fe-diplom-trainbooking/precache-manifest.8b300f7e278728b34186855b20c339b2.js",
+    "service-worker.js": "/fe-diplom-trainbooking/service-worker.js",
+    "static/css/2.650c2d42.chunk.css.map": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css.map",
+    "static/css/main.9e1ddb14.chunk.css.map": "/fe-diplom-trainbooking/static/css/main.9e1ddb14.chunk.css.map",
+    "static/media/style.css": "/fe-diplom-trainbooking/static/media/trainSelection_bg.527d62cb.png",
+    "static/media/loader.gif": "/fe-diplom-trainbooking/static/media/loader.6c4f0b1d.gif",
+    "static/media/slick-theme.css": "/fe-diplom-trainbooking/static/media/slick.f97e3bbf.svg",
+    "static/media/train.png": "/fe-diplom-trainbooking/static/media/train.0967c085.png",
+    "static/media/train02.png": "/fe-diplom-trainbooking/static/media/train02.532a9795.png",
+    "static/media/train12.png": "/fe-diplom-trainbooking/static/media/train12.11d0b6d8.png",
+    "static/media/train22.png": "/fe-diplom-trainbooking/static/media/train22.324a19f0.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cc827b98.js",
+    "static/css/2.650c2d42.chunk.css",
+    "static/js/2.6a02c5a1.chunk.js",
+    "static/css/main.9e1ddb14.chunk.css",
+    "static/js/main.ad993588.chunk.js"
+  ]
+}
