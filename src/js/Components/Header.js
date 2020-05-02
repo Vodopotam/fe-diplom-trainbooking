@@ -101,8 +101,7 @@ class Header extends React.Component {
           </h1>
           <form
             className={`header-form ${
-              (window.location.pathname === '/' || window.location.pathname === '/fe-diplom-trainbooking/')
-               ? '' : 'header-form__full-block'
+              window.location.pathname === '/' ? '' : 'header-form__full-block'
             }`}
             action="TrainSelection.html"
           >
