@@ -34,7 +34,7 @@ class App extends React.Component {
   render() {
     console.log(this.state.cityFrom);
     return (
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename="/fe-diplom-trainbooking">
         <div>
           <Header
             {...this.props}
