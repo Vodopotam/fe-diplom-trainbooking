@@ -2,14 +2,14 @@ import React from 'react';
 import Slider from 'react-slick';
 
 export const HomePage = () => (
-      <div className="content">
-        <main>
-          <AboutUs />
-          <Features />
-          <Reviews />
-        </main>
-      </div>
-    )
+  <div className="content">
+    <main>
+      <AboutUs />
+      <Features />
+      <Reviews />
+    </main>
+  </div>
+);
 
 const AboutUs = () => (
   <div className="about-us wrapper" id="about-us">

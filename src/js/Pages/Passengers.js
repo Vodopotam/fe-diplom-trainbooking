@@ -15,8 +15,8 @@ class Passengers extends React.Component {
   }
 
   componentDidMount() {
-        window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
+  }
 
   onAddChild = () => {
     this.setState({

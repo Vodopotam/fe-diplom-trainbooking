@@ -14,8 +14,8 @@ class PlaceSelection extends React.Component {
   }
 
   componentDidMount() {
-        window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
+  }
 
   render() {
     return (
@@ -99,8 +99,16 @@ class PlaceSelection extends React.Component {
                   <ul className="placeselection-tickets">
                     <li className="placeselection-tickets__adults">
                       <div className="placeselection-tickets__total">
-                        <label className="placeselection-tickets__total-label">Взрослых</label>
-                        <input type="number" min="0" max="5" defaultValue="3" step="1" />
+                        <label className="placeselection-tickets__total-label">
+                          Взрослых
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          defaultValue="3"
+                          step="1"
+                        />
                       </div>
                       <p className="placeselection-tickets__text">
                         Можно добавить еще 3 пассажиров
@@ -108,8 +116,16 @@ class PlaceSelection extends React.Component {
                     </li>
                     <li className="placeselection-tickets__children active">
                       <div className="placeselection-tickets__total">
-                        <label className="placeselection-tickets__total-label">Детских</label>
-                        <input type="number" min="0" max="5" defaultValue="2" step="1" />
+                        <label className="placeselection-tickets__total-label">
+                          Детских
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          defaultValue="2"
+                          step="1"
+                        />
                       </div>
                       <p className="placeselection-tickets__text">
                         Можно добавить еще 3 детей до 10 лет.Свое место в
@@ -118,8 +134,16 @@ class PlaceSelection extends React.Component {
                     </li>
                     <li className="placeselection-tickets__children-without-place empty">
                       <div className="placeselection-tickets__total">
-                       <label className="placeselection-tickets__total-label">Детских &laquo;без места&raquo;</label>
-                        <input type="number" min="0" max="5" defaultValue="0" step="1" />
+                        <label className="placeselection-tickets__total-label">
+                          Детских &laquo;без места&raquo;
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          defaultValue="0"
+                          step="1"
+                        />
                       </div>
                     </li>
                   </ul>

@@ -2,18 +2,17 @@ import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 
 class OrderDone extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-        window.scrollTo(0, 0);
-    }
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
 
-    render() {
-        return (
-            <div className="content">
-
+  render() {
+    return (
+      <div className="content">
         <div className="main-information order-done">
           <div className="wrapper">
             <h1 className="order-done-header">Благодарим Вас за заказ!</h1>
@@ -57,16 +56,41 @@ class OrderDone extends React.Component {
                   <div className="order-service-value">
                     <p className="order-service__text">Оценить сервис</p>
                     <form className="order-service__stars stars">
-	                    <input type="radio" className="star order-service__star" id="star1" name="stars" />
-	  					<label htmlFor="star1"></label>
-	  					<input type="radio" className="star order-service__star" id="star2" name="stars" />
-						<label htmlFor="star2"></label>
-						<input type="radio" className="star order-service__star" id="star3" name="stars" />
-						<label htmlFor="star3"></label>
-						<input type="radio" className="star order-service__star" id="star4" name="stars" />
-						<label htmlFor="star4"></label>
-						<input type="radio" className="star order-service__star" id="star5" name="stars" />
-						<label htmlFor="star5"></label>
+                      <input
+                        type="radio"
+                        className="star order-service__star"
+                        id="star1"
+                        name="stars"
+                      />
+                      <label htmlFor="star1"></label>
+                      <input
+                        type="radio"
+                        className="star order-service__star"
+                        id="star2"
+                        name="stars"
+                      />
+                      <label htmlFor="star2"></label>
+                      <input
+                        type="radio"
+                        className="star order-service__star"
+                        id="star3"
+                        name="stars"
+                      />
+                      <label htmlFor="star3"></label>
+                      <input
+                        type="radio"
+                        className="star order-service__star"
+                        id="star4"
+                        name="stars"
+                      />
+                      <label htmlFor="star4"></label>
+                      <input
+                        type="radio"
+                        className="star order-service__star"
+                        id="star5"
+                        name="stars"
+                      />
+                      <label htmlFor="star5"></label>
                     </form>
                   </div>
                   <Link to="/" className="goto-main">
@@ -78,8 +102,8 @@ class OrderDone extends React.Component {
           </div>
         </div>
       </div>
-        );
-    }
+    );
+  }
 }
 
 export default OrderDone;

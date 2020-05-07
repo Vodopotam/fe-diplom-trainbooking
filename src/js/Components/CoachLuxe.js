@@ -3,15 +3,15 @@ import React from 'react';
 class CoachLuxe extends React.Component {
   constructor(props) {
     super(props);
-        this.state = {
+    this.state = {
       isDisabled: false,
     };
   }
 
   setStatus() {
-  	this.setState({
-  		isDisabled: !this.state.isDisabled
-  	})
+    this.setState({
+      isDisabled: !this.state.isDisabled,
+    });
   }
 
   render() {

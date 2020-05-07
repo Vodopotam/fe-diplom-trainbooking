@@ -16,8 +16,8 @@ class Payment extends React.Component {
   }
 
   componentDidMount() {
-        window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
+  }
 
   changeIconBlockTo(item) {
     item.classList.toggle('hidden');
