@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/fe-diplom-trainbooking/static/css/main.9e1ddb14.chunk.css",
-    "main.js": "/fe-diplom-trainbooking/static/js/main.ad993588.chunk.js",
-    "main.js.map": "/fe-diplom-trainbooking/static/js/main.ad993588.chunk.js.map",
+    "main.css": "/fe-diplom-trainbooking/static/css/main.1b7b0b63.chunk.css",
+    "main.js": "/fe-diplom-trainbooking/static/js/main.4af43f1c.chunk.js",
+    "main.js.map": "/fe-diplom-trainbooking/static/js/main.4af43f1c.chunk.js.map",
     "runtime-main.js": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js",
     "runtime-main.js.map": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js.map",
     "static/css/2.650c2d42.chunk.css": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css",
-    "static/js/2.6a02c5a1.chunk.js": "/fe-diplom-trainbooking/static/js/2.6a02c5a1.chunk.js",
-    "static/js/2.6a02c5a1.chunk.js.map": "/fe-diplom-trainbooking/static/js/2.6a02c5a1.chunk.js.map",
+    "static/js/2.41996acc.chunk.js": "/fe-diplom-trainbooking/static/js/2.41996acc.chunk.js",
+    "static/js/2.41996acc.chunk.js.map": "/fe-diplom-trainbooking/static/js/2.41996acc.chunk.js.map",
     "index.html": "/fe-diplom-trainbooking/index.html",
-    "precache-manifest.8b300f7e278728b34186855b20c339b2.js": "/fe-diplom-trainbooking/precache-manifest.8b300f7e278728b34186855b20c339b2.js",
+    "precache-manifest.9f91a47452d8b7b989eeb0f972557389.js": "/fe-diplom-trainbooking/precache-manifest.9f91a47452d8b7b989eeb0f972557389.js",
     "service-worker.js": "/fe-diplom-trainbooking/service-worker.js",
     "static/css/2.650c2d42.chunk.css.map": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css.map",
-    "static/css/main.9e1ddb14.chunk.css.map": "/fe-diplom-trainbooking/static/css/main.9e1ddb14.chunk.css.map",
+    "static/css/main.1b7b0b63.chunk.css.map": "/fe-diplom-trainbooking/static/css/main.1b7b0b63.chunk.css.map",
     "static/media/style.css": "/fe-diplom-trainbooking/static/media/trainSelection_bg.527d62cb.png",
     "static/media/loader.gif": "/fe-diplom-trainbooking/static/media/loader.6c4f0b1d.gif",
     "static/media/slick-theme.css": "/fe-diplom-trainbooking/static/media/slick.f97e3bbf.svg",
@@ -24,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.cc827b98.js",
     "static/css/2.650c2d42.chunk.css",
-    "static/js/2.6a02c5a1.chunk.js",
-    "static/css/main.9e1ddb14.chunk.css",
-    "static/js/main.ad993588.chunk.js"
+    "static/js/2.41996acc.chunk.js",
+    "static/css/main.1b7b0b63.chunk.css",
+    "static/js/main.4af43f1c.chunk.js"
   ]
 }
