@@ -13,11 +13,13 @@ class PlaceSelection extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
   render() {
     return (
       <div className="content">
-        <Header />
-
         <div className="main-information">
           <ul className="order-navigation">
             <li className="order-navigation__list active">

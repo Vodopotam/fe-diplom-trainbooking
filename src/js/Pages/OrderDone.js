@@ -13,29 +13,6 @@ class OrderDone extends React.Component {
     render() {
         return (
             <div className="content">
-        <header className="header order-done">
-          <Link className="logo" id="logo-top" to="/">
-            Лого
-          </Link>
-          <nav className="header-navigation">
-            <div className="wrapper">
-              <ul className="navigation-list">
-              <li className="navigation-list__item">
-                <Link to="/#about-us" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>О нас</Link>
-              </li>
-              <li className="navigation-list__item">
-                <Link to="/#features" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Как это работает</Link>
-              </li>
-              <li className="navigation-list__item">
-                <Link to="/#reviews" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Отзывы</Link>
-              </li>
-              <li className="navigation-list__item">
-                <Link to="#contacts" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Контакты</Link>
-              </li>
-            </ul>
-            </div>
-          </nav>
-        </header>
 
         <div className="main-information order-done">
           <div className="wrapper">
@@ -90,11 +67,6 @@ class OrderDone extends React.Component {
 						<label htmlFor="star4"></label>
 						<input type="radio" className="star order-service__star" id="star5" name="stars" />
 						<label htmlFor="star5"></label>
-                     {/*} <li className="order-service__star"></li>
-                      <li className="order-service__star"></li>
-                      <li className="order-service__star"></li>
-                      <li className="order-service__star"></li>
-                      <li className="order-service__star"></li>*/}
                     </form>
                   </div>
                   <Link to="/" className="goto-main">

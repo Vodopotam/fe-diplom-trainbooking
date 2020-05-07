@@ -1,31 +1,21 @@
 import React from 'react';
 import Slider from 'react-slick';
-import Header from '../../js/Components/Header.js';
 
-class MainPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
+export const HomePage = () => (
       <div className="content">
-        <Header />
         <main>
           <AboutUs />
           <Features />
           <Reviews />
         </main>
       </div>
-    );
-  }
-}
+    )
 
 const AboutUs = () => (
   <div className="about-us wrapper" id="about-us">
     <h2 className="about-us__title">О нас</h2>
     <p className="about-us__text">
-      Мы рады видеть вас! Мы рботаем для Вас с 2003 года. 14 лет мы наблюдаем,
+      Мы рады видеть вас! Мы работаем для Вас с 2003 года. 14 лет мы наблюдаем,
       как с каждым днем все больше людей заказывают жд билеты через интернет.
     </p>
     <p className="about-us__text">
@@ -189,5 +179,3 @@ class Reviews extends React.Component {
     );
   }
 }
-
-export default MainPage;

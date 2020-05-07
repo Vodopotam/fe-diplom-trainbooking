@@ -14,6 +14,10 @@ class Passengers extends React.Component {
     };
   }
 
+  componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
   onAddChild = () => {
     this.setState({
       passengerAdded: this.state.passengerAdded + 1,
@@ -28,8 +32,6 @@ class Passengers extends React.Component {
 
     return (
       <div className="content">
-        <Header />
-
         <div className="main-information">
           <ul className="order-navigation">
             <li className="order-navigation__list active">

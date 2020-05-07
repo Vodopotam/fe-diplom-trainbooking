@@ -15,6 +15,10 @@ class Payment extends React.Component {
     };
   }
 
+  componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
   changeIconBlockTo(item) {
     item.classList.toggle('hidden');
     this.setState({
@@ -39,8 +43,6 @@ class Payment extends React.Component {
   render() {
     return (
       <div className="content">
-        <Header />
-
         <div className="main-information payment">
           <ul className="order-navigation">
             <li className="order-navigation__list active">

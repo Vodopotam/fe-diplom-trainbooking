@@ -351,6 +351,25 @@ input[name="departure"] {
     z-index: 100;
 }
 
+.form-input-cities-list {
+	position: absolute;
+	top: 3.5rem;
+	left: 0;
+	width: 100%;
+	border-radius: 3px;
+	z-index: 100000;
+}
+
+.form-input-cities-item {
+	width: 100%;
+	background: #000000;
+    padding: 0.9rem;
+    font-size: 1.3rem;
+    line-height: 1.9rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
 .direction-update {
     margin-top: 1rem;
     width: 1.5rem;
@@ -3640,7 +3659,7 @@ select:focus {
     background: #9B6909 url('../img/orderDone_bg.png') no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
-    padding-bottom: 40rem;
+    padding-bottom: 25rem;
     box-shadow: inset 5rem 2rem 4rem 3rem rgba(41, 41, 41, 0.6);
     border-bottom: none;
 

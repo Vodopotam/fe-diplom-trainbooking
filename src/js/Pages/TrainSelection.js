@@ -1,22 +1,42 @@
 import React from 'react';
-import Header from '../../js/Components/Header.js';
-import { HashLink as Link } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 import SideBar from '../../js/Components/SideBar.js';
+import Ticket from '../../js/Components/Ticket.js';
+import { getData } from '../../js/data.js';
 
 class TrainSelection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            tickets: [],
+            quantity: ''
+        };
+    }
 
-  render() {
-    const { loading } = this.state;
+    componentDidMount() {
+        window.scrollTo(0, 0);
 
-    return (
-      <div className="content">
-        <Header />
+        getData(`routes?from_city_id=${this.props.cityFrom.id}&to_city_id=${this.props.cityTo.id}`)
+            .then(result => {
+
+                this.setState({
+                    tickets: result.items || [],
+                    quantity: result.items ? result.items.length : 0,
+                });
+                console.log(result.items)
+            });
+    }
+
+
+
+    render() {
+        const { loading, quantity, tickets } = this.state;
+        console.log(this.props.location);
+
+        return (
+            <div className="content">
+        
         {loading ? (
           <div className="main-information loader">
             <div className="wrapper">
@@ -54,7 +74,7 @@ class TrainSelection extends React.Component {
               <main className="main-block">
                 <div className="results">
                   <div className="results-found">
-                    найдено <span className="results-found__number">20</span>
+                    найдено <span className="results-found__number">{this.state.quantity}</span>
                   </div>
 
                   <div className="results-sortby">
@@ -116,7 +136,13 @@ class TrainSelection extends React.Component {
                 </div>
 
                 <div className="tickets">
-                  <div className="ticket">
+                {tickets.length > 0 ? 
+                	tickets.map(ticket => {
+                	return ( <Ticket {...this.state} {...this.props} /> )
+                })
+                	: null}
+
+                 {/*} <div className="ticket">
                     <div className="train-info">
                       <div className="train-info__number">116C</div>
                       <div className="train-info__direction">
@@ -769,7 +795,7 @@ class TrainSelection extends React.Component {
                         Выбрать места
                       </Link>
                     </div>
-                  </div>
+                  </div>*/}
                 </div>
 
                 <div className="pagination">
@@ -794,18 +820,19 @@ class TrainSelection extends React.Component {
               </main>
             </div>
           </div>
-        )}
+        )
+    }
 
-        <script type="text/javascript" src="js/TrainSelection.js"></script>
-        <script
-          defer
-          src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
-          integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-          crossOrigin="anonymous"
-        ></script>
-      </div>
-    );
-  }
+    <script type="text/javascript" src="js/TrainSelection.js"></script> <
+    script
+    defer
+    src = "https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+    integrity = "sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+    crossOrigin = "anonymous" >
+        < /script> <
+        /div>
+);
+}
 }
 
 export default TrainSelection;

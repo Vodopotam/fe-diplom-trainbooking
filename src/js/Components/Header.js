@@ -1,67 +1,92 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import { HashLink as Link } from 'react-router-hash-link';
+import { withRouter } from 'react-router-dom';
+import {getData} from '../data.js'
+
+
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputTo = React.createRef();
-    this.inputFrom = React.createRef();
-    this.direction = React.createRef();
-    this.findCityTo = this.findCityTo.bind(this);
-    this.findCityFrom = this.findCityFrom.bind(this);
-    this.changeDirection = this.changeDirection.bind(this);
-    this.state = {
-      citiesTo: [],
-      citiesFrom: [],
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.inputTo = React.createRef();
+        this.inputFrom = React.createRef();
+        this.direction = React.createRef();
+        this.getCityFrom = this.getCityFrom.bind(this);
+        this.getCityTo = this.getCityTo.bind(this);
+        this.changeDirection = this.changeDirection.bind(this);
+        this.findCityTo = this.findCityTo.bind(this);
+        this.findCityFrom = this.findCityFrom.bind(this);
+        this.searchTickets = this.searchTickets.bind(this);
+        this.state = {
+            citiesTo: [],
+            citiesFrom: [],
+        }
+    }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
 
-  findCityTo() {
-    let str = this.inputTo.current.value.toLowerCase();
-    fetch(
-      `https://netology-trainbooking.herokuapp.com/routes/cities?name=${str}`
-    )
-      .then(response => response.json())
-      .then(result => {
-        this.setState({
-          citiesTo: result,
-        });
-      });
-  }
+    findCityFrom() {
+        let str = this.inputFrom.current.value.toLowerCase();
+        getData(`routes/cities?name=${str}`)
+            .then(result => {
+                this.setState({
+                    citiesFrom: result
+                })
+            })
+    }
 
-  findCityFrom() {
-    let str = this.inputFrom.current.value.toLowerCase();
-    fetch(
-      `https://netology-trainbooking.herokuapp.com/routes/cities?name=${str}`
-    )
-      .then(response => response.json())
-      .then(result => {
-        this.setState({
-          citiesFrom: result,
-        });
-      });
-  }
+    getCityFrom(event) {
+        this.inputFrom.current.value = event.target.innerText
+        this.props.cityFrom.name = event.target.innerText;
+        this.props.cityFrom.id = event.target.dataset.id;
+        this.setState({ citiesFrom: [] })
+    }
 
-  changeDirection() {
-    let inputToText = this.inputTo.current.value;
-    let inputFromText = this.inputFrom.current.value;
-    this.inputFrom.current.value = inputToText;
-    this.inputTo.current.value = inputFromText;
-  }
+    findCityTo() {
+        let str = this.inputTo.current.value.toLowerCase();
+        getData(`routes/cities?name=${str}`)
+            .then(result => {
+                this.setState({
+                    citiesTo: result,
+                });
+            });
+    }
 
-  render() {
-    const { citiesTo, citiesFrom } = this.state;
-    if (!citiesTo || !citiesFrom) return;
-    return (
-      <header
-        className={`header ${
-          window.location.pathname === '/' ? '' : 'header__trainselection'
-        }`}
+    getCityTo(event) {
+        this.inputTo.current.value = event.target.innerText
+        this.props.cityTo.name = event.target.innerText;
+        this.props.cityTo.id = event.target.dataset.id;
+        this.setState({ citiesTo: [] })
+    }
+
+    changeDirection() {
+        let inputToText = this.inputTo.current.value;
+        let inputFromText = this.inputFrom.current.value;
+        this.inputFrom.current.value = inputToText;
+        this.inputTo.current.value = inputFromText;
+    }
+
+    searchTickets() {
+      console.log('search')
+      getData(`routes?from_city_id=${this.props.cityFrom.id}&to_city_id=${this.props.cityTo.id}`)
+            .then(result => {
+                this.setState({
+                    citiesTo: result,
+                });
+            });
+    }
+
+
+    render() {
+        const { citiesTo, citiesFrom } = this.state;
+        if (!citiesTo || !citiesFrom) return;
+        return (
+            <header
+              className={`header ${window.location.pathname === '/' ? '' : 'header__trainselection'}
+                      ${window.location.pathname === '/order-done/' ? 'order-done' : ''}
+              `}
       >
         <Link className="logo" id="logo-top" to="/">
           Лого
@@ -69,19 +94,19 @@ class Header extends React.Component {
         <nav className="header-navigation">
           <div className="wrapper">
             <ul className="navigation-list">
-              <li className="navigation-list__item">
-                <Link to="/#about-us" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>О нас</Link>
-              </li>
-              <li className="navigation-list__item">
-                <Link to="/#features" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Как это работает</Link>
-              </li>
-              <li className="navigation-list__item">
-                <Link to="/#reviews" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Отзывы</Link>
-              </li>
-              <li className="navigation-list__item">
-                <Link to="#contacts" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Контакты</Link>
-              </li>
-            </ul>
+                <li className="navigation-list__item">
+                  <Link to="/#about-us" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>О нас</Link>
+                </li>
+                <li className="navigation-list__item">
+                  <Link to="/#features" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Как это работает</Link>
+                </li>
+                <li className="navigation-list__item">
+                  <Link to="/#reviews" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Отзывы</Link>
+                </li>
+                <li className="navigation-list__item">
+                  <Link to="#contacts" scroll={el => el.scrollIntoView({ behavior: 'smooth'})}>Контакты</Link>
+                </li>
+              </ul>
           </div>
         </nav>
         <div
@@ -99,7 +124,9 @@ class Header extends React.Component {
             Вся жизнь - <br />
             <strong>путешествие!</strong>
           </h1>
-          <form
+
+          {(window.location.pathname !== '/order-done/') ?
+          (<form
             className={`header-form ${
               window.location.pathname === '/' ? '' : 'header-form__full-block'
             }`}
@@ -116,22 +143,23 @@ class Header extends React.Component {
                   autoComplete="off"
                   list="cityFrom"
                   placeholder="Откуда"
-                  onChange={this.findCityFrom}
+                  onChange={this.findCityFrom}      
                   required
                 />
                 <div className="form-input-cities form-input-cities__from">
-                  <datalist id="cityFrom" className="form-input-cities-list">
-                    {citiesFrom.length > 0
-                      ? citiesFrom.map(city => (
-                          <option
+                {citiesFrom.length > 0 ?
+                  <ul id="cityFrom" className="form-input-cities-list" onClick={this.getCityFrom}>     
+                       {citiesFrom.map(city => {
+                        return (
+                          <li    
+                            data-id={city._id}
                             className="form-input-cities-item"
                             key={city._id}
                           >
                             {city.name}
-                          </option>
-                        ))
-                      : null}
-                  </datalist>
+                          </li>)}
+                        )}
+                  </ul> : null}
                 </div>
               </div>
               <div
@@ -153,18 +181,20 @@ class Header extends React.Component {
                 />
 
                 <div className="form-input-cities form-input-cities__to">
-                  <datalist id="cityTo" className="form-input-cities-list">
-                    {citiesTo.length > 0
-                      ? citiesTo.map(city => (
-                          <option
+                {citiesTo.length > 0 ?
+                  <ul id="cityTo" className="form-input-cities-list" onClick={this.getCityTo}>
+                      {citiesTo.map((city) => {
+                        return (
+                          <li
+                            data-id={city._id}
                             className="form-input-cities-item"
                             key={city._id}
                           >
                             {city.name}
-                          </option>
-                        ))
-                      : null}
-                  </datalist>
+                          </li> )}
+                        )}
+
+                  </ul>  : null}
                 </div>
               </div>
             </div>
@@ -185,14 +215,16 @@ class Header extends React.Component {
                 />
               </div>
             </div>
-            <Link className="header-form-submit" to="/trainselection/">
+            <Link className="header-form-submit" to="/trainselection/" onClick={this.searchTickets}>
               Найти билеты
             </Link>
-          </form>
+          </form>) : null}
         </div>
       </header>
-    );
-  }
+        );
+    }
 }
 
-export default Header;
+export default withRouter(Header);
+
+
