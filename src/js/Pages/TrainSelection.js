@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SideBar from '../../js/Components/SideBar.js';
-import Ticket from '../../js/Components/Ticket.js';
+import { Ticket } from '../../js/Components/Ticket.js';
 import { getData } from '../../js/data.js';
 
 class TrainSelection extends React.Component {
@@ -9,29 +9,17 @@ class TrainSelection extends React.Component {
     super(props);
     this.state = {
       loading: false,
-      tickets: [],
-      quantity: '',
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
-
-    getData(
-      `routes?from_city_id=${this.props.cityFrom.id}&to_city_id=${this.props.cityTo.id}`
-    ).then(result => {
-      this.setState({
-        tickets: result.items || [],
-        quantity: result.items ? result.items.length : 0,
-      });
-      console.log(result.items);
-    });
   }
 
-  render() {
-    const { loading, quantity, tickets } = this.state;
-    console.log(this.props.location);
 
+  render() {
+    const { loading } = this.state;
+    const { tickets, quantity } = this.props;
     return (
       <div className="content">
         {loading ? (
@@ -73,7 +61,7 @@ class TrainSelection extends React.Component {
                   <div className="results-found">
                     найдено{' '}
                     <span className="results-found__number">
-                      {this.state.quantity}
+                      {quantity}
                     </span>
                   </div>
 
@@ -137,8 +125,11 @@ class TrainSelection extends React.Component {
 
                 <div className="tickets">
                   {tickets.length > 0
-                    ? tickets.map(ticket => {
-                        return <Ticket {...this.state} {...this.props} />;
+                    ? tickets.map((ticket, i) => {
+                        return <Ticket key = {ticket._id}
+                        				 {...this.state} 
+                        				{...this.props}
+                        				departure={ticket.departure} />;
                       })
                     : null}
 

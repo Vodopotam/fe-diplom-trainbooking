@@ -208,7 +208,7 @@ input[type='date']:focus {
 }
 
 .wrapper {
-    width: 73%;
+    width: 78%;
     margin: 0 auto;
 }
 
@@ -1160,12 +1160,12 @@ SLIDER */
 }
 
 .aside-options-choice__label:nth-child(5)::before {
-    background: url('../img/trainSelection/asideIcons/icon5.png') no-repeat center center;
+    background: url('../img/trainSelection/asideIcons/wifi.png') no-repeat center center;
     background-size: contain;
 }
 
 .aside-options-choice__label:nth-child(6)::before {
-    background: url('../img/trainSelection/asideIcons/icon6.png') no-repeat center center;
+    background: url('../img/trainSelection/asideIcons/express.png') no-repeat center center;
     background-size: contain;
 }
 
@@ -1496,20 +1496,35 @@ input[type=range] {
 .ticket-options__wifi,
 .ticket-options__speed,
 .ticket-options__comfort {
-    width: 1rem;
-    height: 1rem;
-    background: url('../img/trainSelection/asideIcons/train-features.png') no-repeat 0 0;
-    background-size: cover;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: url('../img/trainSelection/asideIcons/wifi.png') no-repeat center center;
+    background-size: contain;
 }
 
 .ticket-options__speed {
-    background: url('../img/trainSelection/asideIcons/train-features.png') no-repeat 50% 0;
-    background-size: cover;
+    background: url('../img/trainSelection/asideIcons/express.png') no-repeat center center;
+    background-size: contain;
 }
 
 .ticket-options__comfort {
-    background: url('../img/trainSelection/asideIcons/train-features.png') no-repeat 100% 0;
-    background-size: cover;
+    background: url('../img/trainSelection/asideIcons/comfort.png') no-repeat center center;
+    background-size: contain;
+}
+
+.ticket-options__wifi.active {
+	background: url('../img/trainSelection/asideIcons/wifi_active.png') no-repeat center center;
+    background-size: contain;
+}
+
+.ticket-options__speed.active {
+	background: url('../img/trainSelection/asideIcons/express_active.png') no-repeat center center;
+    background-size: contain;
+}
+
+.ticket-options__comfort.active {
+	background: url('../img/trainSelection/asideIcons/comfort_active.png') no-repeat center center;
+    background-size: contain;
 }
 
 .last-ticket__price {
@@ -1673,7 +1688,6 @@ input[type=range] {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    /* 	align-items: stretch; */
     background: #FFFFFF;
     border: 1px solid #C4C4C4;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -1683,9 +1697,8 @@ input[type=range] {
 
 .train-info {
     width: 21%;
-    /* 	padding: 10rem 3rem 6rem 1rem; */
-    padding-top: 8.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 9.5rem;
+    padding-bottom: 2.5rem;
     background-color: #E4E0E9;
     position: relative;
 }
@@ -1714,10 +1727,11 @@ input[type=range] {
 .train-info__direction {
     font-weight: 400;
     font-size: 1rem;
-    line-height: 1.2;
+    line-height: 1.4;
     color: #292929;
     padding-top: 0.5rem;
     padding-left: 1.5rem;
+    text-transform: capitalize;
 }
 
 .train-info__direction-left {
@@ -1742,8 +1756,7 @@ input[type=range] {
 .time-info__arrival {
     display: flex;
     flex-direction: column;
-    padding: 3rem 3.3rem 0.5rem 2rem;
-    padding-left: 2rem;
+    padding: 4rem 1.5rem 1rem 1.5rem;
 }
 
 .time-info__departure {
@@ -1758,9 +1771,17 @@ input[type=range] {
     color: #000000;
 }
 
+.time-info__departure-city,
+.time-info__arrival-city {
+	font-size: 1.2rem;
+	text-transform: capitalize;
+}
+
 .time-info__departure-station,
 .time-info__arrival-station {
+	size: 1.2rem;
     color: #928F94;
+    text-transform: capitalize;
 }
 
 .time-info__duration {
@@ -1771,7 +1792,6 @@ input[type=range] {
     color: #C4C4C4;
     position: relative;
     white-space: nowrap;
-    /* 	margin-bottom: 2rem; */
 }
 
 .time-info__duration::before {
@@ -1779,7 +1799,6 @@ input[type=range] {
     content: "";
     width: 1.9rem;
     height: 1.3rem;
-    /* 	left: 0; */
     top: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
@@ -1787,17 +1806,15 @@ input[type=range] {
     background-size: contain;
 }
 
-/* .time-info__direction-from > .time-info__duration::before, */
 .time-info__duration_reverse::before {
     transform: rotateY(180deg) translateX(50%);
 }
 
 .coach-choice {
-    align-self: flex-start;
+  /*   align-self: flex-start; */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-
+   /*  justify-content: space-between; */
     width: 28%;
     padding: 2.5rem 0 0;
 }
@@ -1899,6 +1916,7 @@ input[type=range] {
     width: 35%;
     margin-left: auto;
     margin-right: 1rem;
+    margin-bottom: 1rem;
 }
 
 .place-selection-button {
@@ -1910,7 +1928,8 @@ input[type=range] {
     background: #FFA800;
     border-radius: 5px;
     padding: 0.5rem 1rem;
-    margin: 1.3rem 1rem;
+    margin: 2rem 1rem;
+    margin-top: auto;
 }
 
 .place-selection-button:hover {

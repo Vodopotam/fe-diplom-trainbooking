@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, withRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import 'react-tabs/style/react-tabs.css';
 import 'react-input-range/lib/css/index.css';
 import 'slick-carousel/slick/slick.css';
@@ -15,30 +15,47 @@ import OrderSubmition from './js/Pages/OrderSubmition';
 import OrderDone from './js/Pages/OrderDone';
 import Header from './js/Components/Header.js';
 import Footer from './js/Components/Footer.js';
+import { getData } from './js/data.js';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cityFrom: {
-        name: '',
-        id: '',
-      },
-      cityTo: {
-        name: '',
-        id: '',
-      },
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            cityFrom: {
+                name: '',
+                id: '',
+            },
+            cityTo: {
+                name: '',
+                id: '',
+            },
+            tickets: [],
+            quantity: ''
+        };
+    }
 
-  render() {
-    console.log(this.state.cityFrom);
-    return (
-      <BrowserRouter basename="/fe-diplom-trainbooking">
+    getTickets = async () => {
+    const addData = await getData(
+            `routes?from_city_id=${this.state.cityFrom.id}&to_city_id=${this.state.cityTo.id}`
+        ).then(result => {
+          console.log(result)
+            this.setState({
+                tickets: result.items || [],
+                quantity: result.total_count ? result.total_count : 0,
+            });
+        });
+        console.log(this.state.tickets)
+    }
+
+    render() {
+        console.log(localStorage);
+        return (
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div>
           <Header
             {...this.props}
             {...this.state}
+            getTickets={this.getTickets}
             // findCityTo={this.findCityTo}
             // findCityFrom={this.findCityFrom}
           />
@@ -56,8 +73,8 @@ class App extends React.Component {
           <Footer />
         </div>
       </BrowserRouter>
-    );
-  }
+        );
+    }
 }
 
 export default App;

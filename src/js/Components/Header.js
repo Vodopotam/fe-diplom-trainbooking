@@ -4,82 +4,93 @@ import { withRouter } from 'react-router-dom';
 import { getData } from '../data.js';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputTo = React.createRef();
-    this.inputFrom = React.createRef();
-    this.direction = React.createRef();
-    this.getCityFrom = this.getCityFrom.bind(this);
-    this.getCityTo = this.getCityTo.bind(this);
-    this.changeDirection = this.changeDirection.bind(this);
-    this.findCityTo = this.findCityTo.bind(this);
-    this.findCityFrom = this.findCityFrom.bind(this);
-    this.searchTickets = this.searchTickets.bind(this);
-    this.state = {
-      citiesTo: [],
-      citiesFrom: [],
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.inputTo = React.createRef();
+        this.inputFrom = React.createRef();
+        this.direction = React.createRef();
+        this.dateFrom = React.createRef();
+        this.dateTo = React.createRef();
+        this.getCityFrom = this.getCityFrom.bind(this);
+        this.getCityTo = this.getCityTo.bind(this);
+        this.changeDirection = this.changeDirection.bind(this);
+        this.findCityTo = this.findCityTo.bind(this);
+        this.findCityFrom = this.findCityFrom.bind(this);
+        this.searchTickets = this.searchTickets.bind(this);
+        this.state = {
+            citiesTo: [],
+            citiesFrom: [],
+        };
+    }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
 
-  findCityFrom() {
-    let str = this.inputFrom.current.value.toLowerCase();
-    getData(`routes/cities?name=${str}`).then(result => {
-      this.setState({
-        citiesFrom: result,
-      });
-    });
-  }
+    findCityFrom() {
+        let str = this.inputFrom.current.value.toLowerCase();
+        getData(`routes/cities?name=${str}`).then(result => {
+            this.setState({
+                citiesFrom: result,
+            });
+        });
+    }
 
-  getCityFrom(event) {
-    this.inputFrom.current.value = event.target.innerText;
-    this.props.cityFrom.name = event.target.innerText;
-    this.props.cityFrom.id = event.target.dataset.id;
-    this.setState({ citiesFrom: [] });
-  }
+    getCityFrom(event) {
+        this.inputFrom.current.value = event.target.innerText;
+        this.props.cityFrom.name = event.target.innerText;
+        this.props.cityFrom.id = event.target.dataset.id;
+        this.setState({ citiesFrom: [] });
+    }
 
-  findCityTo() {
-    let str = this.inputTo.current.value.toLowerCase();
-    getData(`routes/cities?name=${str}`).then(result => {
-      this.setState({
-        citiesTo: result,
-      });
-    });
-  }
+    findCityTo() {
+        let str = this.inputTo.current.value.toLowerCase();
+        getData(`routes/cities?name=${str}`).then(result => {
+            this.setState({
+                citiesTo: result,
+            });
+        });
+    }
 
-  getCityTo(event) {
-    this.inputTo.current.value = event.target.innerText;
-    this.props.cityTo.name = event.target.innerText;
-    this.props.cityTo.id = event.target.dataset.id;
-    this.setState({ citiesTo: [] });
-  }
+    getCityTo(event) {
+        this.inputTo.current.value = event.target.innerText;
+        this.props.cityTo.name = event.target.innerText;
+        this.props.cityTo.id = event.target.dataset.id;
+        this.setState({ citiesTo: [] });
+    }
 
-  changeDirection() {
-    let inputToText = this.inputTo.current.value;
-    let inputFromText = this.inputFrom.current.value;
-    this.inputFrom.current.value = inputToText;
-    this.inputTo.current.value = inputFromText;
-  }
+    changeDirection() {
+        let inputToText = this.inputTo.current.value;
+        let inputFromText = this.inputFrom.current.value;
+        this.inputFrom.current.value = inputToText;
+        this.inputTo.current.value = inputFromText;
+    }
 
-  searchTickets() {
-    console.log('search');
-    getData(
-      `routes?from_city_id=${this.props.cityFrom.id}&to_city_id=${this.props.cityTo.id}`
-    ).then(result => {
-      this.setState({
-        citiesTo: result,
-      });
-    });
-  }
+    searchTickets() {
+        // getData(
+        //     `routes?from_city_id=${this.props.cityFrom.id}&to_city_id=${this.props.cityTo.id}`
+        // ).then(result => {
+        //     this.setState({
+        //         citiesTo: result,
+        //     });
+        // });
+        this.props.getTickets();
+        localStorage.setItem('cityFrom', this.inputFrom.current.value);
+        localStorage.setItem('cityTo', this.inputTo.current.value);
+    }
 
-  render() {
-    const { citiesTo, citiesFrom } = this.state;
-    if (!citiesTo || !citiesFrom) return;
-    return (
-      <header
+    render() {
+        var curr = new Date();
+        var next = new Date()
+        next.setDate(curr.getDate() + 1);
+        var dateTo = curr.toISOString().substr(0, 10);
+        var dateFrom = next.toISOString().substr(0, 10);
+
+        const { citiesTo, citiesFrom } = this.state;
+        if (!citiesTo || !citiesFrom) return;
+
+        return (
+            <header
         className={`header ${
           window.location.pathname === '/' ? '' : 'header__trainselection'
         }
@@ -237,6 +248,8 @@ class Header extends React.Component {
                 <h3 className="header-form-title">Дата</h3>
                 <div className="header-form-input__from">
                   <input
+                    ref={this.dateTo}
+                    defaultValue={dateTo}
                     className="header-form-input"
                     type="date"
                     name="arrival"
@@ -244,6 +257,8 @@ class Header extends React.Component {
                 </div>
                 <div className="header-form-input__from">
                   <input
+                    ref={this.dateFrom}
+                    defaultValue={dateFrom}
                     className="header-form-input"
                     type="date"
                     name="departure"
@@ -261,8 +276,8 @@ class Header extends React.Component {
           ) : null}
         </div>
       </header>
-    );
-  }
+        );
+    }
 }
 
 export default withRouter(Header);

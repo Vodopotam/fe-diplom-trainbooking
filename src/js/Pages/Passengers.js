@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../js/Components/Header.js';
 import SideBar from '../../js/Components/SideBar.js';
 import Passenger from '../../js/Components/Passenger.js';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../js/Components/Header.js';
 
 class OrderSubmition extends React.Component {
   constructor(props) {
