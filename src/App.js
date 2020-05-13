@@ -18,52 +18,72 @@ import Footer from './js/Components/Footer.js';
 import { getData } from './js/data.js';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cityFrom: {
-                name: '',
-                id: '',
-            },
-            cityTo: {
-                name: '',
-                id: '',
-            },
-            tickets: [],
-            quantity: ''
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      cityFrom: {
+        name: '',
+        id: '',
+      },
+      cityTo: {
+        name: '',
+        id: '',
+      },
+      tickets: [],
+      quantity: '',
+      pages: '',
+      loading: false,
+      trainInfo: JSON.parse(sessionStorage.trainInfo),
+    };
+  }
 
-    getTickets = async () => {
-    const addData = await getData(
-            `routes?from_city_id=${this.state.cityFrom.id}&to_city_id=${this.state.cityTo.id}`
-        ).then(result => {
-          console.log(result)
-            this.setState({
-                tickets: result.items || [],
-                quantity: result.total_count ? result.total_count : 0,
-            });
-        });
-        console.log(this.state.tickets)
+  componentDidMount() {
+    if (sessionStorage.trainInfo === undefined) {
+      sessionStorage.trainInfo = JSON.stringify({});
     }
+  }
 
-    render() {
-        console.log(localStorage);
-        return (
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+  getTickets = async (sortBy = 'duration', limit = 5, offset = 0, filters) => {
+    this.setState({ loading: true });
+    await getData(
+      `routes?from_city_id=${this.state.cityFrom.id}&to_city_id=${this.state.cityTo.id}&sort=${sortBy}&limit=${limit}&offset=${offset}&${filters}`
+    ).then(result => {
+      this.setState({
+        tickets: result.items || [],
+        quantity: result.total_count ? result.total_count : 0,
+        loading: false,
+      });
+    });
+    await this.setState({
+      pages: Math.ceil(this.state.quantity / limit),
+    });
+  };
+
+  render() {
+    console.log(this.state);
+    return (
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div>
           <Header
             {...this.props}
             {...this.state}
             getTickets={this.getTickets}
-            // findCityTo={this.findCityTo}
-            // findCityFrom={this.findCityFrom}
           />
           <Switch>
             <Route path="/trainselection/">
-              <TrainSelection {...this.props} {...this.state} />
+              <TrainSelection
+                {...this.props}
+                {...this.state}
+                getTickets={this.getTickets}
+              />
             </Route>
-            <Route path="/placeselection/" component={PlaceSelection} />
+            <Route path="/placeselection/">
+              <PlaceSelection
+                {...this.props}
+                {...this.state}
+                component={PlaceSelection}
+              />
+            </Route>
             <Route path="/passengers/" component={Passengers} />
             <Route path="/payment/" component={Payment} />
             <Route path="/order-submition/" component={OrderSubmition} />
@@ -73,8 +93,8 @@ class App extends React.Component {
           <Footer />
         </div>
       </BrowserRouter>
-        );
-    }
+    );
+  }
 }
 
 export default App;

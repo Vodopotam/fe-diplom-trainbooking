@@ -1,25 +1,59 @@
 import React from 'react';
 import InputRange from 'react-input-range';
-// import { Link } from 'react-router-dom';
+import LastTickets from './LastTickets.js';
 
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
-    // this.inputMin = React.createRef();
-    // this.inputMax = React.createRef();
-    // this.priceSlider = React.createRef();
     this.directionToBlock = React.createRef();
     this.directionFromBlock = React.createRef();
     this.state = {
       isHiddenBlockTo: true,
       isHiddenBlockFrom: true,
-      valuePrice: { min: 1920, max: 4500 },
+      isFirstClass: false,
+      isSecondClass: false,
+      isThirdClass: false,
+      isFourthClass: false,
+      isWifi: false,
+      isExpress: false,
+      filters: {},
+      valuePrice: { min: 500, max: 5000 },
       valueTimeToDepature: { min: 0, max: 11 },
       valueTimeToArrival: { min: 0, max: 24 },
       valueTimeFromDeparture: { min: 0, max: 24 },
       valueTimeFromArrival: { min: 0, max: 24 },
     };
   }
+
+  setFilters = () => {
+    const filters = `price_from=${this.state.valuePrice.min}&price_to=${
+      this.state.valuePrice.max
+    }&${this.state.isFirstClass ? '&have_first_class=true' : ''}${
+      this.state.isSecondClass ? '&have_second_class=true' : ''
+    }${this.state.isThirdClass ? '&have_third_class=true' : ''}${
+      this.state.isFourthClass ? '&have_fourth_class=true' : ''
+    }${this.state.isWifi ? '&have_wifi=true' : ''}${
+      this.state.isExpress ? '&is_express=true' : ''
+    }`;
+    this.props.setFilters(filters);
+    this.props.getTickets(
+      this.props.sortBy,
+      this.props.limit,
+      this.props.offset,
+      filters
+    );
+  };
+
+  handleFilters = async e => {
+    const { target } = e;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
+    console.log(this.state);
+    await this.setState({
+      [name]: value,
+    });
+    this.setFilters();
+  };
 
   changeIconBlockTo(item) {
     item.classList.toggle('hidden');
@@ -36,6 +70,7 @@ class SideBar extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <aside className="aside-block">
         <div className="trip-options">
@@ -44,6 +79,7 @@ class SideBar extends React.Component {
               Дата поездки
               <br />
               <input
+                defaultValue={this.props.trainInfo.dateTo}
                 className="aside-date-form__input"
                 type="date"
                 name="date"
@@ -53,6 +89,7 @@ class SideBar extends React.Component {
               Дата возвращения
               <br />
               <input
+                defaultValue={this.props.trainInfo.dateFrom}
                 className="aside-date-form__input"
                 type="date"
                 name="date"
@@ -63,48 +100,66 @@ class SideBar extends React.Component {
           <form className="aside-options-choice" action="#">
             <label className="aside-options-choice__label">
               <input
+                name="isFirstClass"
                 type="checkbox"
                 className="aside-options-choice__checkbox"
-              />
-              <span className="aside-options-choice__text">Купе</span>
-            </label>
-
-            <label className="aside-options-choice__label">
-              <input
-                type="checkbox"
-                className="aside-options-choice__checkbox"
-              />
-              <span className="aside-options-choice__text">Плацкарт</span>
-            </label>
-
-            <label className="aside-options-choice__label">
-              <input
-                type="checkbox"
-                className="aside-options-choice__checkbox"
-              />
-              <span className="aside-options-choice__text">Сидячий</span>
-            </label>
-
-            <label className="aside-options-choice__label">
-              <input
-                type="checkbox"
-                className="aside-options-choice__checkbox"
+                checked={this.state.isFirstClass}
+                onChange={this.handleFilters}
               />
               <span className="aside-options-choice__text">Люкс</span>
             </label>
 
             <label className="aside-options-choice__label">
               <input
+                name="isSecondClass"
                 type="checkbox"
                 className="aside-options-choice__checkbox"
+                checked={this.state.isSecondClass}
+                onChange={this.handleFilters}
+              />
+              <span className="aside-options-choice__text">Купе</span>
+            </label>
+
+            <label className="aside-options-choice__label">
+              <input
+                name="isThirdClass"
+                type="checkbox"
+                className="aside-options-choice__checkbox"
+                checked={this.state.isThirdClass}
+                onChange={this.handleFilters}
+              />
+              <span className="aside-options-choice__text">Плацкарт</span>
+            </label>
+
+            <label className="aside-options-choice__label">
+              <input
+                name="isFourthClass"
+                type="checkbox"
+                className="aside-options-choice__checkbox"
+                checked={this.state.isFourthClass}
+                onChange={this.handleFilters}
+              />
+              <span className="aside-options-choice__text">Сидячий</span>
+            </label>
+
+            <label className="aside-options-choice__label">
+              <input
+                name="isWifi"
+                type="checkbox"
+                className="aside-options-choice__checkbox"
+                checked={this.state.isWifi}
+                onChange={this.handleFilters}
               />
               <span className="aside-options-choice__text">Wi-Fi</span>
             </label>
 
             <label className="aside-options-choice__label">
               <input
+                name="isExpress"
                 type="checkbox"
                 className="aside-options-choice__checkbox"
+                checked={this.state.isExpress}
+                onChange={this.handleFilters}
               />
               <span className="aside-options-choice__text">Экспресс</span>
             </label>
@@ -115,12 +170,13 @@ class SideBar extends React.Component {
 
             <InputRange
               draggableTrack
-              maxValue={7000}
-              minValue={1920}
+              maxValue={5000}
+              minValue={500}
               formatLabel={value => `${value}`}
               step={100}
               value={this.state.valuePrice}
               onChange={value => this.setState({ valuePrice: value })}
+              onChangeComplete={this.setFilters}
             />
           </form>
 
@@ -216,105 +272,7 @@ class SideBar extends React.Component {
           </div>
         </div>
 
-        <div className="last-tickets">
-          <h4 className="last-tickets__title">Последние билеты</h4>
-
-          <div className="last-ticket">
-            <div className="last-ticket__top">
-              <div className="last-ticket__from">
-                <p className="last-ticket__from-city">Санкт-Петербург</p>
-                <p className="last-ticket__from-station">
-                  Курский
-                  <br />
-                  вокзал
-                </p>
-              </div>
-              <div className="last-ticket__to">
-                <p className="last-ticket__to-city">Самара</p>
-                <p className="last-ticket__to-station">
-                  Московский
-                  <br />
-                  вокзал
-                </p>
-              </div>
-            </div>
-            <div className="last-ticket__bottom">
-              <ul className="ticket-options">
-                <li className="ticket-options__wifi"></li>
-                <li className="ticket-options__speed"></li>
-                <li className="ticket-options__comfort"></li>
-              </ul>
-              <p className="last-ticket__price">
-                от <span className="last-ticket__price-number">2 500</span>{' '}
-                <span className="last-ticket__price-currency">&#x20bd;</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="last-ticket">
-            <div className="last-ticket__top">
-              <div className="last-ticket__from">
-                <p className="last-ticket__from-city">Москва</p>
-                <p className="last-ticket__from-station">
-                  Курский
-                  <br />
-                  вокзал
-                </p>
-              </div>
-              <div className="last-ticket__to">
-                <p className="last-ticket__to-city">Казань</p>
-                <p className="last-ticket__to-station">
-                  Московский
-                  <br />
-                  вокзал
-                </p>
-              </div>
-            </div>
-            <div className="last-ticket__bottom">
-              <ul className="ticket-options">
-                <li className="ticket-options__wifi"></li>
-                <li className="ticket-options__speed"></li>
-                <li className="ticket-options__comfort"></li>
-              </ul>
-              <p className="last-ticket__price">
-                от <span className="last-ticket__price-number">3 500</span>{' '}
-                <span className="last-ticket__price-currency">&#x20bd;</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="last-ticket">
-            <div className="last-ticket__top">
-              <div className="last-ticket__from">
-                <p className="last-ticket__from-city">Казань</p>
-                <p className="last-ticket__from-station">
-                  Курский
-                  <br />
-                  вокзал
-                </p>
-              </div>
-              <div className="last-ticket__to">
-                <p className="last-ticket__to-city">Нижний Новгород</p>
-                <p className="last-ticket__to-station">
-                  Московский
-                  <br />
-                  вокзал
-                </p>
-              </div>
-            </div>
-            <div className="last-ticket__bottom">
-              <ul className="ticket-options">
-                <li className="ticket-options__wifi"></li>
-                <li className="ticket-options__speed"></li>
-                <li className="ticket-options__comfort"></li>
-              </ul>
-              <p className="last-ticket__price">
-                от <span className="last-ticket__price-number">3 800</span>{' '}
-                <span className="last-ticket__price-currency">&#x20bd;</span>
-              </p>
-            </div>
-          </div>
-        </div>
+        <LastTickets />
       </aside>
     );
   }

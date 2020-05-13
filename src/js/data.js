@@ -1,4 +1,4 @@
-export function getData(url, type = 'GET', body) {
+export const getData = async (url, type = 'GET') => {
   const params = {};
   // if (type === 'POST') {
   //   params.body = JSON.stringify(body);
@@ -6,12 +6,16 @@ export function getData(url, type = 'GET', body) {
   //   params.method = 'POST';
   // }
 
-  return fetch(`https://netology-trainbooking.herokuapp.com/${url}`, params)
+  return await fetch(
+    `https://netology-trainbooking.herokuapp.com/${url}`,
+    params
+  )
     .then(res => {
       if (res.status >= 200 && res.status < 300) {
+        console.log(url);
         return res.json();
       }
       throw new Error(res.statusText);
     })
     .catch(err => console.log(err));
-}
+};

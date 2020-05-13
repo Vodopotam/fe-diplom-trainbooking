@@ -39,7 +39,7 @@ class PlaceSelection extends React.Component {
             </li>
           </ul>
           <div className="wrapper">
-            <SideBar />
+            <SideBar {...this.props} {...this.state} />
 
             <main className="main-block">
               <h4 className="placeselection_header">Выбор мест</h4>

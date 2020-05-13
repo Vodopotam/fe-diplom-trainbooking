@@ -88,7 +88,7 @@ input::placeholder,
 textarea::placeholder {
     font-size: 1.1rem;
     line-height: 1.15;
-    color: #E5E5E5;
+   /*  color: #E5E5E5; */
 }
 
 input:focus::-webkit-input-placeholder {
@@ -224,7 +224,7 @@ input[type='date']:focus {
 }
 
 .logo {
-    margin-left: 13.5%;
+    margin-left: 11%;
     display: block;
     font-style: normal;
     font-weight: 900;
@@ -321,6 +321,11 @@ input[type='date']:focus {
     position: relative;
 }
 
+.aside-date-form .header-form-input__from,
+.aside-date-form .header-form-input__to {
+	width: 92%;
+}
+
 .header-form-input,
 .header-form-input:focus,
 .header-form-input:active {
@@ -347,7 +352,7 @@ input[name="arrival"],
 input[name="departure"] {
     background: #FFFFFF url('../img/home/input_icon_date.png') no-repeat 95% center;
     background-size: 8%;
-    color: #E5E5E5;
+  /*   color: #E5E5E5; */
     z-index: 100;
 }
 
@@ -362,12 +367,16 @@ input[name="departure"] {
 
 .form-input-cities-item {
 	width: 100%;
-	background: #000000;
+	background-color: #000000;
     padding: 0.9rem;
     font-size: 1.3rem;
     line-height: 1.9rem;
     color: #ffffff;
     cursor: pointer;
+}
+
+.form-input-cities-item:hover {
+	background-color: #36342f;
 }
 
 .direction-update {
@@ -1472,6 +1481,7 @@ input[type=range] {
     font-size: 1.25rem;
     line-height: 1.4rem;
     color: #292929;
+    text-transform: capitalize;
 }
 
 .last-ticket__to-city,
@@ -1667,10 +1677,23 @@ input[type=range] {
     width: 25%;
     display: flex;
     justify-content: space-evenly;
-    margin-left: 2rem;
+    margin-left: 3rem;
 }
 
-.results-quantity__radio:checked+.results-quantity__text {
+.results-quantity-list {
+ display: flex;
+}
+
+.results-quantity-list li {
+	cursor: pointer;
+	margin-right: 0.8rem;
+}
+
+.results-quantity-list li:last-child{
+	margin-right: 0;
+}
+
+.results-quantity-list li.active {
     color: #3E3C41;
 }
 
@@ -1978,7 +2001,8 @@ input[type=range] {
     cursor: pointer;
 }
 
-.pagination-pages>li {
+.pagination-pages> .pagination-page{
+	cursor: pointer;
     border: 2px solid #C4C4C4;
     border-radius: 5px;
     font-weight: bold;
@@ -1989,12 +2013,12 @@ input[type=range] {
     margin-right: 2rem;
 }
 
-.pagination-pages>li:hover {
+.pagination-pages>.pagination-page:hover {
     border-color: #FFA800;
     color: #FFA800;
 }
 
-.pagination-pages>li.active {
+.pagination-pages>.pagination-page.active {
     background: #FFA800;
     color: #ffffff;
     border-color: transparent;
@@ -3920,7 +3944,7 @@ select:focus {
 
 .loader-img {
     width: 100%;
-    height: 30rem;
+    height: 100%;
 }
 
 .trainselection>.header_form input[type="submit"].loader-submit {

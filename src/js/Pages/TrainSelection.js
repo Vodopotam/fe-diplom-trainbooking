@@ -1,14 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment } from 'react';
 import SideBar from '../../js/Components/SideBar.js';
 import { Ticket } from '../../js/Components/Ticket.js';
-import { getData } from '../../js/data.js';
+import { Loader } from '../../js/Components/Loader.js';
+import Pagination from '../../js/Components/Pagination.js';
 
 class TrainSelection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
+      sortBy: 'duration',
+      limit: 5,
+      offset: 0,
+      currentPage: 1,
+      filters: '',
     };
   }
 
@@ -16,809 +20,177 @@ class TrainSelection extends React.Component {
     window.scrollTo(0, 0);
   }
 
+  setSortBy = async event => {
+    await this.setState({
+      sortBy: event.target.value,
+      currentPage: 1,
+    });
+    this.props.getTickets(
+      this.state.sortBy,
+      this.state.limit,
+      this.state.filters
+    );
+  };
+
+  setLimit = async event => {
+    await this.setState({
+      limit: event.target.dataset.limit,
+      currentPage: 1,
+    });
+    this.props.getTickets(
+      this.state.sortBy,
+      this.state.limit,
+      this.state.filters
+    );
+  };
+
+  setPage = async page => {
+    window.scrollTo(0, 0);
+    await this.setState({
+      offset: this.state.limit * (page - 1),
+      currentPage: page,
+    });
+    this.props.getTickets(
+      this.state.sortBy,
+      this.state.limit,
+      this.state.offset,
+      this.state.filters
+    );
+  };
+
+  setFilters = filters => {
+    this.setState({
+      filters: filters,
+      currentPage: 1,
+      offset: 0,
+    });
+  };
 
   render() {
-    const { loading } = this.state;
-    const { tickets, quantity } = this.props;
+    const { currentPage, filters } = this.state;
+    const { tickets, quantity, pages, loading } = this.props;
+    console.log(sessionStorage);
     return (
       <div className="content">
-        {loading ? (
-          <div className="main-information loader">
-            <div className="wrapper">
-              <p className="loader-text">Идет поиск</p>
-              <img
-                src={require('../../img/loader.gif')}
-                className="loader-img"
-                alt="loader"
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="main-information">
-            <ul className="order-navigation">
-              <li className="order-navigation__list active">
-                <span></span>
-                <p className="order-navigation__text">Билеты</p>
-              </li>
-              <li className="order-navigation__list">
-                <span></span>
-                <p className="order-navigation__text">Пассажиры</p>
-              </li>
-              <li className="order-navigation__list">
-                <span></span>
-                <p className="order-navigation__text">Оплата</p>
-              </li>
-              <li className="order-navigation__list">
-                <span></span>
-                <p className="order-navigation__text">Проверка</p>
-              </li>
-            </ul>
-            <div className="wrapper">
-              <SideBar />
+        <div className="main-information">
+          <ul className="order-navigation">
+            <li className="order-navigation__list active">
+              <span></span>
+              <p className="order-navigation__text">Билеты</p>
+            </li>
+            <li className="order-navigation__list">
+              <span></span>
+              <p className="order-navigation__text">Пассажиры</p>
+            </li>
+            <li className="order-navigation__list">
+              <span></span>
+              <p className="order-navigation__text">Оплата</p>
+            </li>
+            <li className="order-navigation__list">
+              <span></span>
+              <p className="order-navigation__text">Проверка</p>
+            </li>
+          </ul>
+          <div className="wrapper">
+            <SideBar
+              {...this.props}
+              {...this.state}
+              setFilters={this.setFilters}
+            />
 
-              <main className="main-block">
-                <div className="results">
-                  <div className="results-found">
-                    найдено{' '}
-                    <span className="results-found__number">
-                      {quantity}
-                    </span>
-                  </div>
+            <main className="main-block">
+              {loading ? (
+                <Loader />
+              ) : (
+                <Fragment>
+                  <div className="results">
+                    <div className="results-found">
+                      найдено{' '}
+                      <span className="results-found__number">{quantity}</span>
+                    </div>
 
-                  <div className="results-sortby">
-                    <p className="results-sortby__text">сортировать по: </p>
-                    <select className="sort-by__selection" tabIndex="1">
-                      <option className="results-sortby__label" value="time">
-                        времени
-                      </option>
-                      <option className="results-sortby__label" value="price">
+                    <div className="results-sortby">
+                      <p className="results-sortby__text">сортировать по: </p>
+                      <select
+                        className="sort-by__selection"
+                        onChange={this.setSortBy}
+                        value={this.state.sortBy}
+                      >
+                        <option className="results-sortby__label" value="date">
+                          времени
+                        </option>
+                        {
+                          //Selection by price doesn't work
+                          /*<option className="results-sortby__label" value="price">
                         стоимости
-                      </option>
-                      <option
-                        className="results-sortby__label"
-                        value="duration"
-                      >
-                        длительности
-                      </option>
-                    </select>
-                  </div>
-                  {/*<div className="sort-by__selection" tabIndex="1" 
-										onChange={this.sortBy} 
-										ref={elem => this.select = elem}>
-								  <input className="results-sortby__input" name="select" type="radio" id="opt1" value="time" />
-								  <label htmlFor="opt1" className="results-sortby__label">времени</label>
-								  <input className="results-sortby__input" name="select" type="radio" id="opt2" value="price" />
-								  <label htmlFor="opt2" className="results-sortby__label">стоимости</label>
-								  <input className="results-sortby__input" name="select" type="radio" id="opt3" value="duration" />
-								  <label htmlFor="opt3" className="results-sortby__label">длительности</label>
-								</div>
-							</div> */}
-
-                  <form className="results-quantity">
-                    <p className="">показывать по:</p>
-                    <label>
-                      <input
-                        className="results-quantity__radio"
-                        type="radio"
-                        name="quantity"
-                      />
-                      <span className="results-quantity__text">5</span>
-                    </label>
-                    <label>
-                      <input
-                        className="results-quantity__radio"
-                        type="radio"
-                        name="quantity"
-                      />
-                      <span className="results-quantity__text">10</span>
-                    </label>
-                    <label>
-                      <input
-                        className="results-quantity__radio"
-                        type="radio"
-                        name="quantity"
-                      />
-                      <span className="results-quantity__text">20</span>
-                    </label>
-                  </form>
-                </div>
-
-                <div className="tickets">
-                  {tickets.length > 0
-                    ? tickets.map((ticket, i) => {
-                        return <Ticket key = {ticket._id}
-                        				 {...this.state} 
-                        				{...this.props}
-                        				departure={ticket.departure} />;
-                      })
-                    : null}
-
-                  {/*} <div className="ticket">
-                    <div className="train-info">
-                      <div className="train-info__number">116C</div>
-                      <div className="train-info__direction">
-                        <span className="train-info__direction-left">
-                          Адлер &#8594;
-                        </span>
-                        <br />
-                        Москва &#8594;
-                        <br /> Санкт-Петербург
-                      </div>
+                      </option>*/
+                        }
+                        <option
+                          className="results-sortby__label"
+                          value="duration"
+                        >
+                          длительности
+                        </option>
+                      </select>
                     </div>
-
-                    <div className="time-info">
-                      <div className="time-info__direction-to">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:10</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Курский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration">9 : 42</div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:52</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                      <div className="time-info__direction-from">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:10</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Курский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration time-info__duration_reverse">
-                          9 : 42
-                        </div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:52</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="coach-choice">
-                      <ul className="coaches">
-                        <li className="coaches__sitting coaches_type">
-                          <p className="coaches__name">Сидячий</p>
-                          <div className="coaches__quantity">88</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">1920</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
+                    <div className="results-quantity">
+                      <p className="">показывать по:</p>
+                      <ul className="results-quantity-list">
+                        <li
+                          onClick={this.setLimit}
+                          className={`results-quantity__text ${
+                            this.state.limitAcive ? 'active' : ''
+                          }`}
+                          data-limit="5"
+                        >
+                          5
                         </li>
-                        <li className="coaches__reserved coaches_type">
-                          <p className="coaches__name">Плацкарт</p>
-                          <div className="coaches__quantity">52</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">2530</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
+                        <li
+                          onClick={this.setLimit}
+                          className="results-quantity__text"
+                          data-limit="10"
+                        >
+                          10
                         </li>
-                        <li className="coaches__compartment coaches_type">
-                          <p className="coaches__name">Купе</p>
-                          <ul className="coaches__name-subnames">
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">верхние</div>
-                              <div className="coaches__quantity">19</div>
-                              <div className="coaches__price-number">
-                                2920{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">нижние</div>
-                              <div className="coaches__quantity">5</div>
-                              <div className="coaches__price-number">
-                                3530{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                          </ul>
-                          <div className="coaches__quantity">24</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">3820</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__luxe coaches_type">
-                          <p className="coaches__name">Люкс</p>
-                          <div className="coaches__quantity">15</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">4950</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
+                        <li
+                          onClick={this.setLimit}
+                          className="results-quantity__text"
+                          data-limit="20"
+                        >
+                          20
                         </li>
                       </ul>
-                      <ul className="ticket-options">
-                        <li className="ticket-options__wifi"></li>
-                        <li className="ticket-options__speed"></li>
-                        <li className="ticket-options__comfort"></li>
-                      </ul>
-                      <Link
-                        to="/placeselection/"
-                        className="place-selection-button"
-                      >
-                        Выбрать места
-                      </Link>
                     </div>
                   </div>
 
-                  <div className="ticket">
-                    <div className="train-info">
-                      <div className="train-info__number">020У</div>
-                      <div className="train-info__direction">
-                        Москва &#8594;
-                        <br /> Санкт-Петербург
-                        <br />
-                        &#171;Мегаполис&#187;
-                      </div>
-                    </div>
-
-                    <div className="time-info">
-                      <div className="time-info__direction-to">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:20</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Ленинградский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration">8 : 39</div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">08:59</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Московский вокзал
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="coach-choice">
-                      <ul className="coaches">
-                        <li className="coaches__compartment coaches_type">
-                          <p className="coaches__name">Купе</p>
-                          <ul className="coaches__name-subnames">
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">верхние</div>
-                              <div className="coaches__quantity">19</div>
-                              <div className="coaches__price-number">
-                                2920{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">нижние</div>
-                              <div className="coaches__quantity">5</div>
-                              <div className="coaches__price-number">
-                                3530{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                          </ul>
-                          <div className="coaches__quantity">90</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">3950</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__luxe coaches_type">
-                          <p className="coaches__name">Люкс</p>
-                          <div className="coaches__quantity">31</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">4950</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                      </ul>
-                      <ul className="ticket-options">
-                        <li className="ticket-options__wifi"></li>
-                        <li className="ticket-options__speed"></li>
-                        <li className="ticket-options__comfort"></li>
-                      </ul>
-                      <Link
-                        to="/placeselection/"
-                        className="place-selection-button"
-                      >
-                        Выбрать места
-                      </Link>
-                    </div>
+                  <div className="tickets">
+                    {tickets.length > 0
+                      ? tickets.map((ticket, i) => {
+                          return (
+                            <Ticket
+                              key={ticket._id}
+                              {...this.state}
+                              {...this.props}
+                              departure={ticket.departure}
+                            />
+                          );
+                        })
+                      : null}
                   </div>
 
-                  <div className="ticket">
-                    <div className="train-info">
-                      <div className="train-info__number">116C</div>
-                      <div className="train-info__direction">
-                        <span className="train-info__direction-left">
-                          Нижний Новгород &#8594;
-                        </span>
-                        <br />
-                        Москва &#8594;
-                        <br /> Санкт-Петербург
-                        <br />
-                        &#171;Волга&#187;
-                      </div>
-                    </div>
-
-                    <div className="time-info">
-                      <div className="time-info__direction-to">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:41</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Ленинградский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration">8 : 32</div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:13</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                      <div className="time-info__direction-from">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:41</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Ленинградский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration time-info__duration_reverse">
-                          8 : 32
-                        </div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:13</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="coach-choice">
-                      <ul className="coaches">
-                        <li className="coaches__reserved coaches_type">
-                          <p className="coaches__name">Плацкарт</p>
-                          <div className="coaches__quantity">52</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">2530</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__compartment coaches_type">
-                          <p className="coaches__name">Купе</p>
-                          <ul className="coaches__name-subnames">
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">верхние</div>
-                              <div className="coaches__quantity">19</div>
-                              <div className="coaches__price-number">
-                                2920{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">нижние</div>
-                              <div className="coaches__quantity">5</div>
-                              <div className="coaches__price-number">
-                                3530{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                          </ul>
-                          <div className="coaches__quantity">24</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">3820</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__luxe coaches_type">
-                          <p className="coaches__name">Люкс</p>
-                          <div className="coaches__quantity">15</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">4950</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                      </ul>
-                      <ul className="ticket-options">
-                        <li className="ticket-options__wifi"></li>
-                        <li className="ticket-options__speed"></li>
-                        <li className="ticket-options__comfort"></li>
-                      </ul>
-                      <Link
-                        to="/placeselection/"
-                        className="place-selection-button"
-                      >
-                        Выбрать места
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="ticket">
-                    <div className="train-info">
-                      <div className="train-info__number">116C</div>
-                      <div className="train-info__direction">
-                        <span className="train-info__direction-left">
-                          Адлер &#8594;
-                        </span>
-                        <br />
-                        Москва &#8594;
-                        <br /> Санкт-Петербург
-                      </div>
-                    </div>
-
-                    <div className="time-info">
-                      <div className="time-info__direction-to">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:10</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Курский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration">9 : 42</div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:52</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                      <div className="time-info__direction-from">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:10</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Курский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration time-info__duration_reverse">
-                          9 : 42
-                        </div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:52</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="coach-choice">
-                      <ul className="coaches">
-                        <li className="coaches__sitting coaches_type">
-                          <p className="coaches__name">Сидячий</p>
-                          <div className="coaches__quantity">88</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">1920</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__reserved coaches_type">
-                          <p className="coaches__name">Плацкарт</p>
-                          <div className="coaches__quantity">52</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">2530</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__compartment coaches_type">
-                          <p className="coaches__name">Купе</p>
-                          <ul className="coaches__name-subnames">
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">верхние</div>
-                              <div className="coaches__quantity">19</div>
-                              <div className="coaches__price-number">
-                                2920{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">нижние</div>
-                              <div className="coaches__quantity">5</div>
-                              <div className="coaches__price-number">
-                                3530{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                          </ul>
-                          <div className="coaches__quantity">24</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">3820</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__luxe coaches_type">
-                          <p className="coaches__name">Люкс</p>
-                          <div className="coaches__quantity">15</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">4950</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                      </ul>
-                      <ul className="ticket-options">
-                        <li className="ticket-options__wifi"></li>
-                        <li className="ticket-options__speed"></li>
-                        <li className="ticket-options__comfort"></li>
-                      </ul>
-                      <Link
-                        to="/placeselection/"
-                        className="place-selection-button"
-                      >
-                        Выбрать места
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="ticket">
-                    <div className="train-info">
-                      <div className="train-info__number">116C</div>
-                      <div className="train-info__direction">
-                        <span className="train-info__direction-left">
-                          Адлер &#8594;
-                        </span>
-                        <br />
-                        Москва &#8594;
-                        <br /> Санкт-Петербург
-                      </div>
-                    </div>
-
-                    <div className="time-info">
-                      <div className="time-info__direction-to">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:10</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Курский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration">9 : 42</div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:52</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                      <div className="time-info__direction-from">
-                        <div className="time-info__departure">
-                          <div className="time-info__departure-time">00:10</div>
-                          <div className="time-info__departure-city">
-                            Москва
-                          </div>
-                          <div className="time-info__departure-station">
-                            Курский вокзал
-                          </div>
-                        </div>
-                        <div className="time-info__duration time-info__duration_reverse">
-                          9 : 42
-                        </div>
-                        <div className="time-info__arrival">
-                          <div className="time-info__arrival-time">09:52</div>
-                          <div className="time-info__arrival-city">
-                            Санкт-Петербург
-                          </div>
-                          <div className="time-info__arrival-station">
-                            Ладожский вокзал
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="coach-choice">
-                      <ul className="coaches">
-                        <li className="coaches__sitting coaches_type">
-                          <p className="coaches__name">Сидячий</p>
-                          <div className="coaches__quantity">88</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">1920</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__reserved coaches_type">
-                          <p className="coaches__name">Плацкарт</p>
-                          <div className="coaches__quantity">52</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">2530</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__compartment coaches_type">
-                          <p className="coaches__name">Купе</p>
-                          <ul className="coaches__name-subnames">
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">верхние</div>
-                              <div className="coaches__quantity">19</div>
-                              <div className="coaches__price-number">
-                                2920{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                            <li className="coaches__name-subname">
-                              <div className="coaches__name">нижние</div>
-                              <div className="coaches__quantity">5</div>
-                              <div className="coaches__price-number">
-                                3530{' '}
-                                <span className="coaches__price-currency">
-                                  &#x20bd;
-                                </span>
-                              </div>
-                            </li>
-                          </ul>
-                          <div className="coaches__quantity">24</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">3820</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                        <li className="coaches__luxe coaches_type">
-                          <p className="coaches__name">Люкс</p>
-                          <div className="coaches__quantity">15</div>
-                          <div className="coaches__price">
-                            от{' '}
-                            <span className="coaches__price-number">4950</span>{' '}
-                            <span className="coaches__price-currency">
-                              &#x20bd;
-                            </span>
-                          </div>
-                        </li>
-                      </ul>
-                      <ul className="ticket-options">
-                        <li className="ticket-options__wifi"></li>
-                        <li className="ticket-options__speed"></li>
-                        <li className="ticket-options__comfort"></li>
-                      </ul>
-                      <Link
-                        to="/placeselection/"
-                        className="place-selection-button"
-                      >
-                        Выбрать места
-                      </Link>
-                    </div>
-                  </div>*/}
-                </div>
-
-                <div className="pagination">
-                  <div className="angle-back">
-                    <i className="fas fa-chevron-left"></i>
-                  </div>
-                  <ul className="pagination-pages">
-                    <li className="active">
-                      <a href="#">1</a>
-                    </li>
-                    <li>
-                      <a href="#">2</a>
-                    </li>
-                    <li>
-                      <a href="#">3</a>
-                    </li>
-                  </ul>
-                  <div className="angle-forward">
-                    <i className="fas fa-chevron-right"></i>
-                  </div>
-                </div>
-              </main>
-            </div>
+                  {pages ? (
+                    <Pagination
+                      pages={pages}
+                      currentPage={currentPage}
+                      setPage={this.setPage}
+                    />
+                  ) : null}
+                </Fragment>
+              )}
+            </main>
           </div>
-        )}
-        <script type="text/javascript" src="js/TrainSelection.js"></script>{' '}
-        <script
-          defer
-          src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
-          integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-          crossOrigin="anonymous"
-        ></script>{' '}
+        </div>
+        }
       </div>
     );
   }
