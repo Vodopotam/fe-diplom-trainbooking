@@ -17,6 +17,8 @@ import Header from './js/Components/Header.js';
 import Footer from './js/Components/Footer.js';
 import { getData } from './js/data.js';
 
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +35,7 @@ class App extends React.Component {
       quantity: '',
       pages: '',
       loading: false,
-      trainInfo: JSON.parse(sessionStorage.trainInfo),
+      trainInfo: (JSON.parse(sessionStorage.trainInfo) ? JSON.parse(sessionStorage.trainInfo) : {}),
     };
   }
 
