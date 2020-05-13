@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fe-diplom-trainbooking/static/css/main.1bf3fc1f.chunk.css",
-    "main.js": "/fe-diplom-trainbooking/static/js/main.ee9a8805.chunk.js",
-    "main.js.map": "/fe-diplom-trainbooking/static/js/main.ee9a8805.chunk.js.map",
+    "main.js": "/fe-diplom-trainbooking/static/js/main.4758744a.chunk.js",
+    "main.js.map": "/fe-diplom-trainbooking/static/js/main.4758744a.chunk.js.map",
     "runtime-main.js": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js",
     "runtime-main.js.map": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js.map",
     "static/css/2.650c2d42.chunk.css": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css",
-    "static/js/2.18688ca6.chunk.js": "/fe-diplom-trainbooking/static/js/2.18688ca6.chunk.js",
-    "static/js/2.18688ca6.chunk.js.map": "/fe-diplom-trainbooking/static/js/2.18688ca6.chunk.js.map",
+    "static/js/2.d49d1b7a.chunk.js": "/fe-diplom-trainbooking/static/js/2.d49d1b7a.chunk.js",
+    "static/js/2.d49d1b7a.chunk.js.map": "/fe-diplom-trainbooking/static/js/2.d49d1b7a.chunk.js.map",
     "index.html": "/fe-diplom-trainbooking/index.html",
-    "precache-manifest.7568f9a038ba2a621eb377738388ea4d.js": "/fe-diplom-trainbooking/precache-manifest.7568f9a038ba2a621eb377738388ea4d.js",
+    "precache-manifest.1f643406ac7d243a461183528f1f98c4.js": "/fe-diplom-trainbooking/precache-manifest.1f643406ac7d243a461183528f1f98c4.js",
     "service-worker.js": "/fe-diplom-trainbooking/service-worker.js",
     "static/css/2.650c2d42.chunk.css.map": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css.map",
     "static/css/main.1bf3fc1f.chunk.css.map": "/fe-diplom-trainbooking/static/css/main.1bf3fc1f.chunk.css.map",
@@ -24,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.cc827b98.js",
     "static/css/2.650c2d42.chunk.css",
-    "static/js/2.18688ca6.chunk.js",
+    "static/js/2.d49d1b7a.chunk.js",
     "static/css/main.1bf3fc1f.chunk.css",
-    "static/js/main.ee9a8805.chunk.js"
+    "static/js/main.4758744a.chunk.js"
   ]
 }
