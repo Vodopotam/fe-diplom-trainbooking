@@ -28,6 +28,7 @@ class TrainSelection extends React.Component {
     this.props.getTickets(
       this.state.sortBy,
       this.state.limit,
+      this.state.offset,
       this.state.filters
     );
   };
@@ -40,6 +41,7 @@ class TrainSelection extends React.Component {
     this.props.getTickets(
       this.state.sortBy,
       this.state.limit,
+      this.state.offset,
       this.state.filters
     );
   };
@@ -69,7 +71,6 @@ class TrainSelection extends React.Component {
   render() {
     const { currentPage, filters } = this.state;
     const { tickets, quantity, pages, loading } = this.props;
-    console.log(sessionStorage);
     return (
       <div className="content">
         <div className="main-information">
@@ -119,12 +120,7 @@ class TrainSelection extends React.Component {
                         <option className="results-sortby__label" value="date">
                           времени
                         </option>
-                        {
-                          //Selection by price doesn't work
-                          /*<option className="results-sortby__label" value="price">
-                        стоимости
-                      </option>*/
-                        }
+                        {}
                         <option
                           className="results-sortby__label"
                           value="duration"
@@ -168,7 +164,7 @@ class TrainSelection extends React.Component {
                       ? tickets.map((ticket, i) => {
                           return (
                             <Ticket
-                              key={ticket._id}
+                              key={ticket.departure._id}
                               {...this.state}
                               {...this.props}
                               departure={ticket.departure}

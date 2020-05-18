@@ -428,14 +428,29 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     cursor: pointer;
 }
 
-.header-form-submit:active,
-.header-form-submit:focus {
+.header-form-submit:active {
     background: #E5E5E5;
     color: #FFA800;
     border: 1px solid #FFA800;
     padding: 0.6rem;
     border-radius: 5px;
 }
+.header-form-submit__disabled {
+	background: #918F94;
+	color: #ffffff;
+}
+
+.header-prompt {
+/* 	display: none; */
+	position: absolute;
+	bottom: -27%;
+	left: 50%;
+	transform: translateX(50%);
+}
+
+/* .header-prompt.header-prompt__none {
+	display: none;
+} */
 
 .header-form-title {
     padding: 1rem;
@@ -2235,8 +2250,9 @@ input[type=range] {
 }
 
 .placeselection-tickets__adults>.placeselection-tickets__text,
-.placeselection-tickets__children>.placeselection-tickets__text {
-    width: 76%;
+.placeselection-tickets__children>.placeselection-tickets__text,
+.placeselection-tickets__children-without-place>.placeselection-tickets__text {
+    width: 85%;
     margin: 0 auto;
     font-weight: normal;
     font-size: 1rem;
@@ -2348,6 +2364,14 @@ input[type=range] {
     background-size: contain;
 }
 
+.coach-unavailable {
+	width: 100%;
+	margin: 1rem auto 3rem;
+	padding: 1rem 0 1rem 4rem;
+	background-color: rgba(255, 168, 0, 0.44);
+	font-size: 1.5rem;
+}
+
 .coaches-available {
     display: flex;
     justify-content: space-between;
@@ -2367,18 +2391,10 @@ input[type=range] {
     padding: 0.5rem 2rem;
 }
 
-/* .coaches-available__numbers-text {
-	align-self: flex-end;
-} */
-
 .coaches-available__number {
     font-weight: bold;
     font-size: 1.3rem;
     margin-left: 0.5rem;
-}
-
-.coaches-available__number:hover {
-    cursor: pointer;
 }
 
 .coaches-available__number.active {
@@ -2513,15 +2529,15 @@ input[type=range] {
 
 .coach-description__feature.conditioner.active,
 .coach-description__feature.conditioner-paid.active {
-    background: url('../img/placeSelection/conditioner_active.png') no-repeat center center;
-    background-size: contain;
-}
-
-.coach-description__feature.conditioner:hover,
-.coach-description__feature.conditioner-paid:hover {
     background: url('../img/placeSelection/conditioner_hover.png') no-repeat center center;
     background-size: contain;
 }
+
+/* .coach-description__feature.conditioner:hover,
+.coach-description__feature.conditioner-paid:hover {
+    background: url('../img/placeSelection/conditioner_hover.png') no-repeat center center;
+    background-size: contain;
+} */
 
 .coach-description__feature.wifi {
     background: url('../img/placeSelection/wifi.png') no-repeat center center;
@@ -2535,15 +2551,15 @@ input[type=range] {
 
 .coach-description__feature.wifi.active,
 .coach-description__feature.wifi-paid.active {
-    background: url('../img/placeSelection/wifi_active.png') no-repeat center center;
-    background-size: contain;
-}
-
-.coach-description__feature.wifi:hover,
-.coach-description__feature.wifi-paid:hover {
     background: url('../img/placeSelection/wifi_hover.png') no-repeat center center;
     background-size: contain;
 }
+
+/* .coach-description__feature.wifi:hover,
+.coach-description__feature.wifi-paid:hover {
+    background: url('../img/placeSelection/wifi_hover.png') no-repeat center center;
+    background-size: contain;
+} */
 
 .coach-description__feature.clothes {
     background: url('../img/placeSelection/clothes.png') no-repeat center center;
@@ -2557,15 +2573,15 @@ input[type=range] {
 
 .coach-description__feature.clothes.active,
 .coach-description__feature.clothes-paid.active {
-    background: url('../img/placeSelection/clothes_active.png') no-repeat center center;
-    background-size: contain;
-}
-
-.coach-description__feature.clothes:hover,
-.coach-description__feature.clothes-paid:hover {
     background: url('../img/placeSelection/clothes_hover.png') no-repeat center center;
     background-size: contain;
 }
+
+/* .coach-description__feature.clothes:hover,
+.coach-description__feature.clothes-paid:hover {
+    background: url('../img/placeSelection/clothes_hover.png') no-repeat center center;
+    background-size: contain;
+} */
 
 .coach-description__feature.food {
     background: url('../img/placeSelection/food.png') no-repeat center center;
@@ -2579,15 +2595,15 @@ input[type=range] {
 
 .coach-description__feature.food.active,
 .coach-description__feature.food-paid.active {
-    background: url('../img/placeSelection/food_active.png') no-repeat center center;
-    background-size: contain;
-}
-
-.coach-description__feature.food:hover,
-.coach-description__feature.food-paid:hover {
     background: url('../img/placeSelection/food_hover.png') no-repeat center center;
     background-size: contain;
 }
+
+/* .coach-description__feature.food:hover,
+.coach-description__feature.food-paid:hover {
+    background: url('../img/placeSelection/food_hover.png') no-repeat center center;
+    background-size: contain;
+} */
 
 
 .coach-description__feature.conditioner::before,

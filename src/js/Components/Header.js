@@ -8,23 +8,42 @@ class Header extends React.Component {
     super(props);
     this.inputTo = React.createRef();
     this.inputFrom = React.createRef();
+    this.dateTo = React.createRef();
+    this.dateFrom = React.createRef();
     this.direction = React.createRef();
+    this.tip = React.createRef();
+    this.state = {
+      citiesTo: [],
+      citiesFrom: [],
+      cityFrom: {
+        name: '',
+        id: '',
+      },
+      cityTo: {
+        name: '',
+        id: '',
+      },
+    };
     this.getCityFrom = this.getCityFrom.bind(this);
     this.getCityTo = this.getCityTo.bind(this);
     this.changeDirection = this.changeDirection.bind(this);
     this.findCityTo = this.findCityTo.bind(this);
     this.findCityFrom = this.findCityFrom.bind(this);
     this.searchTickets = this.searchTickets.bind(this);
-    this.state = {
-      citiesTo: [],
-      citiesFrom: [],
-      dateTo: new Date().toISOString().substr(0, 10),
-      dateFrom: new Date().toISOString().substr(0, 10),
-    };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.setState({
+      cityFrom: {
+        name: this.props.trainInfo.cityFrom.name,
+        id: this.props.trainInfo.cityFrom.id,
+      },
+      cityTo: {
+        name: this.props.trainInfo.cityTo.name,
+        id: this.props.trainInfo.cityTo.id,
+      },
+    });
   }
 
   findCityFrom() {
@@ -38,8 +57,12 @@ class Header extends React.Component {
 
   getCityFrom(event) {
     this.inputFrom.current.value = event.target.innerText;
-    this.props.cityFrom.name = event.target.innerText;
-    this.props.cityFrom.id = event.target.dataset.id;
+    this.setState({
+      cityFrom: {
+        name: event.target.innerText,
+        id: event.target.dataset.id,
+      },
+    });
     this.setState({ citiesFrom: [] });
   }
 
@@ -54,38 +77,55 @@ class Header extends React.Component {
 
   getCityTo(event) {
     this.inputTo.current.value = event.target.innerText;
-    this.props.cityTo.name = event.target.innerText;
-    this.props.cityTo.id = event.target.dataset.id;
+
+    this.setState({
+      cityTo: {
+        name: event.target.innerText,
+        id: event.target.dataset.id,
+      },
+    });
     this.setState({ citiesTo: [] });
   }
 
   changeDirection() {
-    let inputToText = this.inputTo.current.value;
-    let inputFromText = this.inputFrom.current.value;
-    this.inputFrom.current.value = inputToText;
-    this.inputTo.current.value = inputFromText;
-  }
+    let cityToName = this.props.trainInfo.cityTo.name,
+      cityToId = this.props.trainInfo.cityTo.id,
+      cityFromName = this.props.trainInfo.cityFrom.name,
+      cityFromId = this.props.trainInfo.cityFrom.id;
+    this.inputFrom.current.value = cityToName;
+    this.inputTo.current.value = cityFromName;
 
-  getDateTo = e => {
     this.setState({
-      dateTo: e.target.value,
+      cityFrom: {
+        name: cityToName,
+        id: cityToId,
+      },
+      cityTo: {
+        name: cityFromName,
+        id: cityFromId,
+      },
     });
-  };
-
-  getDateFrom = async e => {
-    await this.setState({
-      dateFrom: e.target.value,
-    });
-  };
-
-  searchTickets() {
-    const trainInfo = {
-      dateFrom: this.state.dateFrom,
-      dateTo: this.state.dateTo,
-    };
-    sessionStorage.setItem('trainInfo', JSON.stringify(trainInfo));
-    this.props.getTickets();
   }
+
+  searchTickets = async e => {
+    if (!(this.state.cityFrom.name && this.state.cityTo.name)) {
+      e.preventDefault();
+    } else {
+      const trainInfo = {
+        dateFrom: this.state.dateFrom,
+        dateTo: this.state.dateTo,
+      };
+      await this.props.setTrainInfo(
+        this.state.cityFrom.name,
+        this.state.cityFrom.id,
+        this.state.cityTo.name,
+        this.state.cityTo.id,
+        this.dateTo.current.value,
+        this.dateFrom.current.value
+      );
+      this.props.getTickets();
+    }
+  };
 
   render() {
     const { citiesTo, citiesFrom, dateTo, dateFrom } = this.state;
@@ -168,7 +208,7 @@ class Header extends React.Component {
               action="TrainSelection.html"
             >
               <div className="direction">
-                <h3 className="header-form-title">Направление</h3>
+                <h3 className="header-form-title">Выберите направление</h3>
                 <div className="header-form-input__from">
                   <input
                     ref={this.inputFrom}
@@ -248,8 +288,8 @@ class Header extends React.Component {
                 <h3 className="header-form-title">Дата</h3>
                 <div className="header-form-input__from">
                   <input
-                    defaultValue={this.props.dateTo}
-                    onChange={this.state.getDateTo}
+                    ref={this.dateTo}
+                    defaultValue={this.props.trainInfo.dateTo}
                     className="header-form-input"
                     type="date"
                     name="arrival"
@@ -257,16 +297,23 @@ class Header extends React.Component {
                 </div>
                 <div className="header-form-input__from">
                   <input
-                    defaultValue={this.props.dateFrom}
-                    onChange={this.state.getDateFrom}
+                    ref={this.dateFrom}
+                    defaultValue={this.props.trainInfo.dateFrom}
                     className="header-form-input"
                     type="date"
                     name="departure"
                   />
                 </div>
               </div>
+
+              <p ref={this.tip} className={'header-prompt'}></p>
+
               <Link
-                className="header-form-submit"
+                className={`header-form-submit ${
+                  !this.state.cityFrom.name || !this.state.cityTo.name
+                    ? 'header-form-submit__disabled'
+                    : ''
+                }`}
                 to="/trainselection/"
                 onClick={this.searchTickets}
               >

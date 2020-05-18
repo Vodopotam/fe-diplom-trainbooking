@@ -12,7 +12,6 @@ export const getData = async (url, type = 'GET') => {
   )
     .then(res => {
       if (res.status >= 200 && res.status < 300) {
-        console.log(url);
         return res.json();
       }
       throw new Error(res.statusText);

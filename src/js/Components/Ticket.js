@@ -85,24 +85,26 @@ export const Ticket = props => {
           {departure.have_second_class ? (
             <li className="coaches__compartment coaches_type">
               <p className="coaches__name">Купе</p>
-              {/*<ul className="coaches__name-subnames">
+              <ul className="coaches__name-subnames">
                 <li className="coaches__name-subname">
                   <div className="coaches__name">верхние</div>
-                  <div className="coaches__quantity">{departure.available_seats_info.second}</div>
+                  <div className="coaches__quantity">
+                    {/*departure.available_seats_info.second*/}
+                  </div>
                   <div className="coaches__price-number">
-                    {departure.price_info.second.bottom_price}{' '}
-                    <span className="coaches__price-currency">&#x20bd;</span>
+                    {departure.price_info.second.top_price}
+                    <span className="coaches__price-currency"> &#x20bd;</span>
                   </div>
                 </li>
                 <li className="coaches__name-subname">
                   <div className="coaches__name">нижние</div>
                   <div className="coaches__quantity"></div>
                   <div className="coaches__price-number">
-                    {' '}
-                    <span className="coaches__price-currency">&#x20bd;</span>
+                    {departure.price_info.second.bottom_price}
+                    <span className="coaches__price-currency"> &#x20bd;</span>
                   </div>
                 </li>
-              </ul>*/}
+              </ul>
               <div className="coaches__quantity">
                 {departure.available_seats_info.second}
               </div>
@@ -125,7 +127,7 @@ export const Ticket = props => {
               <div className="coaches__price">
                 от{' '}
                 <span className="coaches__price-number">
-                  {departure.price_info.first.bottom_price}
+                  {departure.price_info.first.price}
                 </span>{' '}
                 <span className="coaches__price-currency">&#x20bd;</span>
               </div>
@@ -150,7 +152,11 @@ export const Ticket = props => {
             }`}
           ></li>
         </ul>
-        <Link to="/placeselection/" className="place-selection-button">
+        <Link
+          to="/placeselection/"
+          className="place-selection-button"
+          onClick={() => props.setCurrentCoach(departure)}
+        >
           Выбрать места
         </Link>
       </div>

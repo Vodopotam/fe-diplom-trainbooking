@@ -5,6 +5,8 @@ import LastTickets from './LastTickets.js';
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
+    this.dateTo = React.createRef();
+    this.dateFrom = React.createRef();
     this.directionToBlock = React.createRef();
     this.directionFromBlock = React.createRef();
     this.state = {
@@ -70,7 +72,6 @@ class SideBar extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <aside className="aside-block">
         <div className="trip-options">
@@ -79,6 +80,7 @@ class SideBar extends React.Component {
               Дата поездки
               <br />
               <input
+                ref={this.dateTo}
                 defaultValue={this.props.trainInfo.dateTo}
                 className="aside-date-form__input"
                 type="date"
@@ -89,6 +91,7 @@ class SideBar extends React.Component {
               Дата возвращения
               <br />
               <input
+                ref={this.dateFrom}
                 defaultValue={this.props.trainInfo.dateFrom}
                 className="aside-date-form__input"
                 type="date"

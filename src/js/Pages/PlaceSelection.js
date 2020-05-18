@@ -5,18 +5,130 @@ import CoachSitting from '../../js/Components/CoachSitting.js';
 import CoachReserved from '../../js/Components/CoachReserved.js';
 import CoachCompartment from '../../js/Components/CoachCompartment.js';
 import CoachLuxe from '../../js/Components/CoachLuxe.js';
+import Coach from '../../js/Components/Coach.js';
+import { PlacesQuantity } from '../../js/Components/PlacesQuantity.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { getData } from '../data.js';
 
 class PlaceSelection extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      adults: 1,
+      childrenWithPlace: 0,
+      childrenWithoutPlace: 0,
+      coachesInfo: [],
+      coaches: [],
+      currentCoach: '',
+      currentCoachType: '',
+      tabs: ['first', 'second', 'third', 'fourth'],
+      selectedIndex: 0,
+      selectedSeats: [],
+      totalPrice: 0,
+    };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.getSeats();
   }
 
+  getSeats = async () => {
+    await getData(`routes/${this.props.currentCoach._id}/seats`).then(
+      result => {
+        this.setState({
+          coachesInfo: result,
+          coaches: result.filter(
+            el => el.coach.class_type === result[0].coach.class_type
+          ),
+          currentCoach: result[0],
+          currentCoachType: result[0].coach.class_type,
+        });
+      }
+    );
+    this.setCoachTabIndex();
+  };
+
+  setCoachTabIndex = () => {
+    this.setState({
+      selectedIndex: this.state.tabs.indexOf(this.state.currentCoachType),
+    });
+  };
+
+  setCoachType = async e => {
+    if (this.state.currentCoachType !== e.currentTarget.dataset.type) {
+      await this.setState({
+        currentCoachType: e.currentTarget.dataset.type,
+      });
+      await this.setState({
+        coaches: this.state.coachesInfo.filter(
+          el => el.coach.class_type === this.state.currentCoachType
+        ),
+      });
+
+      this.setState({
+        currentCoach: this.state.coaches[0],
+      });
+      this.setCoachTabIndex();
+    }
+  };
+
+  handlePassengersValue = e => {
+    const { target } = e;
+    const value = target.value;
+    const { name } = target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  setSelectedSeats = seat => {
+    const chosenSeat = this.state.selectedSeats.slice();
+    chosenSeat.push(seat);
+    this.setState({
+      selectedSeats: chosenSeat,
+    });
+  };
+
+  deleteSelectedSeats = seat => {
+    const chosenSeat = this.state.selectedSeats.slice();
+    const deletedSeat = chosenSeat.indexOf(seat);
+    chosenSeat.splice(deletedSeat, 1);
+    this.setState({
+      selectedSeats: chosenSeat,
+    });
+  };
+
+  setTotalPrice = (price, totalPrice) => {
+    this.setState({
+      totalPrice: totalPrice + price,
+    });
+  };
+
+  setTransition = e => {
+    const passengers =
+      Number(this.state.adults) +
+      Number(this.state.childrenWithPlace) +
+      Number(this.state.childrenWithoutPlace);
+    if (
+      this.state.selectedSeats.length === 0 &&
+      this.state.selectedSeats.length !== passengers
+    ) {
+      e.preventDefault();
+    }
+  };
+
   render() {
+    if (!this.props.currentCoach._id || !this.state.coachesInfo) return null;
+    const { currentCoach } = this.props,
+      { selectedSeats } = this.state,
+      passengers =
+        Number(this.state.adults) +
+        Number(this.state.childrenWithPlace) +
+        Number(this.state.childrenWithoutPlace),
+      durationHours = Math.floor(currentCoach.duration / 60 / 60),
+      durationMinutes =
+        Math.floor(currentCoach.duration / 60) - durationHours * 60;
     return (
       <div className="content">
         <div className="main-information">
@@ -55,162 +167,83 @@ class PlaceSelection extends React.Component {
                   <div className="placeselection-time-info__direction-to">
                     <div className="train-info train-info_placeselection">
                       <div className="train-info__number train-info__number_placeselection">
-                        116C
+                        {currentCoach.train.name}
                       </div>
                       <div className="train-info__direction">
                         <span className="train-info__direction-left">
-                          Адлер &#8594;
+                          {currentCoach.from.city.name} &#8594;
                         </span>
-                        <br />
-                        Москва &#8594;
-                        <br /> Санкт-Петербург
+                        <br /> {currentCoach.to.city.name}
                       </div>
                     </div>
 
                     <div className="time-info__departure">
-                      <div className="time-info__departure-time">00:10</div>
-                      <div className="time-info__departure-city">Москва</div>
+                      <div className="time-info__departure-time">
+                        {new Date(
+                          currentCoach.from.datetime * 1000
+                        ).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </div>
+                      <div className="time-info__departure-city">
+                        {currentCoach.from.city.name}
+                      </div>
                       <div className="time-info__departure-station">
-                        Курский вокзал
+                        {currentCoach.from.railway_station_name} вокзал
                       </div>
                     </div>
                     <div className="time-info__duration time-info__duration_placeselection"></div>
                     <div className="time-info__arrival">
-                      <div className="time-info__arrival-time">09:52</div>
+                      <div className="time-info__arrival-time">
+                        {new Date(
+                          currentCoach.to.datetime * 1000
+                        ).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </div>
                       <div className="time-info__arrival-city">
-                        Санкт-Петербург
+                        {currentCoach.to.city.name}
                       </div>
                       <div className="time-info__arrival-station">
-                        Ладожский вокзал
+                        {currentCoach.to.railway_station_name} вокзал
                       </div>
                     </div>
                     <div className="time-info-duration-placeselection">
-                      9 часов
-                      <br />
-                      42 минуты
+                      {`${durationHours} ч : ${durationMinutes} мин`}
                     </div>
                   </div>
 
-                  <h4 className="placeselection-train-info__header">
-                    Количество билетов
-                  </h4>
-
-                  <ul className="placeselection-tickets">
-                    <li className="placeselection-tickets__adults">
-                      <div className="placeselection-tickets__total">
-                        <label className="placeselection-tickets__total-label">
-                          Взрослых
-                        </label>
-                        <input
-                          type="number"
-                          min="0"
-                          max="5"
-                          defaultValue="3"
-                          step="1"
-                        />
-                      </div>
-                      <p className="placeselection-tickets__text">
-                        Можно добавить еще 3 пассажиров
-                      </p>
-                    </li>
-                    <li className="placeselection-tickets__children active">
-                      <div className="placeselection-tickets__total">
-                        <label className="placeselection-tickets__total-label">
-                          Детских
-                        </label>
-                        <input
-                          type="number"
-                          min="0"
-                          max="5"
-                          defaultValue="2"
-                          step="1"
-                        />
-                      </div>
-                      <p className="placeselection-tickets__text">
-                        Можно добавить еще 3 детей до 10 лет.Свое место в
-                        вагоне, как у взрослых, но дешевле в среднем на 50-65%
-                      </p>
-                    </li>
-                    <li className="placeselection-tickets__children-without-place empty">
-                      <div className="placeselection-tickets__total">
-                        <label className="placeselection-tickets__total-label">
-                          Детских &laquo;без места&raquo;
-                        </label>
-                        <input
-                          type="number"
-                          min="0"
-                          max="5"
-                          defaultValue="0"
-                          step="1"
-                        />
-                      </div>
-                    </li>
-                  </ul>
+                  <PlacesQuantity
+                    {...this.state}
+                    {...this.props}
+                    handlePassengersValue={this.handlePassengersValue}
+                    setCoachTabIndex={this.setCoachTabIndex}
+                  />
 
                   <h4 className="placeselection-train-info__header">
                     Тип вагона
                   </h4>
-
-                  <Tabs>
-                    <TabList className="coach-types">
-                      <Tab selected className="coach-type coach-type__sitting">
-                        Сидячий
-                      </Tab>
-                      <Tab className="coach-type coach-type__reserved">
-                        Плацкарт
-                      </Tab>
-                      <Tab className="coach-type coach-type__compartment">
-                        Купе
-                      </Tab>
-                      <Tab className="coach-type coach-type__luxe">Люкс</Tab>
-                    </TabList>
-
-                    <TabPanel>
-                      <CoachSitting />
-                    </TabPanel>
-                    <TabPanel>
-                      <CoachReserved />
-                    </TabPanel>
-                    <TabPanel>
-                      <CoachCompartment />
-                    </TabPanel>
-                    <TabPanel>
-                      <CoachLuxe />
-                    </TabPanel>
-                  </Tabs>
-
-                  <Tabs>
-                    <TabList className="coach-types">
-                      <Tab selected className="coach-type coach-type__sitting">
-                        Сидячий
-                      </Tab>
-                      <Tab className="coach-type coach-type__reserved">
-                        Плацкарт
-                      </Tab>
-                      <Tab className="coach-type coach-type__compartment">
-                        Купе
-                      </Tab>
-                      <Tab className="coach-type coach-type__luxe">Люкс</Tab>
-                    </TabList>
-
-                    <TabPanel>
-                      <CoachSitting />
-                    </TabPanel>
-                    <TabPanel>
-                      <CoachReserved />
-                    </TabPanel>
-                    <TabPanel>
-                      <CoachCompartment />
-                    </TabPanel>
-                    <TabPanel>
-                      <CoachLuxe />
-                    </TabPanel>
-                  </Tabs>
+                  <Coach
+                    {...this.props}
+                    {...this.state}
+                    setCoachType={this.setCoachType}
+                    setSelectedSeats={this.setSelectedSeats}
+                    deleteSelectedSeats={this.deleteSelectedSeats}
+                    setTotalPrice={this.setTotalPrice}
+                    passengers={passengers}
+                  />
                 </div>
 
                 <Link
                   to="/passengers/"
-                  className="goto-passengers-button active"
+                  className={`goto-passengers-button ${
+                    this.state.selectedSeats.length === passengers
+                      ? 'active'
+                      : ''
+                  }`}
+                  onClick={this.setTransition}
                 >
                   Далее
                 </Link>

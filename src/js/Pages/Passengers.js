@@ -51,7 +51,7 @@ class Passengers extends React.Component {
             </li>
           </ul>
           <div className="wrapper">
-            <SideBar />
+            {/*<SideBar />*/}
 
             <main className="main-block">
               <div className="main-block__wrapper">
