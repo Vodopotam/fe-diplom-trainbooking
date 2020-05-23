@@ -1,15 +1,11 @@
 import React from 'react';
-import CoachSitting from '../../js/Components/CoachSitting.js';
-import CoachReserved from '../../js/Components/CoachReserved.js';
-import CoachCompartment from '../../js/Components/CoachCompartment.js';
-import CoachLuxe from '../../js/Components/CoachLuxe.js';
+import CoachSitting from './CoachSitting.js';
+import CoachReserved from './CoachReserved.js';
+import CoachCompartment from './CoachCompartment.js';
+import CoachLuxe from './CoachLuxe.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 class Coach extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       selectedIndex,

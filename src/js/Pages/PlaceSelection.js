@@ -1,13 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SideBar from '../../js/Components/SideBar.js';
-import CoachSitting from '../../js/Components/CoachSitting.js';
-import CoachReserved from '../../js/Components/CoachReserved.js';
-import CoachCompartment from '../../js/Components/CoachCompartment.js';
-import CoachLuxe from '../../js/Components/CoachLuxe.js';
 import Coach from '../../js/Components/Coach.js';
 import { PlacesQuantity } from '../../js/Components/PlacesQuantity.js';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { getData } from '../data.js';
 
 class PlaceSelection extends React.Component {
@@ -116,6 +111,21 @@ class PlaceSelection extends React.Component {
     ) {
       e.preventDefault();
     }
+
+    const passengersInfo = {
+      passengers: {
+        adults: Number(this.state.adults),
+        children:
+          Number(this.state.childrenWithPlace) +
+          Number(this.state.childrenWithoutPlace),
+        total:
+          Number(this.state.adults) +
+          Number(this.state.childrenWithPlace) +
+          Number(this.state.childrenWithoutPlace),
+      },
+      price: this.state.totalPrice,
+    };
+    this.props.setPassengersInfo(passengersInfo);
   };
 
   render() {

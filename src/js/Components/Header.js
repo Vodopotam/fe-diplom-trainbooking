@@ -34,16 +34,19 @@ class Header extends React.Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    this.setState({
-      cityFrom: {
-        name: this.props.trainInfo.cityFrom.name,
-        id: this.props.trainInfo.cityFrom.id,
-      },
-      cityTo: {
-        name: this.props.trainInfo.cityTo.name,
-        id: this.props.trainInfo.cityTo.id,
-      },
-    });
+
+    if (sessionStorage.length > 0) {
+      this.setState({
+        cityFrom: {
+          name: JSON.parse(sessionStorage.trainInfo).cityFrom.name || null,
+        },
+        cityTo: {
+          name: JSON.parse(sessionStorage.trainInfo).cityTo.name || null,
+        },
+      });
+    } else {
+      return null;
+    }
   }
 
   findCityFrom() {
@@ -88,10 +91,10 @@ class Header extends React.Component {
   }
 
   changeDirection() {
-    let cityToName = this.props.trainInfo.cityTo.name,
-      cityToId = this.props.trainInfo.cityTo.id,
-      cityFromName = this.props.trainInfo.cityFrom.name,
-      cityFromId = this.props.trainInfo.cityFrom.id;
+    let cityToName = JSON.parse(sessionStorage.trainInfo).cityTo.name,
+      cityToId = JSON.parse(sessionStorage.trainInfo).cityTo.id,
+      cityFromName = JSON.parse(sessionStorage.trainInfo).cityFrom.name,
+      cityFromId = JSON.parse(sessionStorage.trainInfo).cityFrom.id;
     this.inputFrom.current.value = cityToName;
     this.inputTo.current.value = cityFromName;
 
@@ -115,14 +118,19 @@ class Header extends React.Component {
         dateFrom: this.state.dateFrom,
         dateTo: this.state.dateTo,
       };
-      await this.props.setTrainInfo(
-        this.state.cityFrom.name,
-        this.state.cityFrom.id,
-        this.state.cityTo.name,
-        this.state.cityTo.id,
-        this.dateTo.current.value,
-        this.dateFrom.current.value
-      );
+      this.props.setTrainInfo({
+        cityFrom: {
+          name: this.state.cityFrom.name,
+          id: this.state.cityFrom.id,
+        },
+        cityTo: {
+          name: this.state.cityTo.name,
+          id: this.state.cityTo.id,
+        },
+        dateTo: this.dateTo.current.value,
+        dateFrom: this.dateFrom.current.value,
+      });
+
       this.props.getTickets();
     }
   };
@@ -211,6 +219,7 @@ class Header extends React.Component {
                 <h3 className="header-form-title">Выберите направление</h3>
                 <div className="header-form-input__from">
                   <input
+                    defaultValue={this.state.cityFrom.name}
                     ref={this.inputFrom}
                     className="header-form-input"
                     type="text"
@@ -250,6 +259,7 @@ class Header extends React.Component {
                 ></div>
                 <div className="header-form-input__to">
                   <input
+                    defaultValue={this.state.cityTo.name}
                     ref={this.inputTo}
                     className="header-form-input header-form-input__to"
                     type="text"

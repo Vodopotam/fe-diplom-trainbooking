@@ -1,9 +1,6 @@
 import React from 'react';
 
 class CoachCompartment extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   handleClick = e => {
     if (
       this.props.selectedSeats.indexOf(e.currentTarget.dataset.number) !== -1
@@ -28,7 +25,7 @@ class CoachCompartment extends React.Component {
   };
 
   render() {
-    const { current, coaches, setTotalPrice, totalPrice } = this.props;
+    const { current, totalPrice } = this.props;
     return (
       <div className="coach">
         <div className="coach-description">
@@ -130,7 +127,7 @@ class CoachCompartment extends React.Component {
           </div>
         </div>
         <div className="total-cost">
-          {this.props.totalPrice}
+          {totalPrice}
           <span className="coaches__price-currency">&#x20bd;</span>
         </div>
       </div>

@@ -2961,6 +2961,14 @@ input[type=range] {
     cursor: pointer;
 }
 
+.passenger-full-block.hidden {
+	display: none;
+}
+
+.passenger-full-block.open {
+	display: block;
+}
+
 .personal-data {
     border-bottom: 1px dotted #928F94;
     border-top: 1px dotted #928F94;
@@ -3280,10 +3288,10 @@ select:focus {
 }
 
 .next-passenger {
-    /* 	text-align: right; */
     position: relative;
     height: 7rem;
     background-color: transparent;
+/*     z-index: 10; */
 }
 
 .next-passenger-error,
@@ -3297,12 +3305,13 @@ select:focus {
     text-align: left;
     z-index: 5;
     padding: 2.5rem 2.2rem 2rem;
+   /*  z-index: -1; */
 }
 
 .next-passenger-error__text,
 .next-passenger-ready__text {
     font-weight: normal;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
     color: #292929;
@@ -3321,16 +3330,18 @@ select:focus {
 .next-passenger-ready {
     background-color: #B2F6A1;
     position: relative;
+    z-index: 1;
 }
 
-.next-passenger-ready>.next-passenger__link {
+.next-passenger>.next-passenger__link {
     position: absolute;
     right: 2rem;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 100;
 }
 
-.next-passenger-error__text::before,
+/* .next-passenger-error__text::before,
 .next-passenger-ready__text::before {
     position: absolute;
     content: "";
@@ -3346,7 +3357,7 @@ select:focus {
 .next-passenger-ready__text::before {
     background: url('../img/passengers/close-ready.png') no-repeat center center;
     background-size: contain;
-}
+} */
 
 .next-passenger__link {
     position: absolute;
@@ -3361,17 +3372,20 @@ select:focus {
     text-align: center;
     color: #292929;
     cursor: pointer;
+    	outline: none;
 }
 
 .next-passenger__link:hover {
-    color: #FFA800;
+    background-color: #B2F6A1;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #292929;
 }
 
 
 .next-passenger__link:active {
+	padding: 0.6rem 1.5rem;
     color: #292929;
-    background: #FFA800;
+
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-color: #FFA800;
 }

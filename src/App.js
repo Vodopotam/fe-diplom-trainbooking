@@ -21,32 +21,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trainInfo: {
-        cityFrom: {
-          name: '',
-          id: '',
-        },
-        cityTo: {
-          name: '',
-          id: '',
-        },
-        dateTo: new Date().toISOString().substr(0, 10),
-        dateFrom: new Date().toISOString().substr(0, 10),
-      },
+      // trainInfo: {
+      //   cityFrom: {
+      //     name: '',
+      //     id: '',
+      //   },
+      //   cityTo: {
+      //     name: '',
+      //     id: '',
+      //   },
+      //   dateTo: new Date().toISOString().substr(0, 10),
+      //   dateFrom: new Date().toISOString().substr(0, 10),
+      // },
+      trainInfo: {},
       currentCoach: {},
       tickets: [],
       quantity: '',
       pages: '',
+      passengersInfo: {},
       loading: false,
     };
-    this.setTrainInfo = this.setTrainInfo.bind(this);
-    this.setCurrentCoach = this.setCurrentCoach.bind(this);
   }
 
   getTickets = async (sortBy = 'duration', limit = 5, offset = 0, filters) => {
+    let cityFrom = JSON.parse(sessionStorage.trainInfo).cityFrom.id || null,
+      cityTo = JSON.parse(sessionStorage.trainInfo).cityTo.id || null;
     this.setState({ loading: true });
     await getData(
-      `routes?from_city_id=${this.state.trainInfo.cityFrom.id}&to_city_id=${this.state.trainInfo.cityTo.id}&sort=${sortBy}&limit=${limit}&offset=${offset}&${filters}`
+      `routes?from_city_id=${cityFrom}&to_city_id=${cityTo}&sort=${sortBy}&limit=${limit}&offset=${offset}&${filters}`
     ).then(result => {
       this.setState({
         tickets: result.items || [],
@@ -59,36 +61,26 @@ class App extends React.Component {
     });
   };
 
-  setTrainInfo(
-    cityFromName,
-    cityFromId,
-    CityToName,
-    CityToId,
-    dateTo,
-    DateFrom
-  ) {
+  setTrainInfo = params => {
     this.setState({
-      trainInfo: {
-        cityFrom: {
-          name: cityFromName,
-          id: cityFromId,
-        },
-        cityTo: {
-          name: CityToName,
-          id: CityToId,
-        },
-        dateTo: dateTo,
-        dateFrom: DateFrom,
-      },
+      trainInfo: params,
     });
-  }
+    sessionStorage.trainInfo = JSON.stringify(params);
+  };
 
-  setCurrentCoach(coach) {
+  setCurrentCoach = coach => {
     this.setState({
       currentCoach: coach,
     });
-    console.log(this.state);
-  }
+    sessionStorage.currentCoach = JSON.stringify(coach);
+  };
+
+  setPassengersInfo = params => {
+    this.setState({
+      passengersInfo: params,
+    });
+    sessionStorage.passengersInfo = JSON.stringify(params);
+  };
 
   render() {
     return (
@@ -114,11 +106,15 @@ class App extends React.Component {
               <PlaceSelection
                 {...this.props}
                 {...this.state}
-                component={PlaceSelection}
+                setPassengersInfo={this.setPassengersInfo}
               />
             </Route>
-            <Route path="/passengers/" component={Passengers} />
-            <Route path="/payment/" component={Payment} />
+            <Route path="/passengers/">
+              <Passengers {...this.props} {...this.state} />
+            </Route>
+            <Route path="/payment/">
+              <Payment {...this.props} {...this.state} />
+            </Route>
             <Route path="/order-submition/" component={OrderSubmition} />
             <Route path="/order-done/" component={OrderDone} />
             <Route path="/" component={HomePage} exact />
