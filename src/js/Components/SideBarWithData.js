@@ -28,10 +28,10 @@ class SideBarWithData extends React.Component {
   }
 
   render() {
-    const { trainInfo, passengersInfo } = this.props;
-    const currentCoach =
-      JSON.parse(sessionStorage.currentCoach) || this.props.currentCoach;
-    if (!currentCoach) return null;
+    const passengersInfo = JSON.parse(sessionStorage.passengersInfo),
+      trainInfo = JSON.parse(sessionStorage.trainInfo),
+      currentCoach = JSON.parse(sessionStorage.currentCoach);
+    if (!currentCoach || !passengersInfo || !trainInfo) return null;
     return (
       <aside className="aside-block">
         <div className="trip-options">

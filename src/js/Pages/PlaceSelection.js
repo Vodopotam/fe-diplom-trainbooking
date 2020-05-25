@@ -29,18 +29,19 @@ class PlaceSelection extends React.Component {
   }
 
   getSeats = async () => {
-    await getData(`routes/${this.props.currentCoach._id}/seats`).then(
-      result => {
-        this.setState({
-          coachesInfo: result,
-          coaches: result.filter(
-            el => el.coach.class_type === result[0].coach.class_type
-          ),
-          currentCoach: result[0],
-          currentCoachType: result[0].coach.class_type,
-        });
-      }
-    );
+    const id =
+      this.props.currentCoach._id ||
+      JSON.parse(sessionStorage.currentCoach)._id;
+    await getData(`routes/${id}/seats`).then(result => {
+      this.setState({
+        coachesInfo: result,
+        coaches: result.filter(
+          el => el.coach.class_type === result[0].coach.class_type
+        ),
+        currentCoach: result[0],
+        currentCoachType: result[0].coach.class_type,
+      });
+    });
     this.setCoachTabIndex();
   };
 
@@ -83,6 +84,7 @@ class PlaceSelection extends React.Component {
     this.setState({
       selectedSeats: chosenSeat,
     });
+    sessionStorage.seats = JSON.stringify(this.state.selectedSeats);
   };
 
   deleteSelectedSeats = seat => {

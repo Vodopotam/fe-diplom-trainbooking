@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SideBarWithData from '../../js/Components/SideBarWithData.js';
-import Passenger from '../../js/Components/Passenger.js';
+import SideBarWithData from '../Components/SideBarWithData.js';
+import Passenger from '../Components/Passenger.js';
 
 class Passengers extends React.Component {
   constructor(props) {
@@ -58,11 +58,7 @@ class Passengers extends React.Component {
             </li>
           </ul>
           <div className="wrapper">
-            <SideBarWithData
-              {...this.props}
-              {...this.state}
-              passengersInfo={passengersInfo}
-            />
+            <SideBarWithData {...this.props} {...this.state} />
 
             <main className="main-block">
               <div className="main-block__wrapper">

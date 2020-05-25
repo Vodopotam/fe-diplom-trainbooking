@@ -64,19 +64,19 @@ class Passenger extends React.Component {
         surnameValid = value.match(/^[а-яё]+$/i);
         this.error.current.innerHTML = surnameValid
           ? ''
-          : `Данные в поле 'Фамилия' указаны некорректно. <br />Пример: <b>"Иванов"</b>`;
+          : `Данные в поле 'Фамилия' указаны некорректно. <br />Пример: <b>Иванов</b>`;
         break;
       case 'name':
         nameValid = value.match(/^[а-яё]+$/i);
         this.error.current.innerHTML = nameValid
           ? ''
-          : `Данные в поле 'Имя' указаны некорректно. <br />Пример: <b>"Иван"</b>`;
+          : `Данные в поле 'Имя' указаны некорректно. <br />Пример: <b>Иван</b>`;
         break;
       case 'patronymic':
         patronymicValid = value.match(/^[а-яё]+$/i);
         this.error.current.innerHTML = patronymicValid
           ? ''
-          : `Данные в поле 'Отчество' указаны некорректно. <br />Пример: <b>"Иванович"</b>`;
+          : `Данные в поле 'Отчество' указаны некорректно. <br />Пример: <b>Иванович</b>`;
         break;
       case 'birthday':
         birthdayValid = value.match(
@@ -90,13 +90,13 @@ class Passenger extends React.Component {
         passportSeriesValid = value.match(/[0-9]{4}/);
         this.error.current.innerHTML = passportSeriesValid
           ? ''
-          : `Данные в поле 'Серия' указаны некорректно. <br />Пример: <b>"1 2 3 4"</b>`;
+          : `Данные в поле 'Серия' указаны некорректно. <br />Пример: <b>1 2 3 4</b>`;
         break;
       case 'passportNumber':
         passportNumberValid = value.match(/[0-9]{6}/);
         this.error.current.innerHTML = passportNumberValid
           ? ''
-          : `Данные в поле 'Номер' указаны некорректно. <br />Пример: <b>"1 2 3 4 5 6"</b>`;
+          : `Данные в поле 'Номер' указаны некорректно. <br />Пример: <b>1 2 3 4 5 6</b>`;
         break;
       case 'birthCertificate':
         birthCertificateValid = value.match(
@@ -104,7 +104,7 @@ class Passenger extends React.Component {
         );
         this.error.current.innerHTML = birthCertificateValid
           ? ''
-          : `Данные в поле 'Номер' указаны некорректно. <br />Пример: '<b>VIII-ЫП-123456</b>'`;
+          : `Данные в поле 'Номер' указаны некорректно. <br />Пример: <b>VIII-ЫП-123456</b>`;
         break;
       default:
         break;
@@ -156,6 +156,7 @@ class Passenger extends React.Component {
 
   setConfirmation = () => {
     const passenger = {
+      isAdult: this.props.adult ? 'Взрослый' : 'Ребенок',
       name: `${this.state.surname} ${this.state.name}  ${this.state.patronymic}`,
       gender: this.state.selectedGender,
       birthday: this.state.birthday,

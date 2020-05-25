@@ -1,10 +1,10 @@
-export const getData = async (url, type = 'GET') => {
+export const getData = async (url, type = 'GET', body) => {
   const params = {};
-  // if (type === 'POST') {
-  //   params.body = JSON.stringify(body);
-  //   params.headers = new Headers({ 'Content-Type': 'application/json' });
-  //   params.method = 'POST';
-  // }
+  if (type === 'POST') {
+    params.body = JSON.stringify(body);
+    params.headers = new Headers({ 'Content-Type': 'application/json' });
+    params.method = 'POST';
+  }
 
   return await fetch(
     `https://netology-trainbooking.herokuapp.com/${url}`,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
+import { getData } from '../data.js';
 
 class OrderDone extends React.Component {
   constructor(props) {
@@ -8,9 +9,49 @@ class OrderDone extends React.Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    const trainInfo = JSON.parse(sessionStorage.trainInfo),
+      currentCoach = JSON.parse(sessionStorage.currentCoach),
+      passengersList = JSON.parse(sessionStorage.passengersList),
+      passengersInfo = JSON.parse(sessionStorage.passengersInfo),
+      contactData = JSON.parse(sessionStorage.contactData),
+      seats = JSON.parse(sessionStorage.seats);
+    const order = {
+      user: {
+        first_name: contactData.name,
+        last_name: contactData.surname,
+        patronymic: contactData.patronymic,
+        phone: contactData.phone,
+        email: contactData.email,
+        payment_method: contactData.paymentMethod,
+      },
+      departure: {
+        route_direction_id: trainInfo.cityFrom.id,
+        seats: passengersList.map((passenger, i) => ({
+          coach_id: currentCoach._id,
+          person_info: {
+            is_adult: passenger.isAdult === 'Взрослый' ? true : false,
+            first_name: passenger.name,
+            last_name: passenger.surname,
+            patronymic: passenger.patronymic,
+            gender: passenger.gender,
+            birthday: passenger.birthday,
+            document_type:
+              passenger.isAdult === 'Взрослый'
+                ? 'паспорт'
+                : 'Свидетельство о рождении',
+            document_data: passenger.document,
+          },
+          seat_number: seats[i],
+          is_child: passenger.isAdult === 'Взрослый' ? false : true,
+        })),
+      },
+    };
+    getData(`order`, 'POST', order).then(response => console.log(response));
   }
 
   render() {
+    const passengersInfo = JSON.parse(sessionStorage.passengersInfo),
+      contactData = JSON.parse(sessionStorage.contactData);
     return (
       <div className="content">
         <div className="main-information order-done">
@@ -21,7 +62,9 @@ class OrderDone extends React.Component {
                 <p className="order-number">№ Заказа 285АА</p>
                 <p className="order-price__text">
                   сумма{' '}
-                  <span className="order-price__price">7 760 &#x20bd;</span>
+                  <span className="order-price__price">
+                    {passengersInfo.price}&#x20bd;
+                  </span>
                 </p>
               </div>
               <div className="order-done-features">
@@ -38,7 +81,9 @@ class OrderDone extends React.Component {
                 </ul>
               </div>
               <div className="order-done-letter">
-                <h2 className="order-done-letter__title">Ирина Эдуардовна!</h2>
+                <h2 className="order-done-letter__title">
+                  {contactData.name + ' ' + contactData.patronymic}!
+                </h2>
                 <p className="order-done-letter__text">
                   Ваш заказ успешно оформлен.
                   <br /> В ближайшее время с вами свяжется наш оператор для
@@ -93,7 +138,11 @@ class OrderDone extends React.Component {
                       <label htmlFor="star5"></label>
                     </form>
                   </div>
-                  <Link to="/" className="goto-main">
+                  <Link
+                    to="/"
+                    className="goto-main"
+                    onClick={() => sessionStorage.clear()}
+                  >
                     Вернуться на главню
                   </Link>
                 </div>

@@ -1582,6 +1582,7 @@ input[type=range] {
 
 .main-block>.results {
     display: flex;
+    margin-bottom: 2rem;
 }
 
 .results-found,
@@ -1722,7 +1723,7 @@ input[type=range] {
 }
 
 .ticket {
-    margin: 2rem 0 1rem;
+    margin-bottom: 3rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -3042,7 +3043,7 @@ select:focus {
 }
 
 .passenger-input::placeholder {
-    color: #292929;
+    color: #c4c4c4;
     font-size: 1.5rem;
 }
 
@@ -3385,7 +3386,6 @@ select:focus {
 .next-passenger__link:active {
 	padding: 0.6rem 1.5rem;
     color: #292929;
-
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-color: #FFA800;
 }
@@ -3466,6 +3466,7 @@ select:focus {
 }
 
 .personal-info {
+	position: relative;
     padding-bottom: 4rem;
     background: #FFFFFF;
 }
@@ -3498,6 +3499,15 @@ select:focus {
     font-size: 1.5rem;
     line-height: 1.8rem;
     color: #C4C4C4;
+}
+
+.payment-error {
+	position: absolute;
+	bottom: 0;
+	left: 1rem;
+	font-size: 1.3rem;
+	padding: 1rem;
+	color: rgba(255, 61, 0, 0.8);
 }
 
 .checkbox_payment {
@@ -3546,8 +3556,12 @@ select:focus {
     text-transform: uppercase;
     color: #FFFFFF;
     padding: 0.6rem;
-    background: #FFA800;
+    background: #928F94;
     margin-bottom: 2rem;
+}
+
+.payment-submit.active {
+	background: #FFA800;
 }
 
 .payment-submit:hover {
@@ -3555,10 +3569,10 @@ select:focus {
     cursor: pointer;
 }
 
-.payment-submit:focus {
+/* .payment-submit:focus {
     background: #E5E5E5;
     color: #FFA800;
-}
+} */
 
 .submition-train,
 .submition-passengers,
@@ -3580,6 +3594,9 @@ select:focus {
     border-bottom: 1px solid #928F94;
     background: #F9F9F9;
     padding: 2.3rem 2rem;
+    border: 1px solid #C4C4C4;
+    border-bottom: none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .submition-title {
@@ -3625,7 +3642,8 @@ select:focus {
 }
 
 .submition-passengers-list {
-    width: 70%;
+    width: 73%;
+    padding-bottom: 4rem;
 }
 
 .submition-passenger {
@@ -3670,7 +3688,7 @@ select:focus {
 .submition-passenger-birth,
 .submition-passenger-id {
     font-weight: normal;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 1.3rem;
     color: #292929;
     padding-bottom: 1.5rem;
@@ -3685,7 +3703,7 @@ select:focus {
 
 .submition-passengers-price,
 .submition-payment-type-button {
-    width: 30%;
+    width: 27%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -3721,6 +3739,7 @@ select:focus {
     line-height: 1.8rem;
     color: #292929;
     padding: 2rem 2.2rem 4rem;
+    text-transform: capitalize;
 }
 
 .goto-passengers-button_submition {

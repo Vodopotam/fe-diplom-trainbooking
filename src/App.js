@@ -21,18 +21,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // trainInfo: {
-      //   cityFrom: {
-      //     name: '',
-      //     id: '',
-      //   },
-      //   cityTo: {
-      //     name: '',
-      //     id: '',
-      //   },
-      //   dateTo: new Date().toISOString().substr(0, 10),
-      //   dateFrom: new Date().toISOString().substr(0, 10),
-      // },
       trainInfo: {},
       currentCoach: {},
       tickets: [],

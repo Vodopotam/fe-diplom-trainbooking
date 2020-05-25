@@ -1,4 +1,5 @@
 import React from 'react';
+import { getData } from '../data.js';
 
 class Footer extends React.Component {
   constructor(props) {
@@ -15,6 +16,9 @@ class Footer extends React.Component {
     this.setState({
       isSubscribed: true,
     });
+    getData(`subscribe?email=${this.email.value}`, 'POST').then(response =>
+      console.log(response)
+    );
   };
 
   render() {
