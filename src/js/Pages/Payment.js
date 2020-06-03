@@ -66,9 +66,7 @@ class Payment extends React.Component {
           : `Данные в поле 'Отчество' указаны некорректно. Пример: <b>Иванович</b>`;
         break;
       case 'phone':
-        phoneValid = value.match(
-          /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/
-        );
+        phoneValid = value.match(/^\+?[78][(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/);
         this.error.current.innerHTML = phoneValid
           ? ''
           : `Данные в поле 'Контактный телефон' указаны некорректно. Пример: <b>+7(999)888-77-66</b>`;
@@ -78,6 +76,7 @@ class Payment extends React.Component {
         this.error.current.innerHTML = emailValid
           ? ''
           : `Данные в поле 'E-mail' указаны некорректно. Пример: <b>email@mail.com</b>`;
+          break;
       default:
         break;
     }

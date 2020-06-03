@@ -96,6 +96,7 @@ input:focus::-webkit-input-placeholder {
 }
 
 input[type='date'] {
+	font-size: 1.3rem;
     font-family: Roboto, sans-serif;
 }
 
@@ -345,13 +346,15 @@ input[type='date']:focus {
 input[name="from"],
 input[name="to"] {
     background: #FFFFFF url('../img/home/input_icon.png') no-repeat 95% center;
-    background-size: 8%;
+    background-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
-input[name="arrival"],
-input[name="departure"] {
+input[name="dateTo"],
+input[name="dateFrom"] {
     background: #FFFFFF url('../img/home/input_icon_date.png') no-repeat 95% center;
-    background-size: 8%;
+    background-size: 1.5rem;
+    font-size: 1.5rem;
   /*   color: #E5E5E5; */
     z-index: 100;
 }
@@ -858,6 +861,7 @@ SLIDER */
 .google,
 .facebook,
 .twitter {
+	cursor: pointer;
     position: relative;
 }
 
@@ -936,8 +940,8 @@ SLIDER */
 }
 
 .totop {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2rem;
+    height: 2rem;
     background: url('../img/home/totop.png') no-repeat center center;
     background-size: contain;
 }
@@ -1471,6 +1475,7 @@ input[type=range] {
 }
 
 .last-ticket {
+	cursor: pointer;
     background: #FFFFFF;
     border: 1px solid #C4C4C4;
     box-shadow: 0px 2px 2px rgba(62, 60, 65, 0.25);
@@ -1576,7 +1581,7 @@ input[type=range] {
 
 
 .main-block {
-    width: 68%;
+    width: 70%;
     margin-bottom: 3rem;
 }
 
@@ -1617,7 +1622,7 @@ input[type=range] {
 
 .sort-by__selection {
     margin-left: 0.5rem;
-    width: 9rem;
+    width: 10rem;
     left: 9rem;
     position: absolute;
     top: -0.3rem;
@@ -1982,6 +1987,7 @@ input[type=range] {
 }
 
 .pagination {
+	width: 100%;
     margin: 6rem auto 12rem;
     display: flex;
     justify-content: flex-end;
@@ -1989,7 +1995,8 @@ input[type=range] {
 
 .pagination-pages {
     display: flex;
-    justify-content: flex-end;
+    flex-wrap: wrap;
+   justify-content: flex-end;
 }
 
 .pagination>.angle-back,
@@ -2000,6 +2007,7 @@ input[type=range] {
     border: 2px solid #C4C4C4;
     border-radius: 5px;
     width: 5rem;
+    height: 4.4rem;
     font-size: 1.8rem;
     line-height: 2.1rem;
     color: #928F94;
@@ -2025,8 +2033,9 @@ input[type=range] {
     font-size: 1.8rem;
     line-height: 2.1rem;
     color: #928F94;
-    padding: 1rem 2rem;
-    margin-right: 2rem;
+    padding: 1rem 1.7rem;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .pagination-pages>.pagination-page:hover {
@@ -2190,7 +2199,7 @@ input[type=range] {
     content: "";
     width: 2rem;
     height: 2rem;
-    left: 10%;
+    left: 1rem;
     top: 50%;
     transform: translateY(-50%);
     background: url('../img/trainSelection/asideIcons/clock.png') no-repeat center center;
@@ -3151,7 +3160,11 @@ select:focus {
     font-size: 1.1rem;
     line-height: 1.3rem;
     text-transform: uppercase;
+    background: #FFFFFF url('../img/home/input_icon_date.png') no-repeat 95% center;
+    background-size: 1.3rem;
 }
+
+
 
 .birthday__input:focus {
     border: 1px solid #928F94;

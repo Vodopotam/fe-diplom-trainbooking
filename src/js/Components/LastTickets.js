@@ -27,6 +27,7 @@ class LastTickets extends React.Component {
         {lastTickets.map((lastTicket, index) => {
           return index <= 2 ? (
             <LastTicket
+              findTickets={this.findTickets}
               key={index}
               lastTicket={lastTicket.departure}
               {...this.props}
@@ -40,9 +41,27 @@ class LastTickets extends React.Component {
 }
 
 export const LastTicket = props => {
-  const { lastTicket } = props;
+  const { lastTicket, setTrainInfo, getTickets } = props;
+
+  const setTickets = () => {
+    props.history.push("/search/trainselection/")
+    const trainInfo = {
+        cityFrom: {
+          name: lastTicket.from.city.name,
+          id: lastTicket.from.city._id,
+        },
+        cityTo: {
+          name: lastTicket.to.city.name,
+          id: lastTicket.to.city._id,
+        }
+      };
+    setTrainInfo(trainInfo)
+    getTickets()
+    window.scrollTo(0, 0);
+
+  }
   return (
-    <div className="last-ticket">
+    <div className="last-ticket" onClick={setTickets}>
       <div className="last-ticket__top">
         <div className="last-ticket__from">
           <p className="last-ticket__from-city">{lastTicket.from.city.name}</p>

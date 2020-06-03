@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SideBar from '../../js/Components/SideBar.js';
 import Coach from '../../js/Components/Coach.js';
 import { PlacesQuantity } from '../../js/Components/PlacesQuantity.js';
 import { getData } from '../data.js';
@@ -29,9 +28,8 @@ class PlaceSelection extends React.Component {
   }
 
   getSeats = async () => {
-    const id =
-      this.props.currentCoach._id ||
-      JSON.parse(sessionStorage.currentCoach)._id;
+    const id = JSON.parse(sessionStorage.currentCoach)._id ||
+      this.props.currentCoach._id;
     await getData(`routes/${id}/seats`).then(result => {
       this.setState({
         coachesInfo: result,
@@ -141,30 +139,8 @@ class PlaceSelection extends React.Component {
       durationHours = Math.floor(currentCoach.duration / 60 / 60),
       durationMinutes =
         Math.floor(currentCoach.duration / 60) - durationHours * 60;
-    return (
-      <div className="content">
-        <div className="main-information">
-          <ul className="order-navigation">
-            <li className="order-navigation__list active">
-              <span></span>
-              <p className="order-navigation__text">Билеты</p>
-            </li>
-            <li className="order-navigation__list">
-              <span></span>
-              <p className="order-navigation__text">Пассажиры</p>
-            </li>
-            <li className="order-navigation__list">
-              <span></span>
-              <p className="order-navigation__text">Оплата</p>
-            </li>
-            <li className="order-navigation__list">
-              <span></span>
-              <p className="order-navigation__text">Проверка</p>
-            </li>
-          </ul>
-          <div className="wrapper">
-            <SideBar {...this.props} {...this.state} />
 
+    return (
             <main className="main-block">
               <h4 className="placeselection_header">Выбор мест</h4>
 
@@ -172,7 +148,7 @@ class PlaceSelection extends React.Component {
                 <div className="placeselection-train-info__direction-to">
                   <div className="other-train">
                     <div className="other-train__arrow"></div>
-                    <Link to="/trainselection/" className="other-train__button">
+                    <Link to="/search/trainselection/" className="other-train__button">
                       Выбрать другой поезд
                     </Link>
                   </div>
@@ -251,7 +227,7 @@ class PlaceSelection extends React.Component {
                 <Link
                   to="/passengers/"
                   className={`goto-passengers-button ${
-                    this.state.selectedSeats.length === passengers
+                    selectedSeats.length === passengers
                       ? 'active'
                       : ''
                   }`}
@@ -261,9 +237,6 @@ class PlaceSelection extends React.Component {
                 </Link>
               </div>
             </main>
-          </div>
-        </div>
-      </div>
     );
   }
 }

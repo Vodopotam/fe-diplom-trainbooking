@@ -59,9 +59,6 @@ const Features = () => (
 );
 
 class Reviews extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     var settings = {

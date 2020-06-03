@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import SideBar from '../../js/Components/SideBar.js';
 import { Ticket } from '../../js/Components/Ticket.js';
 import { Loader } from '../../js/Components/Loader.js';
 import Pagination from '../../js/Components/Pagination.js';
@@ -21,7 +20,15 @@ class TrainSelection extends React.Component {
     this.props.getTickets();
   }
 
-  setSortBy = async event => {
+  componentDidUpdate(prevProps, prevState) {
+  	if (prevState !== this.state) {
+  		this.props.getTickets();
+  	} else {
+  		return null
+  	}
+  }
+
+      setSortBy = async event => {
     await this.setState({
       sortBy: event.target.value,
       currentPage: 1,
@@ -61,19 +68,11 @@ class TrainSelection extends React.Component {
     );
   };
 
-  setFilters = filters => {
-    this.setState({
-      filters: filters,
-      currentPage: 1,
-      offset: 0,
-    });
-  };
-
   render() {
-    const { currentPage, filters } = this.state;
+    const { currentPage } = this.state;
     const { tickets, quantity, pages, loading } = this.props;
     return (
-      <div className="content">
+     /* } <div className="content">
         <div className="main-information">
           <ul className="order-navigation">
             <li className="order-navigation__list active">
@@ -98,7 +97,7 @@ class TrainSelection extends React.Component {
               {...this.props}
               {...this.state}
               setFilters={this.setFilters}
-            />
+            /> */
 
             <main className="main-block">
               {loading ? (
@@ -116,7 +115,7 @@ class TrainSelection extends React.Component {
                       <select
                         className="sort-by__selection"
                         onChange={this.setSortBy}
-                        value={this.state.sortBy}
+                        defaultValue={this.state.sortBy}
                       >
                         <option className="results-sortby__label" value="date">
                           времени
@@ -185,10 +184,9 @@ class TrainSelection extends React.Component {
                 </Fragment>
               )}
             </main>
-          </div>
-        </div>
-        }
-      </div>
+      //     </div>
+      //   </div>
+      // </div>
     );
   }
 }

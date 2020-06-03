@@ -4,9 +4,6 @@ import { Ticket } from '../Components/Ticket.js';
 import SideBarWithData from '../Components/SideBarWithData.js';
 
 class OrderSubmition extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     window.scrollTo(0, 0);

@@ -169,9 +169,9 @@ class Passenger extends React.Component {
   };
 
   render() {
-    const passengersInfo = JSON.parse(sessionStorage.passengersInfo) || null;
-    const { isOpen, passport, birthCertificate, limitedMobility } = this.state;
-    const { value, adult, child } = this.props;
+   // const passengersInfo = JSON.parse(sessionStorage.passengersInfo) || null;
+    const { isOpen, limitedMobility } = this.state;
+    const { adult, child } = this.props;
     return (
       <div className="passenger">
         <div className="passenger-short-block" onClick={this.toggleOpenBlock}>
