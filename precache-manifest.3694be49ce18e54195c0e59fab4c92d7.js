@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "56eb9a31011060222595e4d0b62f12a0",
+    "revision": "b68e5a51751dab5d40793d106870c1eb",
     "url": "/fe-diplom-trainbooking/index.html"
   },
   {
-    "revision": "22c49c50fbae9ae52e9e",
+    "revision": "a61018bcf2ad7eb7d855",
     "url": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css"
   },
   {
-    "revision": "e01a82e1e2db90b9af88",
+    "revision": "2e1030198d0c70f334c7",
     "url": "/fe-diplom-trainbooking/static/css/main.eac9d77c.chunk.css"
   },
   {
-    "revision": "22c49c50fbae9ae52e9e",
-    "url": "/fe-diplom-trainbooking/static/js/2.5f0f243d.chunk.js"
+    "revision": "a61018bcf2ad7eb7d855",
+    "url": "/fe-diplom-trainbooking/static/js/2.1cf4917d.chunk.js"
   },
   {
-    "revision": "e01a82e1e2db90b9af88",
-    "url": "/fe-diplom-trainbooking/static/js/main.c70bf5bd.chunk.js"
+    "revision": "2e1030198d0c70f334c7",
+    "url": "/fe-diplom-trainbooking/static/js/main.5ea88fbb.chunk.js"
   },
   {
     "revision": "1094a40b78fd19758927",

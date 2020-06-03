@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fe-diplom-trainbooking/static/css/main.eac9d77c.chunk.css",
-    "main.js": "/fe-diplom-trainbooking/static/js/main.c70bf5bd.chunk.js",
-    "main.js.map": "/fe-diplom-trainbooking/static/js/main.c70bf5bd.chunk.js.map",
+    "main.js": "/fe-diplom-trainbooking/static/js/main.5ea88fbb.chunk.js",
+    "main.js.map": "/fe-diplom-trainbooking/static/js/main.5ea88fbb.chunk.js.map",
     "runtime-main.js": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js",
     "runtime-main.js.map": "/fe-diplom-trainbooking/static/js/runtime-main.cc827b98.js.map",
     "static/css/2.650c2d42.chunk.css": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css",
-    "static/js/2.5f0f243d.chunk.js": "/fe-diplom-trainbooking/static/js/2.5f0f243d.chunk.js",
-    "static/js/2.5f0f243d.chunk.js.map": "/fe-diplom-trainbooking/static/js/2.5f0f243d.chunk.js.map",
+    "static/js/2.1cf4917d.chunk.js": "/fe-diplom-trainbooking/static/js/2.1cf4917d.chunk.js",
+    "static/js/2.1cf4917d.chunk.js.map": "/fe-diplom-trainbooking/static/js/2.1cf4917d.chunk.js.map",
     "index.html": "/fe-diplom-trainbooking/index.html",
-    "precache-manifest.7e49fa15959d4e5313ab3f156a7ace62.js": "/fe-diplom-trainbooking/precache-manifest.7e49fa15959d4e5313ab3f156a7ace62.js",
+    "precache-manifest.3694be49ce18e54195c0e59fab4c92d7.js": "/fe-diplom-trainbooking/precache-manifest.3694be49ce18e54195c0e59fab4c92d7.js",
     "service-worker.js": "/fe-diplom-trainbooking/service-worker.js",
     "static/css/2.650c2d42.chunk.css.map": "/fe-diplom-trainbooking/static/css/2.650c2d42.chunk.css.map",
     "static/css/main.eac9d77c.chunk.css.map": "/fe-diplom-trainbooking/static/css/main.eac9d77c.chunk.css.map",
@@ -24,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.cc827b98.js",
     "static/css/2.650c2d42.chunk.css",
-    "static/js/2.5f0f243d.chunk.js",
+    "static/js/2.1cf4917d.chunk.js",
     "static/css/main.eac9d77c.chunk.css",
-    "static/js/main.c70bf5bd.chunk.js"
+    "static/js/main.5ea88fbb.chunk.js"
   ]
 }
