@@ -26,12 +26,6 @@ class Header extends React.Component {
       dateTo: '',
       dateFrom: '',
     };
-    this.getCityFrom = this.getCityFrom.bind(this);
-    this.getCityTo = this.getCityTo.bind(this);
-    this.changeDirection = this.changeDirection.bind(this);
-    this.findCityTo = this.findCityTo.bind(this);
-    this.findCityFrom = this.findCityFrom.bind(this);
-    this.searchTickets = this.searchTickets.bind(this);
   }
 
   componentDidMount() {
@@ -114,34 +108,44 @@ class Header extends React.Component {
     }
   }
 
-  findCityFrom() {
+  findCityFrom = e => {
+    this.setState({
+      cityFrom: {
+        name: e.target.value,
+      },
+    });
     let str = this.inputFrom.current.value.toLowerCase();
     getData(`routes/cities?name=${str}`).then(result => {
       this.setState({
         citiesFrom: result,
       });
     });
-  }
+  };
 
-  getCityFrom(event) {
-    this.inputFrom.current.value = event.target.innerText;
+  getCityFrom = e => {
+    this.inputFrom.current.value = e.target.innerText;
     this.setState({
       cityFrom: {
-        name: event.target.innerText,
-        id: event.target.dataset.id,
+        name: e.target.innerText,
+        id: e.target.dataset.id,
       },
     });
     this.setState({ citiesFrom: [] });
-  }
+  };
 
-  findCityTo() {
+  findCityTo = e => {
+    this.setState({
+      cityTo: {
+        name: e.target.value,
+      },
+    });
     let str = this.inputTo.current.value.toLowerCase();
     getData(`routes/cities?name=${str}`).then(result => {
       this.setState({
         citiesTo: result,
       });
     });
-  }
+  };
 
   setDate = async e => {
     const { target } = e;
@@ -152,19 +156,18 @@ class Header extends React.Component {
     });
   };
 
-  getCityTo(event) {
-    this.inputTo.current.value = event.target.innerText;
-
+  getCityTo = e => {
+    this.inputTo.current.value = e.target.innerText;
     this.setState({
       cityTo: {
-        name: event.target.innerText,
-        id: event.target.dataset.id,
+        name: e.target.innerText,
+        id: e.target.dataset.id,
       },
     });
     this.setState({ citiesTo: [] });
-  }
+  };
 
-  changeDirection() {
+  changeDirection = () => {
     let cityToName = JSON.parse(sessionStorage.trainInfo).cityTo.name,
       cityToId = JSON.parse(sessionStorage.trainInfo).cityTo.id,
       cityFromName = JSON.parse(sessionStorage.trainInfo).cityFrom.name,
@@ -182,7 +185,7 @@ class Header extends React.Component {
         id: cityFromId,
       },
     });
-  }
+  };
 
   searchTickets = async e => {
     if (!(this.state.cityFrom.name && this.state.cityTo.name)) {
@@ -293,11 +296,11 @@ class Header extends React.Component {
                 <h3 className="header-form-title">Выберите направление</h3>
                 <div className="header-form-input__from">
                   <input
-                    defaultValue={this.state.cityFrom.name}
+                    value={this.state.cityFrom.name}
                     ref={this.inputFrom}
                     className="header-form-input"
                     type="text"
-                    name="from"
+                    name="cityFrom"
                     autoComplete="off"
                     list="cityFrom"
                     placeholder="Откуда"
@@ -333,11 +336,11 @@ class Header extends React.Component {
                 ></div>
                 <div className="header-form-input__to">
                   <input
-                    defaultValue={this.state.cityTo.name}
+                    value={this.state.cityTo.name}
                     ref={this.inputTo}
                     className="header-form-input header-form-input__to"
                     type="text"
-                    name="to"
+                    name="cityTo.name"
                     placeholder="Куда"
                     autoComplete="off"
                     list="cityTo"
