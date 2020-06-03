@@ -4,74 +4,79 @@ import LastTickets from './LastTickets.js';
 import { withRouter } from 'react-router-dom';
 
 class SideBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.dateTo = React.createRef();
-        this.dateFrom = React.createRef();
-        this.directionToBlock = React.createRef();
-        this.directionFromBlock = React.createRef();
-        this.state = {
-            isHiddenBlockTo: true,
-            isHiddenBlockFrom: true,
-            isFirstClass: false,
-            isSecondClass: false,
-            isThirdClass: false,
-            isFourthClass: false,
-            isWifi: false,
-            isExpress: false,
-            filters: {},
-            valuePrice: { min: 500, max: 5000 },
-            valueTimeToDepature: { min: 0, max: 11 },
-            valueTimeToArrival: { min: 0, max: 24 },
-            valueTimeFromDeparture: { min: 0, max: 24 },
-            valueTimeFromArrival: { min: 0, max: 24 },
-            dateTo: '',
-            dateFrom: ''
-        };
+  constructor(props) {
+    super(props);
+    this.dateTo = React.createRef();
+    this.dateFrom = React.createRef();
+    this.directionToBlock = React.createRef();
+    this.directionFromBlock = React.createRef();
+    this.state = {
+      isHiddenBlockTo: true,
+      isHiddenBlockFrom: true,
+      isFirstClass: false,
+      isSecondClass: false,
+      isThirdClass: false,
+      isFourthClass: false,
+      isWifi: false,
+      isExpress: false,
+      filters: {},
+      valuePrice: { min: 500, max: 5000 },
+      valueTimeToDepature: { min: 0, max: 11 },
+      valueTimeToArrival: { min: 0, max: 24 },
+      valueTimeFromDeparture: { min: 0, max: 24 },
+      valueTimeFromArrival: { min: 0, max: 24 },
+      dateTo: '',
+      dateFrom: '',
+    };
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+    this.setState({
+      dateTo:
+        JSON.parse(sessionStorage.dateInfo).dateTo ||
+        this.props.dateInfo.dateTo,
+      dateFrom:
+        JSON.parse(sessionStorage.dateInfo).dateFrom ||
+        this.props.dateInfo.dateFrom,
+    });
+    this.setFilters();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.dateTo !== this.state.dateTo ||
+      prevState.dateFrom !== this.state.dateFrom
+    ) {
+      this.setState({
+        dateTo: this.dateTo.current.value,
+        dateFrom: this.dateFrom.current.value,
+      });
+      const dateInfo = {
+        dateTo: this.state.dateTo,
+        dateFrom: this.state.dateFrom,
+      };
+      this.props.setDateInfo(dateInfo);
+      this.props.getTickets();
+    } else if (
+      prevProps.dateInfo.dateTo !== this.props.dateInfo.dateTo ||
+      prevProps.dateInfo.dateFrom !== this.props.dateInfo.dateFrom
+    ) {
+      this.setState({
+        dateTo: this.props.dateInfo.dateTo,
+        dateFrom: this.props.dateInfo.dateFrom,
+      });
+    } else if (prevProps.trainInfo !== this.props.trainInfo) {
+      this.setFilters();
+    } else if (prevState !== this.state) {
+      this.setFilters();
+    } else {
+      return null;
     }
+  }
 
-    componentDidMount() {
-        window.scrollTo(0, 0);
-            this.setState({
-                dateTo: JSON.parse(sessionStorage.dateInfo).dateTo || this.props.dateInfo.dateTo,
-                dateFrom: JSON.parse(sessionStorage.dateInfo).dateFrom || this.props.dateInfo.dateFrom,
-            });
-            this.setFilters()
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-    	if (prevState.dateTo !== this.state.dateTo || prevState.dateFrom !== this.state.dateFrom) {
-                this.setState({
-                    dateTo: this.dateTo.current.value,
-                    dateFrom: this.dateFrom.current.value,
-                })
-                   const dateInfo = {
-                        dateTo: this.state.dateTo,
-                        dateFrom: this.state.dateFrom,
-                    }
-                this.props.setDateInfo(dateInfo)
-                this.props.getTickets();
-
-        }
-        else if (prevProps.dateInfo.dateTo !== this.props.dateInfo.dateTo || prevProps.dateInfo.dateFrom !== this.props.dateInfo.dateFrom) {
-            this.setState({
-                dateTo: this.props.dateInfo.dateTo,
-                dateFrom: this.props.dateInfo.dateFrom,
-            })
-            }  else if (prevProps.trainInfo !== this.props.trainInfo) {
-				this.setFilters()
-            } else if (prevState !== this.state) {
-				this.setFilters()
-            }
-            else {
-            return null
-        }
-    }
-
-
-
-    setFilters = () => {
-        const filters = `price_from=${this.state.valuePrice.min}&price_to=${
+  setFilters = () => {
+    const filters = `price_from=${this.state.valuePrice.min}&price_to=${
       this.state.valuePrice.max
     }&${this.state.isFirstClass ? '&have_first_class=true' : ''}${
       this.state.isSecondClass ? '&have_second_class=true' : ''
@@ -80,53 +85,53 @@ class SideBar extends React.Component {
     }${this.state.isWifi ? '&have_wifi=true' : ''}${
       this.state.isExpress ? '&is_express=true' : ''
     }`;
-        this.props.setFilters(filters);
-        this.props.getTickets(
-            this.props.sortBy,
-            this.props.limit,
-            this.props.offset,
-            filters
-        );
-    };
+    this.props.setFilters(filters);
+    this.props.getTickets(
+      this.props.sortBy,
+      this.props.limit,
+      this.props.offset,
+      filters
+    );
+  };
 
-    handleFilters = async e => { 
-        const { target } = e;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const { name } = target;
-        await this.setState({
-            [name]: value,
-        });
-        this.setFilters();
-        this.props.history.push("/search/trainselection/")
-    };
+  handleFilters = async e => {
+    const { target } = e;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
+    await this.setState({
+      [name]: value,
+    });
+    this.setFilters();
+    this.props.history.push('/search/trainselection/');
+  };
 
-    changeIconBlockTo(item) {
-        item.classList.toggle('hidden');
-        this.setState({
-            isHiddenBlockTo: !this.state.isHiddenBlockTo,
-        });
-    }
+  changeIconBlockTo(item) {
+    item.classList.toggle('hidden');
+    this.setState({
+      isHiddenBlockTo: !this.state.isHiddenBlockTo,
+    });
+  }
 
-    changeIconBlockFrom(item) {
-        item.classList.toggle('hidden');
-        this.setState({
-            isHiddenBlockFrom: !this.state.isHiddenBlockFrom,
-        });
-    }
+  changeIconBlockFrom(item) {
+    item.classList.toggle('hidden');
+    this.setState({
+      isHiddenBlockFrom: !this.state.isHiddenBlockFrom,
+    });
+  }
 
-    setDate = async (e) => {
-    	const { target } = e;
-        const value = target.value;
-        const { name } = target;
-        await this.setState({
-            [name]: value,
-        });
-        this.props.history.push("/search/trainselection/")
-    }
+  setDate = async e => {
+    const { target } = e;
+    const value = target.value;
+    const { name } = target;
+    await this.setState({
+      [name]: value,
+    });
+    this.props.history.push('/search/trainselection/');
+  };
 
-    render() {
-        return (
-            <aside className="aside-block">
+  render() {
+    return (
+      <aside className="aside-block">
         <div className="trip-options">
           <form className="aside-date-form" action="#">
             <label className="aside-date-form__text">
@@ -332,8 +337,8 @@ class SideBar extends React.Component {
 
         <LastTickets {...this.props} {...this.state} />
       </aside>
-        );
-    }
+    );
+  }
 }
 
 export default withRouter(SideBar);

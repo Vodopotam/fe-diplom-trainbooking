@@ -10,31 +10,38 @@ const Pagination = ({ currentPage, setPage, pages }) => {
   return (
     <div className="pagination">
       {currentPage !== 1 ? (
-        <div className="angle-back" onClick={() =>
-              setPage(currentPage === 1 ? currentPage : currentPage - 1)
-            }>
-            &lt;
+        <div
+          className="angle-back"
+          onClick={() =>
+            setPage(currentPage === 1 ? currentPage : currentPage - 1)
+          }
+        >
+          &lt;
         </div>
       ) : null}
       <ul className="pagination-pages">
         {listPages.map(page => (
           <li
-          onClick={() => setPage(page)}
+            onClick={() => setPage(page)}
             key={page}
             className={`pagination-page ${
               currentPage === page ? 'active' : ''
             }`}
-          >{page}
+          >
+            {page}
           </li>
         ))}
       </ul>
       {currentPage !== listPages.length ? (
-        <div className="angle-forward" onClick={() =>
-              setPage(
-                currentPage === listPages.length ? currentPage : currentPage + 1
-              )
-            }>
-            &gt;
+        <div
+          className="angle-forward"
+          onClick={() =>
+            setPage(
+              currentPage === listPages.length ? currentPage : currentPage + 1
+            )
+          }
+        >
+          &gt;
         </div>
       ) : null}
     </div>

@@ -21,14 +21,14 @@ class TrainSelection extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-  	if (prevState !== this.state) {
-  		this.props.getTickets();
-  	} else {
-  		return null
-  	}
+    if (prevState !== this.state) {
+      this.props.getTickets();
+    } else {
+      return null;
+    }
   }
 
-      setSortBy = async event => {
+  setSortBy = async event => {
     await this.setState({
       sortBy: event.target.value,
       currentPage: 1,
@@ -72,7 +72,7 @@ class TrainSelection extends React.Component {
     const { currentPage } = this.state;
     const { tickets, quantity, pages, loading } = this.props;
     return (
-     /* } <div className="content">
+      /* } <div className="content">
         <div className="main-information">
           <ul className="order-navigation">
             <li className="order-navigation__list active">
@@ -99,91 +99,88 @@ class TrainSelection extends React.Component {
               setFilters={this.setFilters}
             /> */
 
-            <main className="main-block">
-              {loading ? (
-                <Loader />
-              ) : (
-                <Fragment>
-                  <div className="results">
-                    <div className="results-found">
-                      найдено{' '}
-                      <span className="results-found__number">{quantity}</span>
-                    </div>
+      <main className="main-block">
+        {loading ? (
+          <Loader />
+        ) : (
+          <Fragment>
+            <div className="results">
+              <div className="results-found">
+                найдено{' '}
+                <span className="results-found__number">{quantity}</span>
+              </div>
 
-                    <div className="results-sortby">
-                      <p className="results-sortby__text">сортировать по: </p>
-                      <select
-                        className="sort-by__selection"
-                        onChange={this.setSortBy}
-                        defaultValue={this.state.sortBy}
-                      >
-                        <option className="results-sortby__label" value="date">
-                          времени
-                        </option>
-                        {}
-                        <option
-                          className="results-sortby__label"
-                          value="duration"
-                        >
-                          длительности
-                        </option>
-                      </select>
-                    </div>
-                    <div className="results-quantity">
-                      <p className="">показывать по:</p>
-                      <ul className="results-quantity-list">
-                        <li
-                          onClick={this.setLimit}
-                          className={`results-quantity__text ${
-                            this.state.limitAcive ? 'active' : ''
-                          }`}
-                          data-limit="5"
-                        >
-                          5
-                        </li>
-                        <li
-                          onClick={this.setLimit}
-                          className="results-quantity__text"
-                          data-limit="10"
-                        >
-                          10
-                        </li>
-                        <li
-                          onClick={this.setLimit}
-                          className="results-quantity__text"
-                          data-limit="20"
-                        >
-                          20
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+              <div className="results-sortby">
+                <p className="results-sortby__text">сортировать по: </p>
+                <select
+                  className="sort-by__selection"
+                  onChange={this.setSortBy}
+                  defaultValue={this.state.sortBy}
+                >
+                  <option className="results-sortby__label" value="date">
+                    времени
+                  </option>
+                  {}
+                  <option className="results-sortby__label" value="duration">
+                    длительности
+                  </option>
+                </select>
+              </div>
+              <div className="results-quantity">
+                <p className="">показывать по:</p>
+                <ul className="results-quantity-list">
+                  <li
+                    onClick={this.setLimit}
+                    className={`results-quantity__text ${
+                      this.state.limitAcive ? 'active' : ''
+                    }`}
+                    data-limit="5"
+                  >
+                    5
+                  </li>
+                  <li
+                    onClick={this.setLimit}
+                    className="results-quantity__text"
+                    data-limit="10"
+                  >
+                    10
+                  </li>
+                  <li
+                    onClick={this.setLimit}
+                    className="results-quantity__text"
+                    data-limit="20"
+                  >
+                    20
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-                  <div className="tickets">
-                    {tickets.length > 0
-                      ? tickets.map((ticket, i) => {
-                          return (
-                            <Ticket
-                              key={ticket.departure._id}
-                              {...this.state}
-                              {...this.props}
-                              departure={ticket.departure}
-                            />
-                          );
-                        })
-                      : null}
-                  </div>
+            <div className="tickets">
+              {tickets.length > 0
+                ? tickets.map((ticket, i) => {
+                    return (
+                      <Ticket
+                        key={ticket.departure._id}
+                        {...this.state}
+                        {...this.props}
+                        departure={ticket.departure}
+                      />
+                    );
+                  })
+                : null}
+            </div>
 
-                  {pages ? (
-                    <Pagination
-                      pages={pages}
-                      currentPage={currentPage}
-                      setPage={this.setPage}
-                    />
-                  ) : null}
-                </Fragment>
-              )}
-            </main>
+            {pages ? (
+              <Pagination
+                pages={pages}
+                currentPage={currentPage}
+                setPage={this.setPage}
+              />
+            ) : null}
+          </Fragment>
+        )}
+      </main>
       //     </div>
       //   </div>
       // </div>

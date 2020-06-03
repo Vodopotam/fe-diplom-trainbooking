@@ -16,7 +16,7 @@ class SearchComponent extends React.Component {
     };
   }
 
-    setSortBy = async event => {
+  setSortBy = async event => {
     await this.setState({
       sortBy: event.target.value,
       currentPage: 1,
@@ -65,60 +65,61 @@ class SearchComponent extends React.Component {
   };
 
   render() {
-  return (
-    <Fragment>
-    <div className="content">
-        <div className="main-information">
-          <ul className="order-navigation">
-            <li className="order-navigation__list active">
-              <span></span>
-              <p className="order-navigation__text">Билеты</p>
-            </li>
-            <li className="order-navigation__list">
-              <span></span>
-              <p className="order-navigation__text">Пассажиры</p>
-            </li>
-            <li className="order-navigation__list">
-              <span></span>
-              <p className="order-navigation__text">Оплата</p>
-            </li>
-            <li className="order-navigation__list">
-              <span></span>
-              <p className="order-navigation__text">Проверка</p>
-            </li>
-          </ul>
-          <div className="wrapper">
-    <SideBar {...this.state} {...this.props} setFilters={this.setFilters} />
-
-     <Switch>
-  
-    <Route path="/search/trainselection">
-              <TrainSelection
-                {...this.props}
+    return (
+      <Fragment>
+        <div className="content">
+          <div className="main-information">
+            <ul className="order-navigation">
+              <li className="order-navigation__list active">
+                <span></span>
+                <p className="order-navigation__text">Билеты</p>
+              </li>
+              <li className="order-navigation__list">
+                <span></span>
+                <p className="order-navigation__text">Пассажиры</p>
+              </li>
+              <li className="order-navigation__list">
+                <span></span>
+                <p className="order-navigation__text">Оплата</p>
+              </li>
+              <li className="order-navigation__list">
+                <span></span>
+                <p className="order-navigation__text">Проверка</p>
+              </li>
+            </ul>
+            <div className="wrapper">
+              <SideBar
                 {...this.state}
-                getTickets={this.props.getTickets}
-                setTrainInfo={this.props.setTrainInfo}
-                setCurrentCoach={this.props.setCurrentCoach}
-                setDateInfo={this.props.setDateInfo}
+                {...this.props}
+                setFilters={this.setFilters}
               />
-          </Route>
-          <Route path="/search/placeselection/">
-           <PlaceSelection 
-             {...this.props}
-              {...this.state}
-              setPassengersInfo={this.props.setPassengersInfo}
-              setDateInfo={this.setDateInfo}
-            />
-       </Route>
-    
-           </Switch>
-                     </div>
+
+              <Switch>
+                <Route path="/search/trainselection">
+                  <TrainSelection
+                    {...this.props}
+                    {...this.state}
+                    getTickets={this.props.getTickets}
+                    setTrainInfo={this.props.setTrainInfo}
+                    setCurrentCoach={this.props.setCurrentCoach}
+                    setDateInfo={this.props.setDateInfo}
+                  />
+                </Route>
+                <Route path="/search/placeselection/">
+                  <PlaceSelection
+                    {...this.props}
+                    {...this.state}
+                    setPassengersInfo={this.props.setPassengersInfo}
+                    setDateInfo={this.setDateInfo}
+                  />
+                </Route>
+              </Switch>
+            </div>
+          </div>
         </div>
-      </div>
-            </Fragment>
-            )}
-
+      </Fragment>
+    );
+  }
 }
-
 
 export default SearchComponent;

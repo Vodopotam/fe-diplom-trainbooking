@@ -169,7 +169,7 @@ class Passenger extends React.Component {
   };
 
   render() {
-   // const passengersInfo = JSON.parse(sessionStorage.passengersInfo) || null;
+    // const passengersInfo = JSON.parse(sessionStorage.passengersInfo) || null;
     const { isOpen, limitedMobility } = this.state;
     const { adult, child } = this.props;
     return (

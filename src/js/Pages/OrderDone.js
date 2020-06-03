@@ -3,7 +3,6 @@ import { HashLink as Link } from 'react-router-hash-link';
 import { getData } from '../data.js';
 
 class OrderDone extends React.Component {
-
   componentDidMount() {
     window.scrollTo(0, 0);
     const trainInfo = JSON.parse(sessionStorage.trainInfo),
@@ -46,9 +45,9 @@ class OrderDone extends React.Component {
   }
 
   clearData = () => {
-  	this.props.setTrainInfo({})
-	sessionStorage.clear()
-  }
+    this.props.setTrainInfo({});
+    sessionStorage.clear();
+  };
 
   render() {
     const passengersInfo = JSON.parse(sessionStorage.passengersInfo),
@@ -139,11 +138,7 @@ class OrderDone extends React.Component {
                       <label htmlFor="star5"></label>
                     </form>
                   </div>
-                  <Link
-                    to="/"
-                    className="goto-main"
-                    onClick={this.clearData}
-                  >
+                  <Link to="/" className="goto-main" onClick={this.clearData}>
                     Вернуться на главню
                   </Link>
                 </div>

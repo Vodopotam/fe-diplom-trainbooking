@@ -11,7 +11,8 @@ class Footer extends React.Component {
 
   onSubmitSubscribe = event => {
     event.preventDefault();
-    if (!this.email.value.match(/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/)) return;
+    if (!this.email.value.match(/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/))
+      return;
     this.setState({
       isSubscribed: true,
     });
@@ -76,16 +77,11 @@ class Footer extends React.Component {
             <div className="footer-top-social-links">
               <h3 className="footer-top-title">Подписывайтесь на нас</h3>
               <ul className="footer-top-links">
-                <li className="youtube">
-                </li>
-                <li className="linkedIn">
-                </li>
-                <li className="google">
-                </li>
-                <li className="facebook">
-                </li>
-                <li className="twitter">
-                </li>
+                <li className="youtube"></li>
+                <li className="linkedIn"></li>
+                <li className="google"></li>
+                <li className="facebook"></li>
+                <li className="twitter"></li>
               </ul>
             </div>
           </div>

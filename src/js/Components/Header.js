@@ -4,204 +4,216 @@ import { withRouter } from 'react-router-dom';
 import { getData } from '../data.js';
 
 class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.inputTo = React.createRef();
-        this.inputFrom = React.createRef();
-        this.dateTo = React.createRef();
-        this.dateFrom = React.createRef();
-        this.direction = React.createRef();
-        this.tip = React.createRef();
-        this.state = {
-            citiesTo: [],
-            citiesFrom: [],
-            cityFrom: {
-                name: '',
-                id: '',
-            },
-            cityTo: {
-                name: '',
-                id: '',
-            },
-            dateTo: '',
-            dateFrom: ''
-        };
-        this.getCityFrom = this.getCityFrom.bind(this);
-        this.getCityTo = this.getCityTo.bind(this);
-        this.changeDirection = this.changeDirection.bind(this);
-        this.findCityTo = this.findCityTo.bind(this);
-        this.findCityFrom = this.findCityFrom.bind(this);
-        this.searchTickets = this.searchTickets.bind(this);
-    }
-
-    componentDidMount() {
-        window.scrollTo(0, 0);
-
-        if (sessionStorage.length > 0) {
-            this.setState({
-                cityFrom: {
-                    name: JSON.parse(sessionStorage.trainInfo).cityFrom.name,
-                    id: JSON.parse(sessionStorage.trainInfo).cityFrom.id
-                },
-                cityTo: {
-                    name: JSON.parse(sessionStorage.trainInfo).cityTo.name,
-                    id: JSON.parse(sessionStorage.trainInfo).cityTo.id
-                },
-                dateTo: JSON.parse(sessionStorage.dateInfo).dateTo,
-                dateFrom: JSON.parse(sessionStorage.dateInfo).dateFrom,
-            });
-        } else {
-            this.setState({
-                cityFrom: {
-                    name: '',
-                },
-                cityTo: {
-                    name: '',
-                },
-                dateTo: '',
-                dateFrom: ''
-            })
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.trainInfo !== this.props.trainInfo && sessionStorage.length === 0) {
-            this.setState({
-                cityFrom: {
-                    name: '',
-                },
-                cityTo: {
-                    name: '',
-                },
-                dateTo: '',
-                dateFrom: ''
-            })
-        } else if (prevProps.trainInfo !== this.props.trainInfo && sessionStorage.length > 0) {
-            this.setState({
-                cityFrom: {
-                    name: JSON.parse(sessionStorage.trainInfo).cityFrom.name,
-                    id: JSON.parse(sessionStorage.trainInfo).cityFrom.id
-                },
-                cityTo: {
-                    name: JSON.parse(sessionStorage.trainInfo).cityTo.name,
-                    id: JSON.parse(sessionStorage.trainInfo).cityTo.id
-                },
-            })
-        } else if (prevProps.dateInfo.dateTo !== this.props.dateInfo.dateTo || prevProps.dateInfo.dateFrom !== this.props.dateInfo.dateFrom) {
-            this.setState({
-                dateTo: this.props.dateInfo.dateTo || JSON.parse(sessionStorage.dateInfo).dateTo,
-                dateFrom: this.props.dateInfo.dateFrom,
-            })
-        } else if (prevState.dateTo !== this.state.dateTo || prevState.dateFrom !== this.state.dateFrom) {
-            this.setState({
-                dateTo: this.dateTo.current.value,
-                dateFrom: this.dateFrom.current.value,
-            });
-        } 
-    }
-
-    findCityFrom() {
-        let str = this.inputFrom.current.value.toLowerCase();
-        getData(`routes/cities?name=${str}`).then(result => {
-            this.setState({
-                citiesFrom: result,
-            });
-        });
-    }
-
-    getCityFrom(event) {
-        this.inputFrom.current.value = event.target.innerText;
-        this.setState({
-            cityFrom: {
-                name: event.target.innerText,
-                id: event.target.dataset.id,
-            },
-        });
-        this.setState({ citiesFrom: [] });
-    }
-
-    findCityTo() {
-        let str = this.inputTo.current.value.toLowerCase();
-        getData(`routes/cities?name=${str}`).then(result => {
-            this.setState({
-                citiesTo: result,
-            });
-        });
-    }
-
-    setDate = async (e) => {
-      const { target } = e;
-        const value = target.value;
-        const { name } = target;
-        await this.setState({
-            [name]: value,
-        });
-    }
-
-    getCityTo(event) {
-        this.inputTo.current.value = event.target.innerText;
-
-        this.setState({
-            cityTo: {
-                name: event.target.innerText,
-                id: event.target.dataset.id,
-            },
-        });
-        this.setState({ citiesTo: [] });
-    }
-
-    changeDirection() {
-        let cityToName = JSON.parse(sessionStorage.trainInfo).cityTo.name,
-            cityToId = JSON.parse(sessionStorage.trainInfo).cityTo.id,
-            cityFromName = JSON.parse(sessionStorage.trainInfo).cityFrom.name,
-            cityFromId = JSON.parse(sessionStorage.trainInfo).cityFrom.id;
-        this.inputFrom.current.value = cityToName;
-        this.inputTo.current.value = cityFromName;
-
-        this.setState({
-            cityFrom: {
-                name: cityToName,
-                id: cityToId,
-            },
-            cityTo: {
-                name: cityFromName,
-                id: cityFromId,
-            },
-        });
-    }
-
-    searchTickets = async e => {
-        if (!(this.state.cityFrom.name && this.state.cityTo.name)) {
-            e.preventDefault();
-        } else {
-
-            this.props.setTrainInfo({
-                cityFrom: {
-                    name: this.state.cityFrom.name,
-                    id: this.state.cityFrom.id,
-                },
-                cityTo: {
-                    name: this.state.cityTo.name,
-                    id: this.state.cityTo.id,
-                },
-
-            });
-
-            const dateInfo = {
-                dateTo: this.dateTo.current.value,
-                dateFrom: this.dateFrom.current.value,
-            }
-            this.props.setDateInfo(dateInfo)
-
-            this.props.getTickets();
-        }
+  constructor(props) {
+    super(props);
+    this.inputTo = React.createRef();
+    this.inputFrom = React.createRef();
+    this.dateTo = React.createRef();
+    this.dateFrom = React.createRef();
+    this.direction = React.createRef();
+    this.tip = React.createRef();
+    this.state = {
+      citiesTo: [],
+      citiesFrom: [],
+      cityFrom: {
+        name: '',
+        id: '',
+      },
+      cityTo: {
+        name: '',
+        id: '',
+      },
+      dateTo: '',
+      dateFrom: '',
     };
+    this.getCityFrom = this.getCityFrom.bind(this);
+    this.getCityTo = this.getCityTo.bind(this);
+    this.changeDirection = this.changeDirection.bind(this);
+    this.findCityTo = this.findCityTo.bind(this);
+    this.findCityFrom = this.findCityFrom.bind(this);
+    this.searchTickets = this.searchTickets.bind(this);
+  }
 
-    render() {
-        const { citiesTo, citiesFrom } = this.state;
-        if (!citiesTo || !citiesFrom) return;
-        return (
-            <header
+  componentDidMount() {
+    window.scrollTo(0, 0);
+
+    if (sessionStorage.length > 0) {
+      this.setState({
+        cityFrom: {
+          name: JSON.parse(sessionStorage.trainInfo).cityFrom.name,
+          id: JSON.parse(sessionStorage.trainInfo).cityFrom.id,
+        },
+        cityTo: {
+          name: JSON.parse(sessionStorage.trainInfo).cityTo.name,
+          id: JSON.parse(sessionStorage.trainInfo).cityTo.id,
+        },
+        dateTo: JSON.parse(sessionStorage.dateInfo).dateTo,
+        dateFrom: JSON.parse(sessionStorage.dateInfo).dateFrom,
+      });
+    } else {
+      this.setState({
+        cityFrom: {
+          name: '',
+        },
+        cityTo: {
+          name: '',
+        },
+        dateTo: '',
+        dateFrom: '',
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.trainInfo !== this.props.trainInfo &&
+      sessionStorage.length === 0
+    ) {
+      this.setState({
+        cityFrom: {
+          name: '',
+        },
+        cityTo: {
+          name: '',
+        },
+        dateTo: '',
+        dateFrom: '',
+      });
+    } else if (
+      prevProps.trainInfo !== this.props.trainInfo &&
+      sessionStorage.length > 0
+    ) {
+      this.setState({
+        cityFrom: {
+          name: JSON.parse(sessionStorage.trainInfo).cityFrom.name,
+          id: JSON.parse(sessionStorage.trainInfo).cityFrom.id,
+        },
+        cityTo: {
+          name: JSON.parse(sessionStorage.trainInfo).cityTo.name,
+          id: JSON.parse(sessionStorage.trainInfo).cityTo.id,
+        },
+      });
+    } else if (
+      prevProps.dateInfo.dateTo !== this.props.dateInfo.dateTo ||
+      prevProps.dateInfo.dateFrom !== this.props.dateInfo.dateFrom
+    ) {
+      this.setState({
+        dateTo:
+          this.props.dateInfo.dateTo ||
+          JSON.parse(sessionStorage.dateInfo).dateTo,
+        dateFrom: this.props.dateInfo.dateFrom,
+      });
+    } else if (
+      prevState.dateTo !== this.state.dateTo ||
+      prevState.dateFrom !== this.state.dateFrom
+    ) {
+      this.setState({
+        dateTo: this.dateTo.current.value,
+        dateFrom: this.dateFrom.current.value,
+      });
+    }
+  }
+
+  findCityFrom() {
+    let str = this.inputFrom.current.value.toLowerCase();
+    getData(`routes/cities?name=${str}`).then(result => {
+      this.setState({
+        citiesFrom: result,
+      });
+    });
+  }
+
+  getCityFrom(event) {
+    this.inputFrom.current.value = event.target.innerText;
+    this.setState({
+      cityFrom: {
+        name: event.target.innerText,
+        id: event.target.dataset.id,
+      },
+    });
+    this.setState({ citiesFrom: [] });
+  }
+
+  findCityTo() {
+    let str = this.inputTo.current.value.toLowerCase();
+    getData(`routes/cities?name=${str}`).then(result => {
+      this.setState({
+        citiesTo: result,
+      });
+    });
+  }
+
+  setDate = async e => {
+    const { target } = e;
+    const value = target.value;
+    const { name } = target;
+    await this.setState({
+      [name]: value,
+    });
+  };
+
+  getCityTo(event) {
+    this.inputTo.current.value = event.target.innerText;
+
+    this.setState({
+      cityTo: {
+        name: event.target.innerText,
+        id: event.target.dataset.id,
+      },
+    });
+    this.setState({ citiesTo: [] });
+  }
+
+  changeDirection() {
+    let cityToName = JSON.parse(sessionStorage.trainInfo).cityTo.name,
+      cityToId = JSON.parse(sessionStorage.trainInfo).cityTo.id,
+      cityFromName = JSON.parse(sessionStorage.trainInfo).cityFrom.name,
+      cityFromId = JSON.parse(sessionStorage.trainInfo).cityFrom.id;
+    this.inputFrom.current.value = cityToName;
+    this.inputTo.current.value = cityFromName;
+
+    this.setState({
+      cityFrom: {
+        name: cityToName,
+        id: cityToId,
+      },
+      cityTo: {
+        name: cityFromName,
+        id: cityFromId,
+      },
+    });
+  }
+
+  searchTickets = async e => {
+    if (!(this.state.cityFrom.name && this.state.cityTo.name)) {
+      e.preventDefault();
+    } else {
+      this.props.setTrainInfo({
+        cityFrom: {
+          name: this.state.cityFrom.name,
+          id: this.state.cityFrom.id,
+        },
+        cityTo: {
+          name: this.state.cityTo.name,
+          id: this.state.cityTo.id,
+        },
+      });
+
+      const dateInfo = {
+        dateTo: this.dateTo.current.value,
+        dateFrom: this.dateFrom.current.value,
+      };
+      this.props.setDateInfo(dateInfo);
+
+      this.props.getTickets();
+    }
+  };
+
+  render() {
+    const { citiesTo, citiesFrom } = this.state;
+    if (!citiesTo || !citiesFrom) return;
+    return (
+      <header
         className={`header ${
           window.location.pathname === '/' ? '' : 'header__trainselection'
         }
@@ -360,7 +372,7 @@ class Header extends React.Component {
                 <h3 className="header-form-title">Дата</h3>
                 <div className="header-form-input__from">
                   <input
-                  onChange={this.setDate}
+                    onChange={this.setDate}
                     ref={this.dateTo}
                     value={this.state.dateTo}
                     className="header-form-input"
@@ -370,7 +382,7 @@ class Header extends React.Component {
                 </div>
                 <div className="header-form-input__from">
                   <input
-                  onChange={this.setDate}
+                    onChange={this.setDate}
                     ref={this.dateFrom}
                     value={this.state.dateFrom}
                     className="header-form-input"
@@ -397,8 +409,8 @@ class Header extends React.Component {
           ) : null}
         </div>
       </header>
-        );
-    }
+    );
+  }
 }
 
 export default withRouter(Header);

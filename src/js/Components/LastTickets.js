@@ -44,22 +44,21 @@ export const LastTicket = props => {
   const { lastTicket, setTrainInfo, getTickets } = props;
 
   const setTickets = () => {
-    props.history.push("/search/trainselection/")
+    props.history.push('/search/trainselection/');
     const trainInfo = {
-        cityFrom: {
-          name: lastTicket.from.city.name,
-          id: lastTicket.from.city._id,
-        },
-        cityTo: {
-          name: lastTicket.to.city.name,
-          id: lastTicket.to.city._id,
-        }
-      };
-    setTrainInfo(trainInfo)
-    getTickets()
+      cityFrom: {
+        name: lastTicket.from.city.name,
+        id: lastTicket.from.city._id,
+      },
+      cityTo: {
+        name: lastTicket.to.city.name,
+        id: lastTicket.to.city._id,
+      },
+    };
+    setTrainInfo(trainInfo);
+    getTickets();
     window.scrollTo(0, 0);
-
-  }
+  };
   return (
     <div className="last-ticket" onClick={setTickets}>
       <div className="last-ticket__top">

@@ -76,7 +76,7 @@ class Payment extends React.Component {
         this.error.current.innerHTML = emailValid
           ? ''
           : `Данные в поле 'E-mail' указаны некорректно. Пример: <b>email@mail.com</b>`;
-          break;
+        break;
       default:
         break;
     }

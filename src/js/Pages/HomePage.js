@@ -59,7 +59,6 @@ const Features = () => (
 );
 
 class Reviews extends React.Component {
-
   render() {
     var settings = {
       dots: true,

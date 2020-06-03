@@ -152,7 +152,7 @@ export const Ticket = props => {
             }`}
           ></li>
         </ul>
-        {window.location.pathname === "/search/trainselection/" ? (
+        {window.location.pathname === '/search/trainselection/' ? (
           <Link
             to="/search/placeselection/"
             className="place-selection-button"

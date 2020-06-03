@@ -28,7 +28,8 @@ class PlaceSelection extends React.Component {
   }
 
   getSeats = async () => {
-    const id = JSON.parse(sessionStorage.currentCoach)._id ||
+    const id =
+      JSON.parse(sessionStorage.currentCoach)._id ||
       this.props.currentCoach._id;
     await getData(`routes/${id}/seats`).then(result => {
       this.setState({
@@ -141,102 +142,102 @@ class PlaceSelection extends React.Component {
         Math.floor(currentCoach.duration / 60) - durationHours * 60;
 
     return (
-            <main className="main-block">
-              <h4 className="placeselection_header">Выбор мест</h4>
+      <main className="main-block">
+        <h4 className="placeselection_header">Выбор мест</h4>
 
-              <div className="main-block__wrapper">
-                <div className="placeselection-train-info__direction-to">
-                  <div className="other-train">
-                    <div className="other-train__arrow"></div>
-                    <Link to="/search/trainselection/" className="other-train__button">
-                      Выбрать другой поезд
-                    </Link>
-                  </div>
-                  <div className="placeselection-time-info__direction-to">
-                    <div className="train-info train-info_placeselection">
-                      <div className="train-info__number train-info__number_placeselection">
-                        {currentCoach.train.name}
-                      </div>
-                      <div className="train-info__direction">
-                        <span className="train-info__direction-left">
-                          {currentCoach.from.city.name} &#8594;
-                        </span>
-                        <br /> {currentCoach.to.city.name}
-                      </div>
-                    </div>
-
-                    <div className="time-info__departure">
-                      <div className="time-info__departure-time">
-                        {new Date(
-                          currentCoach.from.datetime * 1000
-                        ).toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </div>
-                      <div className="time-info__departure-city">
-                        {currentCoach.from.city.name}
-                      </div>
-                      <div className="time-info__departure-station">
-                        {currentCoach.from.railway_station_name} вокзал
-                      </div>
-                    </div>
-                    <div className="time-info__duration time-info__duration_placeselection"></div>
-                    <div className="time-info__arrival">
-                      <div className="time-info__arrival-time">
-                        {new Date(
-                          currentCoach.to.datetime * 1000
-                        ).toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </div>
-                      <div className="time-info__arrival-city">
-                        {currentCoach.to.city.name}
-                      </div>
-                      <div className="time-info__arrival-station">
-                        {currentCoach.to.railway_station_name} вокзал
-                      </div>
-                    </div>
-                    <div className="time-info-duration-placeselection">
-                      {`${durationHours} ч : ${durationMinutes} мин`}
-                    </div>
-                  </div>
-
-                  <PlacesQuantity
-                    {...this.state}
-                    {...this.props}
-                    handlePassengersValue={this.handlePassengersValue}
-                    setCoachTabIndex={this.setCoachTabIndex}
-                  />
-
-                  <h4 className="placeselection-train-info__header">
-                    Тип вагона
-                  </h4>
-                  <Coach
-                    {...this.props}
-                    {...this.state}
-                    setCoachType={this.setCoachType}
-                    setSelectedSeats={this.setSelectedSeats}
-                    deleteSelectedSeats={this.deleteSelectedSeats}
-                    setTotalPrice={this.setTotalPrice}
-                    passengers={passengers}
-                  />
+        <div className="main-block__wrapper">
+          <div className="placeselection-train-info__direction-to">
+            <div className="other-train">
+              <div className="other-train__arrow"></div>
+              <Link
+                to="/search/trainselection/"
+                className="other-train__button"
+              >
+                Выбрать другой поезд
+              </Link>
+            </div>
+            <div className="placeselection-time-info__direction-to">
+              <div className="train-info train-info_placeselection">
+                <div className="train-info__number train-info__number_placeselection">
+                  {currentCoach.train.name}
                 </div>
-
-                <Link
-                  to="/passengers/"
-                  className={`goto-passengers-button ${
-                    selectedSeats.length === passengers
-                      ? 'active'
-                      : ''
-                  }`}
-                  onClick={this.setTransition}
-                >
-                  Далее
-                </Link>
+                <div className="train-info__direction">
+                  <span className="train-info__direction-left">
+                    {currentCoach.from.city.name} &#8594;
+                  </span>
+                  <br /> {currentCoach.to.city.name}
+                </div>
               </div>
-            </main>
+
+              <div className="time-info__departure">
+                <div className="time-info__departure-time">
+                  {new Date(
+                    currentCoach.from.datetime * 1000
+                  ).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </div>
+                <div className="time-info__departure-city">
+                  {currentCoach.from.city.name}
+                </div>
+                <div className="time-info__departure-station">
+                  {currentCoach.from.railway_station_name} вокзал
+                </div>
+              </div>
+              <div className="time-info__duration time-info__duration_placeselection"></div>
+              <div className="time-info__arrival">
+                <div className="time-info__arrival-time">
+                  {new Date(currentCoach.to.datetime * 1000).toLocaleTimeString(
+                    [],
+                    {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    }
+                  )}
+                </div>
+                <div className="time-info__arrival-city">
+                  {currentCoach.to.city.name}
+                </div>
+                <div className="time-info__arrival-station">
+                  {currentCoach.to.railway_station_name} вокзал
+                </div>
+              </div>
+              <div className="time-info-duration-placeselection">
+                {`${durationHours} ч : ${durationMinutes} мин`}
+              </div>
+            </div>
+
+            <PlacesQuantity
+              {...this.state}
+              {...this.props}
+              handlePassengersValue={this.handlePassengersValue}
+              setCoachTabIndex={this.setCoachTabIndex}
+            />
+
+            <h4 className="placeselection-train-info__header">Тип вагона</h4>
+            <Coach
+              {...this.props}
+              {...this.state}
+              setCoachType={this.setCoachType}
+              setSelectedSeats={this.setSelectedSeats}
+              deleteSelectedSeats={this.deleteSelectedSeats}
+              setTotalPrice={this.setTotalPrice}
+              passengers={passengers}
+            />
+          </div>
+
+          <Link
+            to="/passengers/"
+            className={`goto-passengers-button ${
+              selectedSeats.length === passengers ? 'active' : ''
+            }`}
+            onClick={this.setTransition}
+          >
+            Далее
+          </Link>
+        </div>
+      </main>
     );
   }
 }
